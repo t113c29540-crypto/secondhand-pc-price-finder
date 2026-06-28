@@ -232,8 +232,20 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
 <div class="wrap">
  <header>
   <div class="brand">🖥️ 二手電腦詢價系統<small>全球前10大平台比價・相容查詢・防詐客服</small></div>
-  <button class="theme" id="themeBtn" title="深色／淺色">🌙</button>
+  <div style="display:flex;gap:8px">
+   <button class="theme" id="setBtn" title="AI 設定">⚙️</button>
+   <button class="theme" id="themeBtn" title="深色／淺色">🌙</button>
+  </div>
  </header>
+ <div id="setPanel" class="card" style="display:none;margin:8px 0">
+  <label class="fld">AI 代理網址(Cloudflare Worker）— 留空則用規則式／手動版</label>
+  <input type="text" id="aiUrl" placeholder="https://pcfinder-ai-proxy.xxx.workers.dev">
+  <div class="searchrow" style="margin-top:8px">
+   <button class="btn" id="aiSave" style="flex:1">儲存</button>
+   <button class="btn sec" id="aiTest" style="flex:1">測試連線</button>
+  </div>
+  <div class="note" id="aiStatus"></div>
+ </div>
  <nav id="nav">
   <button data-v="find" class="on">🔎 詢價比價</button>
   <button data-v="sellers">✅ 精選賣家</button>
@@ -319,13 +331,24 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
     <button class="btn" id="photoFind" style="flex:1">🔎 拿去比價</button>
     <a class="btn sec" id="lens" style="flex:1;text-align:center" target="_blank" rel="noopener" href="https://lens.google.com/">🔍 Google Lens 以圖搜尋</a>
    </div>
+   <button class="btn" id="aiVision" style="margin-top:8px">🤖 AI 辨識這張照片（需設定 AI)</button>
+   <div id="visionOut"></div>
    <div class="note">⚠️ 誠實說明：純靜態網站<b>無法自動辨識</b>照片裡的晶片（那需要 AI 後端）。這裡做的是「拍照／上傳留存 ＋ 你輸入型號 → 自動查相容性＋一鍵比價」，並可用 Google Lens 以圖搜尋型號。要真‧自動辨識可再接 AI API（升級項）。</div>
   </div>
  </section>
 
  <!-- 商業分析 -->
  <section class="view" id="biz">
-  <h2>📊 波特五力分析（本系統）</h2>
+  <div class="card" style="margin-bottom:6px">
+   <label class="fld">分析標的(預設「本系統」;輸入任意公司／產品,需設定 AI 才會動態產生)</label>
+   <div class="searchrow">
+    <input type="text" id="bizTopic" placeholder="例:二手筆電回收事業、某新創 App">
+    <button class="btn" id="bizGen">動態產生</button>
+   </div>
+   <button class="btn sec" id="pptBtn" style="margin-top:8px;width:100%">⬇️ 下載 PPT（封面＋五力＋BMC＋SWOT）</button>
+   <div class="note" id="bizNote"></div>
+  </div>
+  <h2 id="bizTitle">📊 波特五力分析（本系統）</h2>
   <div class="card radarbox"><div id="radar"></div><div id="forceList" style="flex:1;min-width:260px"></div></div>
   <h2>🧱 商業模式圖 BMC</h2>
   <div class="bmc" id="bmc"></div>
@@ -336,7 +359,7 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
  <!-- FAQ -->
  <section class="view" id="faq">
   <h2>💬 規則式 FAQ 客服</h2>
-  <div class="note">這是用本專案知識庫做的<b>關鍵字比對機器人</b>（非真 AI）。問「DDR3L 能用嗎」「賣家叫我取消」「嗶兩聲沒畫面」等都行。要接真 AI 需 API 後端。</div>
+  <div class="note">問「DDR3L 能用嗎」「賣家叫我取消」「嗶兩聲沒畫面」等都行。<b>未設定 AI</b> 時用本專案知識庫的關鍵字比對;<b>設定 AI 後</b>(右上 ⚙️)升級成真 AI 客服。</div>
   <div class="faqchat" style="margin-top:10px">
    <div id="chatlog"></div>
    <div class="searchrow" style="margin-top:8px">
@@ -351,12 +374,22 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
  <footer id="foot"></footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script>
 const APP = /*__APP_DATA__*/;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const enc=s=>encodeURIComponent((s||"").trim());
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 let region="all";
+let lastPhotoB64=null,lastPhotoMime="image/jpeg";
+
+/* ---------- AI 代理 (選配) ---------- */
+function aiEndpoint(){try{return localStorage.getItem("pcf-ai")||""}catch(e){return ""}}
+async function callAI(payload){const url=aiEndpoint();if(!url)throw new Error("未設定 AI 代理網址");
+ const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload)});
+ const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||("HTTP "+r.status));return d;}
+function refreshAIStatus(){const on=!!aiEndpoint();const s=$("#aiStatus");
+ if(s)s.innerHTML=on?"✅ 已啟用真 AI:FAQ 客服與拍照辨識會用 AI;商業分析可動態產生。":"未設定:FAQ 用規則式、拍照用手動型號、商業分析用內建。設定後升級成真 AI。";}
 
 /* ---------- theme ---------- */
 function setTheme(t){document.documentElement.dataset.theme=t;$("#themeBtn").textContent=t==="dark"?"☀️":"🌙";try{localStorage.setItem("pcf-theme",t)}catch(e){}}
@@ -495,14 +528,15 @@ $("#cmpGo").onclick=()=>{
 /* ---------- 拍照 ---------- */
 let stream=null;
 $("#upPhoto").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;
- const img=$("#photo");img.src=URL.createObjectURL(f);img.style.display="block";});
+ const img=$("#photo");img.src=URL.createObjectURL(f);img.style.display="block";
+ const r=new FileReader();r.onload=()=>{const m=String(r.result).match(/^data:([^;]+);base64,(.*)$/);if(m){lastPhotoMime=m[1];lastPhotoB64=m[2];}};r.readAsDataURL(f);});
 $("#camBtn").onclick=async()=>{
  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
   const v=$("#cam");v.srcObject=stream;v.style.display="block";$("#shotBtn").style.display="block";
  }catch(e){alert("無法開啟相機："+e.message+"\n可改用『上傳照片』。");}
 };
 $("#shotBtn").onclick=()=>{const v=$("#cam"),cv=$("#shot");cv.width=v.videoWidth;cv.height=v.videoHeight;
- cv.getContext("2d").drawImage(v,0,0);const img=$("#photo");img.src=cv.toDataURL("image/jpeg",.9);img.style.display="block";
+ cv.getContext("2d").drawImage(v,0,0);const img=$("#photo");const du=cv.toDataURL("image/jpeg",.9);img.src=du;img.style.display="block";lastPhotoMime="image/jpeg";lastPhotoB64=du.split(",")[1];
  if(stream){stream.getTracks().forEach(t=>t.stop());}v.style.display="none";$("#shotBtn").style.display="none";};
 $("#photoFind").onclick=()=>{const m=$("#photoModel").value.trim();if(!m){$("#photoModel").focus();return;}
  setKw(m);$$("#nav button").forEach(x=>x.classList.remove("on"));$('#nav button[data-v=find]').classList.add("on");
@@ -567,7 +601,69 @@ $("#copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(APP.temp
  const b=$("#copyBtn");b.textContent="已複製 ✓";b.classList.add("done");setTimeout(()=>{b.textContent="複製";b.classList.remove("done");},1800);
 }catch(e){alert("複製失敗，請手動選取。");}};
 
-renderStatic();renderPlatforms();renderSellers();renderCompat();renderBiz();renderFaqList();
+/* ---------- 設定面板 ---------- */
+let bizTopicName="本系統";
+$("#setBtn").onclick=()=>{const p=$("#setPanel");const open=p.style.display==="none";p.style.display=open?"block":"none";if(open)$("#aiUrl").value=aiEndpoint();};
+$("#aiSave").onclick=()=>{try{localStorage.setItem("pcf-ai",$("#aiUrl").value.trim());}catch(e){}refreshAIStatus();};
+$("#aiTest").onclick=async()=>{const s=$("#aiStatus");s.textContent="測試中…";try{const d=await callAI({mode:"chat",messages:[{role:"user",content:"測試:H110M-K D3 能用 DDR3L 嗎?一句話"}]});s.textContent="✅ 連線成功:"+String(d.reply||"").slice(0,50);}catch(e){s.textContent="❌ 失敗:"+e.message;}};
+
+/* ---------- FAQ:真 AI 優先,否則規則式 ---------- */
+const chatHist=[];
+$("#askBtn").onclick=async()=>{const q=$("#askIn").value.trim();if(!q)return;chat("me",q);$("#askIn").value="";
+ if(aiEndpoint()){chatHist.push({role:"user",content:q});chat("bot","🤖 思考中…");const ph=$("#chatlog").lastChild;
+  try{const d=await callAI({mode:"chat",messages:chatHist});const a=d.reply||"(無回覆)";ph.textContent="🤖 "+a;chatHist.push({role:"assistant",content:a});}
+  catch(e){const m=matchFaq(q);ph.textContent=m?("【"+m.q+"】\n"+m.a):("AI 連線失敗("+e.message+"),知識庫也無對應。");}
+  return;}
+ const m=matchFaq(q);chat("bot",m?("【"+m.q+"】\n"+m.a):"知識庫沒有直接答案。可在右上 ⚙️ 設定 AI 升級成真客服,或往下看常見問題。");};
+
+/* ---------- 拍照 AI 辨識 ---------- */
+$("#aiVision").onclick=async()=>{const out=$("#visionOut");
+ if(!aiEndpoint()){out.innerHTML='<div class="note">請先在右上 ⚙️ 設定 AI 代理網址。</div>';return;}
+ if(!lastPhotoB64){out.innerHTML='<div class="note">請先「上傳照片」或「拍照」。</div>';return;}
+ out.innerHTML='<div class="note">🤖 AI 辨識中…</div>';
+ try{const d=await callAI({mode:"vision",image:lastPhotoB64,media_type:lastPhotoMime});const r=d.result;
+  if(!r){out.innerHTML='<div class="note">AI 回覆無法解析:'+esc(String(d.raw||"").slice(0,120))+'</div>';return;}
+  const rows=[["腳位",r.socket],["記憶體",r.memory_type],["規格",r.key_specs],["相容",r.compatibility_note],["信心",r.confidence]].filter(x=>x[1]);
+  out.innerHTML='<div class="verdict ok"><b>'+esc((r.category||"零件")+"："+(r.brand||"")+" "+(r.model||""))+'</b><ul>'+rows.map(x=>"<li>"+esc(x[0])+"："+esc(x[1])+"</li>").join("")+(r.caveat?"<li>⚠ "+esc(r.caveat)+"</li>":"")+'</ul></div>';
+  if(r.model)$("#photoModel").value=((r.brand||"")+" "+r.model).trim();
+ }catch(e){out.innerHTML='<div class="note">❌ '+esc(e.message)+'</div>';}};
+
+/* ---------- 商業分析:動態產生 ---------- */
+$("#bizGen").onclick=async()=>{const t=$("#bizTopic").value.trim(),note=$("#bizNote");
+ if(!t){note.textContent="輸入標的後再產生。";return;}
+ if(!aiEndpoint()){note.textContent="動態產生需先設定 AI(右上 ⚙️)。未設定時顯示的是本系統的內建分析。";return;}
+ note.textContent="🤖 產生中…(約 10–30 秒)";
+ try{const d=await callAI({mode:"analysis",topic:t});const a=d.analysis;
+  if(!a){note.textContent="AI 回覆無法解析,稍後再試。";return;}
+  if(a.fiveForces)APP.fiveForces=a.fiveForces;if(a.bmc)APP.bmc=a.bmc;if(a.swot)APP.swot=a.swot;
+  bizTopicName=a.topic||t;$("#bizTitle").textContent="📊 波特五力分析（"+bizTopicName+"）";renderBiz();
+  note.textContent="✅ 已產生「"+bizTopicName+"」的分析,可下載 PPT。";
+ }catch(e){note.textContent="❌ "+e.message;}};
+
+/* ---------- 下載 PPT ---------- */
+$("#pptBtn").onclick=()=>{
+ if(typeof PptxGenJS==="undefined"){alert("PPT 套件還在載入,請稍候再按一次。");return;}
+ const p=new PptxGenJS();
+ let s=p.addSlide();s.background={color:"F4F6FB"};
+ s.addText("二手電腦詢價系統 — 商業分析",{x:0.5,y:1.6,w:9,h:1,fontSize:30,bold:true,color:"2F5496"});
+ s.addText("標的："+bizTopicName,{x:0.5,y:2.7,w:9,h:0.6,fontSize:18,color:"333333"});
+ s.addText("產製："+APP.date+"　|　Claude Code",{x:0.5,y:4.7,w:9,h:0.4,fontSize:11,color:"888888"});
+ s=p.addSlide();s.addText("波特五力分析",{x:0.4,y:0.3,w:9,h:0.6,fontSize:22,bold:true,color:"2F5496"});
+ const ffH=["力","壓力","結論","要點"].map(h=>({text:h,options:{bold:true,color:"FFFFFF",fill:"2F5496"}}));
+ const ffR=(APP.fiveForces||[]).map(f=>[{text:String(f.name),options:{bold:true}},String(f.score)+"/5",String(f.summary||""),(f.points||[]).join("\n")]);
+ s.addTable([ffH].concat(ffR),{x:0.3,y:1,w:9.4,fontSize:9,valign:"top",border:{type:"solid",color:"DDDDDD"},colW:[1.8,0.8,2.8,4]});
+ s=p.addSlide();s.addText("商業模式圖 BMC",{x:0.4,y:0.3,w:9,h:0.6,fontSize:22,bold:true,color:"2F5496"});
+ const bH=["區塊","內容"].map(h=>({text:h,options:{bold:true,color:"FFFFFF",fill:"2F5496"}}));
+ const bR=(APP.bmc||[]).map(b=>[{text:String(b.title),options:{bold:true}},(b.items||[]).join("\n")]);
+ s.addTable([bH].concat(bR),{x:0.3,y:1,w:9.4,fontSize:8,valign:"top",border:{type:"solid",color:"DDDDDD"},colW:[2.2,7.2]});
+ s=p.addSlide();s.addText("SWOT 分析",{x:0.4,y:0.3,w:9,h:0.6,fontSize:22,bold:true,color:"2F5496"});
+ const SW=APP.swot||{};const quad=(t,arr,x,y,fill)=>s.addText([{text:t+"\n",options:{bold:true,fontSize:13}}].concat((arr||[]).map(i=>({text:"• "+i+"\n",options:{fontSize:9}}))),{x:x,y:y,w:4.6,h:1.95,fill:fill,color:"222222",valign:"top",margin:6});
+ quad("優勢 S",SW.strengths,0.3,1,"ECFDF5");quad("劣勢 W",SW.weaknesses,5.1,1,"FFF7ED");
+ quad("機會 O",SW.opportunities,0.3,3.05,"EFF6FF");quad("威脅 T",SW.threats,5.1,3.05,"FEF2F2");
+ p.writeFile({fileName:"商業分析_"+bizTopicName+".pptx"});
+};
+
+renderStatic();renderPlatforms();renderSellers();renderCompat();renderBiz();renderFaqList();refreshAIStatus();
 </script>
 </body>
 </html>

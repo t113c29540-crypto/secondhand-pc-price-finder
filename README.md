@@ -4,16 +4,16 @@
 
 > 🔗 線上版：**https://t113c29540-crypto.github.io/secondhand-pc-price-finder/**
 
-## ✨ 特色（v2）
+## ✨ 特色（v3）
 
 六大分頁，全部純靜態、手機／桌面響應式、支援深色模式：
 
 1. **🔎 詢價比價**：輸入關鍵字，一鍵全開 10 大平台真實搜尋（露天、Yahoo拍賣、蝦皮、旋轉、FB、eBay、Back Market、Swappa、Amazon Renewed、Mercari 日本）。含常買零件快速分類、**載入 LINE 對話 txt 自動抓型號**、一鍵比價書籤。
 2. **✅ 精選賣家**：露天實查高評價賣家直達 + 兩張賣價對照表（PNG）。
 3. **🧩 規格相容**：選 CPU＋主機板＋記憶體 → **自動判斷相容性**（腳位／晶片組世代／DDR3-D3 vs DDR4）；可勾選零件產生**規格比較表**；附零件規格庫與相容規則。
-4. **📷 拍照找件**：開相機／上傳照片留存 → 輸入型號自動查相容＋比價 → 可一鍵 Google Lens 以圖搜尋。（誠實說明：自動辨識晶片需 AI 後端，靜態站不做假。）
-5. **📊 商業分析**：以本系統為標的的**波特五力雷達圖、商業模式圖 BMC、SWOT**（SVG，跟隨深色模式）。
-6. **💬 FAQ 客服**：用本專案知識庫做的**規則式關鍵字問答機器人**（15 題：DDR3L 相容、標錯價、未出貨、嗶聲故障排除、驗機…）。
+4. **📷 拍照找件**：開相機／上傳照片 → 輸入型號自動查相容＋比價 → Google Lens 以圖搜尋。**設定 AI 後可「🤖 AI 辨識照片」** 直接讀型號與規格（Claude/OpenAI 視覺）。
+5. **📊 商業分析**：**波特五力雷達圖、商業模式圖 BMC、SWOT**（SVG，跟隨深色模式）。可**輸入任意標的動態產生**（需 AI）、並**一鍵下載 PPT**（PptxGenJS，純前端，4 頁：封面＋五力＋BMC＋SWOT）。
+6. **💬 FAQ 客服**：**未設定 AI** 用知識庫**規則式問答**（15 題）；**設定 AI 後**升級成**真 AI 客服**（繁中、防詐、相容性；連線失敗自動退回規則式）。
 
 **誠實原則**：只開各平台真實搜尋，不爬價、不造假快取價；「AI 自動辨識／真 AI 客服」需 API 後端，靜態站以可行的誠實版替代並標明升級路徑。
 
@@ -56,6 +56,14 @@ python3 generate.py search "i7-6700 主機板"
 | 零件規格庫／相容規則 | `content.json` → `parts` |
 | FAQ 知識庫 | `content.json` → `faq` |
 | 五力／BMC／SWOT | `content.json` → `fiveForces`／`bmc`／`swot` |
+
+## 🤖 真 AI 升級（選配）
+
+GitHub Pages 是純靜態、**不能放 API 金鑰**（會被盜刷）。要把 FAQ 客服與拍照辨識變「真 AI」、並動態產生商業分析，部署一個 **Cloudflare Worker 代理**（金鑰只存在 Worker 的密鑰環境變數）即可；前端在 ⚙️ 貼上 Worker 網址就升級，**沒部署也能用**（自動退回規則式／手動）。
+
+- 步驟：[`worker/README.md`](worker/README.md)
+- 支援 **Claude（預設 `claude-opus-4-8`）或 OpenAI**；可換模型省錢（`claude-haiku-4-5` 等）。
+- 三模式：`chat`（FAQ 客服）、`vision`（拍照辨識零件）、`analysis`（動態五力/BMC/SWOT）。
 
 ## 📦 部署到 GitHub Pages
 
