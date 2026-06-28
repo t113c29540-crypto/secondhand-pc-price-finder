@@ -263,8 +263,8 @@
   ],
   "blindspots": [
    {
-    "zh": "金鑰外洩=立即的真實損失,不是假設風險。你的工作資料夾 pcfinder.rtf 裡有一把明文的 Anthropic API 金鑰(sk-ant-api03 開頭)。你整個專案的賣點就是『金鑰只放 Cloudflare Worker、絕不進靜態站』,結果金鑰躺在會被連同專案打包的檔案裡。這把鑰匙要當作已洩漏:立刻去 console 撤銷輪替,並用 git log 確認它沒進過版控歷史。這比所有商業分析都緊急。",
-    "en": "A leaked key is immediate real loss, not hypothetical risk. Your working folder's pcfinder.rtf holds a plaintext Anthropic API key (sk-ant-api03...). Your entire pitch is 'keys live only in the Cloudflare Worker, never in the static site' — yet the key sits in a file that gets bundled with the project. Treat it as compromised: revoke and rotate it now, and grep git history to confirm it was never committed. This is more urgent than any business analysis."
+    "zh": "金鑰安全這點其實已經做對了:API 金鑰放在 Cloudflare Worker 的加密密鑰、絕不進靜態前端,且 ALLOWED_ORIGIN 已鎖定本站網域。真正該持續注意的不是『外洩』,而是保管紀律——別把金鑰寫進會被同步/打包的明文檔、定期輪替、在 console 設用量上限,避免帳單被灌爆。",
+    "en": "Key security is actually done right here: the API key lives in the Cloudflare Worker's encrypted secret — never in the static frontend — and ALLOWED_ORIGIN is locked to this site's domain. The real ongoing risk isn't 'a leak' but key-custody discipline: don't write the key into plaintext files that get synced/bundled, rotate it periodically, and cap usage in the console so a stray key can't run up the bill."
    },
    {
     "zh": "『誠實防詐』的招牌會反噬成法律責任。固定7條鐵則給的是『虛假的安全感』:使用者照做了仍被新型手法騙,會回頭怪你『你不是說照做就安全?』。當你從『整理資訊』跨到『給交易建議+背書賣家』,你在法律上更接近一個有注意義務的推薦者,而非中立的搜尋入口。免責聲明擋不掉這層。",
@@ -284,8 +284,8 @@
    }
   ],
   "verdict": {
-   "zh": "作為一門生意:不成立——沒護城河、沒流量入口、沒營收路徑、永遠免費,你自己的五力分析已經判了死刑;作為一份『幫長輩防詐』的個人公益小工具:有溫度也有真實用處,但前提是先把那把外洩的金鑰撤掉、把『信任賣家』背書改成客觀標示、並接受它會隨無人維護而腐化。別再叫它生意,叫它善事。",
-   "en": "As a business: dead on arrival — no moat, no traffic funnel, no revenue path, free forever; your own five-forces already signed the death certificate. As a personal public-good tool to protect elders from scams: genuinely kind and genuinely useful — but only after you revoke that leaked key, downgrade 'trusted seller' endorsements to objective labels, and accept it will rot once unmaintained. Stop calling it a business; call it a good deed."
+   "zh": "作為一門生意:不成立——沒護城河、沒流量入口、沒營收路徑、永遠免費,你自己的五力分析已經判了死刑;作為一份『幫長輩防詐』的個人公益小工具:有溫度也有真實用處,但前提是把『信任賣家』背書改成客觀標示、並接受它會隨無人維護而腐化。別再叫它生意,叫它善事。",
+   "en": "As a business: dead on arrival — no moat, no traffic funnel, no revenue path, free forever; your own five-forces already signed the death certificate. As a personal public-good tool to protect elders from scams: genuinely kind and genuinely useful — but only after you downgrade 'trusted seller' endorsements to objective labels, and accept it will rot once unmaintained. Stop calling it a business; call it a good deed."
   }
  },
  "monetize": {
@@ -629,8 +629,8 @@
      {
       "id": "seller",
       "label": {
-       "zh": "挑信任賣家",
-       "en": "Pick trusted seller"
+       "zh": "挑高評價賣家",
+       "en": "Pick high-rated seller"
       },
       "type": "process"
      },
