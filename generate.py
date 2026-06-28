@@ -99,12 +99,17 @@ def load_content():
 
 def build_html():
     c = load_content()
+    try:
+        consult = json.load(open("consult.json", encoding="utf-8"))
+    except FileNotFoundError:
+        consult = {}
     app = {
         "platforms":PLATFORMS,"avoid":AVOID,"categories":CATEGORIES,
         "trusted":TRUSTED_SELLERS,"priceTables":PRICE_TABLES,
         "rules":RULES,"template":INQUIRY_TEMPLATE,"quick":QUICK_KEYWORDS,
         "parts":c["parts"],"faq":c["faq"]["items"],
         "fiveForces":c["fiveForces"]["forces"],"bmc":c["bmc"]["blocks"],"swot":c["swot"],
+        "consult":consult,
         "date":datetime.date.today().isoformat(),
     }
     return HTML_TEMPLATE.replace("/*__APP_DATA__*/", json.dumps(app, ensure_ascii=False))
@@ -225,6 +230,20 @@ video,canvas#shot{width:100%;max-height:280px;border-radius:12px;border:1px soli
 footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-height:1.7}
 .radarbox{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center}
 @media(max-width:680px){.bmc{grid-template-columns:1fr 1fr}.b-kp,.b-vp,.b-cs{grid-row:auto}.swot{grid-template-columns:1fr}}
+.bigtext{font-size:1.05rem;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);margin-bottom:10px;line-height:1.8}
+.big{font-size:1.02rem;line-height:1.85}.big li{margin:7px 0}.big2{font-size:.98rem;line-height:1.72}
+#consult .card{margin-bottom:11px}#consult h3{font-size:1.02rem;margin:2px 0 10px}
+.eli{background:#eff6ff;border-color:#bfdbfe}[data-theme="dark"] .eli{background:#10243f;border-color:#1e3a5f}
+.flowwrap{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.flowimg{flex:0 0 auto;background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:6px}[data-theme="dark"] .flowimg{background:#0f1726}
+.flowdesc{flex:1;min-width:240px}
+.reflist .ref{padding:10px 0;border-bottom:1px solid var(--line)}.reflist .ref:last-child{border:0}
+.rt{padding:10px 0;border-bottom:1px solid var(--line)}.rt:last-child{border:0}
+.sev{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;color:#fff;margin-right:6px}
+.sev.s1{background:#16a34a}.sev.s2{background:#65a30d}.sev.s3{background:#ca8a04}.sev.s4{background:#ea580c}.sev.s5{background:#dc2626}
+.pricegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:11px}
+.pcard2{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+.ptier{font-weight:800;color:var(--accent)}.pprice{font-size:1.15rem;font-weight:800;margin:4px 0}
 @media(max-width:520px){.brand{font-size:1.1rem}}
 </style>
 </head>
@@ -233,6 +252,7 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
  <header>
   <div class="brand">🖥️ 二手電腦詢價系統<small>全球前10大平台比價・相容查詢・防詐客服</small></div>
   <div style="display:flex;gap:8px">
+   <button class="theme" id="langBtn" title="中文／English" style="min-width:42px;font-weight:700">EN</button>
    <button class="theme" id="setBtn" title="AI 設定">⚙️</button>
    <button class="theme" id="themeBtn" title="深色／淺色">🌙</button>
   </div>
@@ -247,12 +267,13 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
   <div class="note" id="aiStatus"></div>
  </div>
  <nav id="nav">
-  <button data-v="find" class="on">🔎 詢價比價</button>
-  <button data-v="sellers">✅ 精選賣家</button>
-  <button data-v="compat">🧩 規格相容</button>
-  <button data-v="photo">📷 拍照找件</button>
-  <button data-v="biz">📊 商業分析</button>
-  <button data-v="faq">💬 FAQ客服</button>
+  <button data-v="find" class="on" data-zh="🔎 詢價比價" data-en="🔎 Compare">🔎 詢價比價</button>
+  <button data-v="sellers" data-zh="✅ 精選賣家" data-en="✅ Sellers">✅ 精選賣家</button>
+  <button data-v="compat" data-zh="🧩 規格相容" data-en="🧩 Compatibility">🧩 規格相容</button>
+  <button data-v="photo" data-zh="📷 拍照找件" data-en="📷 Photo ID">📷 拍照找件</button>
+  <button data-v="biz" data-zh="📊 商業分析" data-en="📊 Business">📊 商業分析</button>
+  <button data-v="faq" data-zh="💬 FAQ客服" data-en="💬 FAQ">💬 FAQ客服</button>
+  <button data-v="consult" data-zh="📑 顧問報告" data-en="📑 Consulting">📑 顧問報告</button>
  </nav>
 
  <!-- 詢價 -->
@@ -369,6 +390,16 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
   </div>
   <h2>📚 常見問題（點開看答案）</h2>
   <div id="faqList"></div>
+ </section>
+
+ <!-- 顧問報告 Consulting -->
+ <section class="view" id="consult">
+  <div class="bigtext" id="cIntro"></div>
+  <h2 id="cH_guide"></h2><div id="cGuide"></div>
+  <h2 id="cH_flows"></h2><div id="cFlows"></div>
+  <h2 id="cH_market"></h2><div id="cMarket"></div>
+  <h2 id="cH_critique"></h2><div id="cCritique"></div>
+  <h2 id="cH_money"></h2><div id="cMoney"></div>
  </section>
 
  <footer id="foot"></footer>
@@ -663,7 +694,65 @@ $("#pptBtn").onclick=()=>{
  p.writeFile({fileName:"商業分析_"+bizTopicName+".pptx"});
 };
 
-renderStatic();renderPlatforms();renderSellers();renderCompat();renderBiz();renderFaqList();refreshAIStatus();
+/* ---------- 語言 + 顧問報告 ---------- */
+let lang="zh";try{lang=localStorage.getItem("pcf-lang")||"zh"}catch(e){}
+const L=(o)=>(o&&typeof o==="object"&&!Array.isArray(o))?(o[lang]||o.zh||o.en||""):(o||"");
+const TT={zh:{guide:"📖 使用指南",flows:"🔀 運作流程圖",market:"🌐 市場與文獻",critique:"🎯 誠實紅隊評估",money:"💰 變現・定價・行動計畫",refs:"參考來源",sev:"嚴重度",rebut:"回應",verdict:"總評",how:"做法",pot:"潛力/限制",models:"變現模式",plan:"行動計畫"},
+ en:{guide:"📖 User Guide",flows:"🔀 How It Works",market:"🌐 Market & Literature",critique:"🎯 Honest Red-Team",money:"💰 Monetize · Pricing · Action",refs:"References",sev:"Severity",rebut:"Rebuttal",verdict:"Verdict",how:"How",pot:"Potential/Limit",models:"Models",plan:"Action Plan"}};
+const tr=k=>(TT[lang]||TT.zh)[k];
+function applyLang(){document.documentElement.lang=lang==="zh"?"zh-Hant":"en";$("#langBtn").textContent=lang==="zh"?"EN":"中";
+ $$("#nav button").forEach(b=>{const v=lang==="zh"?b.dataset.zh:b.dataset.en;if(v)b.textContent=v;});renderConsult();}
+$("#langBtn").onclick=()=>{lang=lang==="zh"?"en":"zh";try{localStorage.setItem("pcf-lang",lang)}catch(e){}applyLang();};
+
+function flowSVG(flow){const N=flow.nodes||[],E=flow.edges||[],idx={};N.forEach((n,i)=>idx[n.id]=i);
+ const ROW=92,CX=170,W=270,H=46,top=18;
+ const cut=s=>{s=String(s);return s.length>24?s.slice(0,23)+"…":s;};
+ const txt=(s,x,y)=>'<text x="'+x+'" y="'+(y+4)+'" font-size="12" text-anchor="middle" fill="#1f2430">'+esc(cut(s))+'</text>';
+ const shape=(n,y)=>{const x=CX-W/2;
+  if(n.type==="decision"){const cy=y+H/2,dx=W/2,dy=H/1.3;return '<polygon points="'+CX+','+(cy-dy)+' '+(CX+dx)+','+cy+' '+CX+','+(cy+dy)+' '+(CX-dx)+','+cy+'" fill="#fff7ed" stroke="#e8c84d" stroke-width="2"/>'+txt(L(n.label),CX,cy);}
+  const round=(n.type==="start"||n.type==="end")?H/2:12,fill=n.type==="start"?"#dcfce7":n.type==="end"?"#e0e7ff":"#eef2fb";
+  return '<rect x="'+x+'" y="'+y+'" width="'+W+'" height="'+H+'" rx="'+round+'" fill="'+fill+'" stroke="#9bb0d6"/>'+txt(L(n.label),CX,y+H/2);};
+ let g='';
+ E.forEach(e=>{const si=idx[e.from],ti=idx[e.to];if(si==null||ti==null)return;const lab=L(e.label);
+  if(ti===si+1){const y1=top+si*ROW+H,y2=top+ti*ROW;g+='<line x1="'+CX+'" y1="'+y1+'" x2="'+CX+'" y2="'+(y2-2)+'" stroke="#7c8aa6" stroke-width="1.6" marker-end="url(#ar)"/>';if(lab)g+='<text x="'+(CX+7)+'" y="'+((y1+y2)/2)+'" font-size="11" fill="#b45309">'+esc(lab)+'</text>';}
+  else{const sy=top+si*ROW+H/2,ey=top+ti*ROW+H/2,gx=CX+W/2+46;g+='<path d="M'+(CX+W/2)+','+sy+' H'+gx+' V'+ey+' H'+(CX+W/2)+'" fill="none" stroke="#7c8aa6" stroke-width="1.6" marker-end="url(#ar)"/>';if(lab)g+='<text x="'+(gx+3)+'" y="'+((sy+ey)/2)+'" font-size="11" fill="#b45309">'+esc(lab)+'</text>';}});
+ N.forEach((n,i)=>g+=shape(n,top+i*ROW));
+ const ht=top+N.length*ROW;
+ return '<svg viewBox="0 0 '+(CX+W/2+80)+' '+ht+'" width="100%" style="max-width:420px"><defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#7c8aa6"/></marker></defs>'+g+'</svg>';}
+
+function barChart(bars){bars=bars||[];const max=Math.max(...bars.map(b=>b.value||0),1),bh=30,gap=16,top=8,h=top+bars.length*(bh+gap);let g='';
+ bars.forEach((b,i)=>{const y=top+i*(bh+gap),w=Math.max(2,(b.value/max)*250);
+  g+='<text x="0" y="'+(y+bh/2+4)+'" font-size="11.5" fill="var(--ink)">'+esc(L(b.label))+'</text>';
+  g+='<rect x="250" y="'+y+'" width="'+w+'" height="'+bh+'" rx="5" fill="#3b82f6"/>';
+  g+='<text x="'+(254+w)+'" y="'+(y+bh/2+4)+'" font-size="12" font-weight="700" fill="var(--ink)">'+esc(String(b.value))+'</text>';});
+ return '<svg viewBox="0 0 560 '+h+'" width="100%" style="margin:8px 0">'+g+'</svg>';}
+
+function renderConsult(){const C=APP.consult||{};const host=$("#consult");if(!C.guide){$("#cIntro").innerHTML='<div class="note">尚無顧問報告資料。</div>';return;}
+ $("#cIntro").innerHTML=lang==="zh"
+  ?"本報告參考<b>國際期刊、產業報告與企業公開資訊</b>(來源附於文末),以顧問角度<b>誠實</b>評估本系統。右上 <b>EN</b> 可切換英文。內含:使用指南、運作流程圖、市場與文獻、紅隊評估、變現與行動計畫。"
+  :"This consultant report draws on <b>international journals, industry reports and public company information</b> (sources at the end) for an <b>honest</b> assessment. Use <b>中</b> (top-right) for Chinese. Sections: user guide, flowcharts, market & literature, red-team critique, monetization & action plan.";
+ $("#cH_guide").textContent=tr("guide");$("#cH_flows").textContent=tr("flows");$("#cH_market").textContent=tr("market");$("#cH_critique").textContent=tr("critique");$("#cH_money").textContent=tr("money");
+ const g=C.guide;
+ $("#cGuide").innerHTML='<div class="card"><ol class="big">'+(g.quickstart||[]).map(s=>"<li>"+esc(L(s))+"</li>").join("")+'</ol></div>'+
+  '<div class="card eli"><b>ELI15</b><div class="big" style="margin-top:5px">'+esc(L(g.eli15))+'</div></div>'+
+  (g.examples||[]).map(e=>'<div class="card"><b>'+esc(L(e.scenario))+'</b><div class="big2" style="margin-top:5px">'+esc(L(e.walkthrough)).replace(/\n/g,"<br>")+'</div></div>').join("");
+ $("#cFlows").innerHTML=((C.flows&&C.flows.flows)||[]).map(f=>'<div class="card"><h3>'+esc(L(f.title))+'</h3><div class="flowwrap"><div class="flowimg">'+flowSVG(f)+'</div><div class="flowdesc big2">'+esc(L(f.desc)).replace(/\n/g,"<br>")+'</div></div></div>').join("");
+ const m=C.market;
+ $("#cMarket").innerHTML='<div class="card"><ul class="big">'+(m.market_points||[]).map(p=>"<li>"+esc(L(p))+"</li>").join("")+'</ul></div>'+
+  '<div class="card"><b>'+esc(L(m.chart.title))+'</b>'+barChart(m.chart.bars)+'<div class="note">'+esc(L(m.chart.caption))+'</div></div>'+
+  '<div class="card"><b>'+tr("refs")+'</b><div class="reflist">'+(m.references||[]).map(r=>'<div class="ref"><div>'+(r.url?'<a class="src" href="'+r.url+'" target="_blank" rel="noopener">'+esc(r.title)+'</a>':esc(r.title))+' <span class="muted">— '+esc(r.source)+'</span></div><div class="big2">'+esc(L(r.takeaway))+'</div></div>').join("")+'</div></div>';
+ const cr=C.critique;
+ $("#cCritique").innerHTML='<div class="card"><div class="verdict bad" style="font-size:1.04rem"><b>⚖ '+tr("verdict")+'：</b>'+esc(L(cr.verdict))+'</div></div>'+
+  '<div class="card"><b>Truth</b><ul class="big2">'+(cr.truth||[]).map(x=>"<li>"+esc(L(x))+"</li>").join("")+'</ul></div>'+
+  '<div class="card"><b>Red-Team</b>'+(cr.redteam||[]).map(x=>'<div class="rt"><span class="sev s'+(x.severity||3)+'">'+tr("sev")+' '+(x.severity||3)+'</span><span class="big2">'+esc(L(x.attack))+'</span><div class="muted" style="margin-top:3px">'+tr("rebut")+'：'+esc(L(x.rebuttal))+'</div></div>').join("")+'</div>'+
+  '<div class="card"><b>Blind Spots</b><ul class="big2">'+(cr.blindspots||[]).map(x=>"<li>"+esc(L(x))+"</li>").join("")+'</ul></div>';
+ const mo=C.monetize;
+ $("#cMoney").innerHTML='<div class="card"><b>'+tr("models")+'</b>'+(mo.models||[]).map(x=>'<div class="rt"><b>'+esc(L(x.name))+'</b><div class="big2">'+tr("how")+'：'+esc(L(x.how))+'</div><div class="muted">'+tr("pot")+'：'+esc(L(x.potential))+'</div></div>').join("")+'</div>'+
+  '<div class="pricegrid">'+(mo.pricing||[]).map(x=>'<div class="pcard2"><div class="ptier">'+esc(L(x.tier))+'</div><div class="pprice">'+esc(L(x.price))+'</div><div class="big2">'+esc(L(x.features)).replace(/\n/g,"<br>")+'</div></div>').join("")+'</div>'+
+  '<div class="card"><b>'+tr("plan")+'</b>'+(mo.action_plan||[]).map(x=>'<div class="rt"><b>'+esc(L(x.phase))+' <span class="muted">'+esc(L(x.timeframe))+'</span></b><div class="big2" style="margin-top:3px">'+esc(L(x.steps)).replace(/\n/g,"<br>")+'</div><div class="muted">KPI：'+esc(L(x.kpi))+'</div></div>').join("")+'</div>';
+}
+
+renderStatic();renderPlatforms();renderSellers();renderCompat();renderBiz();renderFaqList();refreshAIStatus();applyLang();
 </script>
 </body>
 </html>

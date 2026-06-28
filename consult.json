@@ -1,0 +1,975 @@
+{
+ "market": {
+  "references": [
+   {
+    "title": "Refurbished Electronics Market — Global Industry Analysis and Forecast (2026-2032)",
+    "source": "Maximize Market Research",
+    "url": "https://www.maximizemarketresearch.com/market-report/refurbished-electronics-market/209405/",
+    "takeaway": {
+     "zh": "整新3C被估為千億美元級且年增約7.5%,本案不賣貨、只做比價與防詐,正好卡在這條成長曲線上游的「資訊與信任」缺口。",
+     "en": "Refurbished 3C is a hundred-billion-USD market growing ~7.5% a year. We sell nothing — we sit upstream of that curve, in the information-and-trust gap."
+    }
+   },
+   {
+    "title": "Used and Refurbished Smartphone Market Analysis 2031",
+    "source": "Mordor Intelligence",
+    "url": "https://www.mordorintelligence.com/industry-reports/used-and-refurbished-smartphone-market",
+    "takeaway": {
+     "zh": "多家機構對市值估計從260億到近3000億美元不等,差距極大;這正說明二手市場缺乏標準化定價,比價工具有存在價值。",
+     "en": "Estimates range from $26B to nearly $300B — the wild spread itself proves used pricing lacks a standard, which is exactly what a price tool addresses."
+    }
+   },
+   {
+    "title": "Back Market — The Back Market Promise / Quality Charter",
+    "source": "Back Market",
+    "url": "https://www.backmarket.com/en-us/quality",
+    "takeaway": {
+     "zh": "Back Market 只收約1/3賣家、強制品質憲章與1年保固。我們學它的「信任機制」,但用免費比價+防詐取代抽成,不與賣家利益綁定。",
+     "en": "Back Market approves ~1/3 of sellers and enforces a quality charter plus 1-year warranty. We borrow its trust mechanics but replace commission with free comparison — no stake in any seller."
+    }
+   },
+   {
+    "title": "Swappa — listing verification (power-on photo + unique code, clean IMEI)",
+    "source": "Swappa via NerdWallet / Phonecheck",
+    "url": "https://www.nerdwallet.com/article/finance/where-to-buy-used-cell-phones",
+    "takeaway": {
+     "zh": "Swappa 要求賣家上傳「開機+專屬代碼」實拍並核對序號是否贓機。這種低成本驗證可直接內化為本案防詐FAQ與拍照辨識的檢核項。",
+     "en": "Swappa requires a powered-on photo beside a unique code and checks IMEI for stolen status. Cheap verification we can fold straight into our anti-fraud FAQ and photo-ID checks."
+    }
+   },
+   {
+    "title": "165 全民防騙網 / 165打詐儀錶板",
+    "source": "內政部警政署",
+    "url": "https://165dashboard.tw/",
+    "takeaway": {
+     "zh": "官方儀表板把詐騙手法、財損、各縣市數據公開。網路購物詐騙長年在前五;本案防詐模組應直接引用其分類與當月案例,而非自編話術。",
+     "en": "The official dashboard publishes scam types, losses and county data. Online-shopping fraud is a perennial top-5 — our anti-fraud module should cite its taxonomy, not invent its own."
+    }
+   },
+   {
+    "title": "詐騙財損五年暴增11倍",
+    "source": "Newtalk新聞 讀者投書",
+    "url": "https://newtalk.tw/citizen/view/70116",
+    "takeaway": {
+     "zh": "165儀表板口徑下財損從2020年89億升至2024年502億(警政署全口徑為1332億,範圍更廣);無論採何口徑,網購詐騙都是高頻情境,印證防詐是剛需。",
+     "en": "On the 165-dashboard basis, losses rose from NT$8.9B (2020) to NT$50.2B (2024); the broader police figure is NT$133.2B. Either way, online-shopping fraud is high-frequency — anti-fraud is a real need."
+    }
+   },
+   {
+    "title": "比個夠 BigGo 比價網",
+    "source": "BigGo / Meet創業小聚",
+    "url": "https://biggo.com.tw/",
+    "takeaway": {
+     "zh": "BigGo 用垂直搜尋一次比遍蝦皮/momo/拍賣,還有近兩年價格歷史與以圖搜物。本案的「型號一鍵全球比價」與「拍照辨識」是同一技術路線的縮小聚焦版。",
+     "en": "BigGo's vertical search compares Shopee/momo/auctions at once, with 2-year price history and image search. Our one-click global compare and photo-ID are the same playbook, narrowed to one buyer's pain."
+    }
+   },
+   {
+    "title": "Tackling consumer information asymmetry through seller signals (luxury re-commerce)",
+    "source": "Journal of Retailing and Consumer Services (ScienceDirect)",
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0969698924000328",
+    "takeaway": {
+     "zh": "學術證據:二手交易的核心摩擦是資訊不對稱與不確定感,可靠的賣方訊號能降低它。本案的比價透明+相容性檢查+防詐就是在補這些訊號。",
+     "en": "Academic evidence: the core friction in re-commerce is information asymmetry and perceived uncertainty, reduced by credible signals. Our transparency, compatibility checks and anti-fraud are exactly those signals."
+    }
+   },
+   {
+    "title": "Exploring price tolerance in online retail: price comparison website use and repeat purchases",
+    "source": "Electronic Commerce Research (Springer)",
+    "url": "https://link.springer.com/article/10.1007/s10660-023-09791-5",
+    "takeaway": {
+     "zh": "研究指出對賣家的信任會影響消費者的價格容忍度與回購。意味本案若把「誠實、不造假」做成可感知的信任,使用者願意持續回來查價。",
+     "en": "Trust in the seller shapes price tolerance and repeat use. If we make 'honest, no faking' tangible, users keep coming back to check prices."
+    }
+   }
+  ],
+  "market_points": [
+   {
+    "zh": "整新3C是千億美元級市場,主流機構估年複合成長約7.5%–13%,長期順風;本案不靠賣貨獲利,而是吃這條曲線缺的「資訊透明與信任」。",
+    "en": "Refurbished 3C is a hundred-billion-USD market growing ~7.5%–13% CAGR by mainstream estimates — a long tailwind. We don't monetize sales; we serve the trust-and-transparency gap that growth leaves open."
+   },
+   {
+    "zh": "二手手機市值各家估計從260億到近3000億美元,差距十倍以上,本身就證明二手缺乏標準定價——這正是比價工具的立足點。",
+    "en": "Used-phone market estimates span $26B to ~$300B, a 10x spread. That disagreement itself shows used pricing has no standard — the opening for a price tool."
+   },
+   {
+    "zh": "國際信任型平台的共同配方:嚴選賣家(Back Market 約收1/3)、強制品質與保固、可驗證的上架證據(Swappa 開機+代碼實拍、核對贓機序號)。本案把這些做成『免費檢核清單』,不抽成、不綁賣家。",
+    "en": "Trust platforms share a recipe: vetted sellers (Back Market approves ~1/3), mandatory quality/warranty, verifiable listing proof (Swappa's powered-on photo + code, stolen-IMEI check). We turn these into a free checklist — no commission, no seller stake."
+   },
+   {
+    "zh": "台灣已有 BigGo、飛比等成熟比價引擎,但聚焦全新品零售;『二手零件相容性 + 防詐』是它們沒覆蓋的縫隙,也是長輩最常踩雷之處。",
+    "en": "Taiwan already has mature engines (BigGo, Feebee) but they target new-goods retail. Used-part compatibility plus anti-fraud is the seam they don't cover — and where elderly buyers get burned."
+   },
+   {
+    "zh": "反詐是剛需而非加分項:網路購物詐騙長年居台灣詐騙手法前五,165儀表板口徑財損2024達502億(警政署全口徑1332億)。引用官方分類比自編話術更可信。",
+    "en": "Anti-fraud is a must-have, not a nice-to-have: online-shopping fraud is a perennial top-5 scam type in Taiwan; 2024 losses reached NT$50.2B on the 165-dashboard basis (NT$133.2B on the broader police basis). Citing the official taxonomy beats inventing our own."
+   },
+   {
+    "zh": "學術一致指向:二手交易的痛點是資訊不對稱與不確定感,而對賣家的信任會影響價格容忍與回購。本案的誠實定位若能被『感知』,就是可累積的留存資產。",
+    "en": "Research converges: re-commerce pain is information asymmetry and uncertainty, and trust in the seller drives price tolerance and repeat use. If our honesty is perceived, it compounds into retention."
+   }
+  ],
+  "chart": {
+   "title": {
+    "zh": "本案定位的市場與信任依據(關鍵數字)",
+    "en": "Market and trust basis for this project (key figures)"
+   },
+   "unit": {
+    "zh": "見各項單位",
+    "en": "see per-bar units"
+   },
+   "bars": [
+    {
+     "label": {
+      "zh": "整新3C市場規模(2025,十億美元)",
+      "en": "Refurbished 3C market size (2025, USD bn)"
+     },
+     "value": 141,
+     "note": {
+      "zh": "取多家估計中段值(26–293十億間);估計,口徑差異大",
+      "en": "Mid-range of multiple estimates (span $26–293bn); estimate, methodologies vary"
+     }
+    },
+    {
+     "label": {
+      "zh": "整新3C年複合成長率(%)",
+      "en": "Refurbished 3C CAGR (%)"
+     },
+     "value": 10,
+     "note": {
+      "zh": "各報告約7.5–13%,取近中位;估計",
+      "en": "Reports cite ~7.5–13%; near-median taken; estimate"
+     }
+    },
+    {
+     "label": {
+      "zh": "台灣詐騙財損 2024(165口徑,十億新台幣)",
+      "en": "Taiwan fraud loss 2024 (165 basis, NT$ bn)"
+     },
+     "value": 50.2,
+     "note": {
+      "zh": "165儀表板口徑;警政署全口徑為133.2十億(範圍更廣)",
+      "en": "165-dashboard basis; broader police figure is NT$133.2bn"
+     }
+    },
+    {
+     "label": {
+      "zh": "Back Market 賣家通過率(%)",
+      "en": "Back Market seller approval rate (%)"
+     },
+     "value": 33,
+     "note": {
+      "zh": "約1/3申請者獲准;企業公開資訊",
+      "en": "~1/3 of applicants approved; company-disclosed"
+     }
+    },
+    {
+     "label": {
+      "zh": "主流整新平台保固(月)",
+      "en": "Standard refurb platform warranty (months)"
+     },
+     "value": 12,
+     "note": {
+      "zh": "Back Market 全品項1年;Gazelle/Amazon Renewed 多為30–90天,業界基準",
+      "en": "Back Market 1yr on all items; Gazelle/Amazon Renewed often 30–90 days; industry benchmark"
+     }
+    }
+   ],
+   "caption": {
+    "zh": "本圖混合不同單位的關鍵數字,僅供定位佐證,非單一尺度可比。市場規模與成長率為跨報告估計、口徑差異大(已標明估計);詐騙財損採165儀表板口徑(2024約502億新台幣),警政署全口徑更高(約1332億);賣家通過率與保固為企業公開資訊。所有來源見 references。",
+    "en": "This chart mixes figures in different units as positioning evidence, not a single comparable scale. Market size and CAGR are cross-report estimates with wide methodological spread (marked as estimates); fraud loss uses the 165-dashboard basis (2024 ~NT$50.2bn) while the broader police figure is higher (~NT$133.2bn); approval rate and warranty are company-disclosed. All sources in references."
+   }
+  }
+ },
+ "critique": {
+  "truth": [
+   {
+    "zh": "這不是產品,是一個美化過的書籤列。核心功能『一鍵開10個平台的搜尋頁』本質是 window.open 拼字串網址,一個會寫 HTML 的人一個下午就能複製,零專利、零資料、零護城河。你自己的 content.json 五力分析已經把這點寫死(同業/新進/替代/買方議價力全給5分),你只是還沒承認那代表什麼:這門生意結構性不成立。",
+    "en": "This isn't a product, it's a dressed-up bookmark bar. The core 'open 10 search pages in one click' is just window.open with string-concatenated URLs — any HTML-literate person clones it in an afternoon. No patent, no data, no moat. Your own content.json five-forces already scored rivalry/entrants/substitutes/buyer-power all at 5; you just haven't admitted what that means: the business is structurally non-viable."
+   },
+   {
+    "zh": "你不是比價工具,你是『跳轉工具』。真正的比價(抓價、排序、比較)你一項都沒做——使用者點完還是要自己逐頁讀價。對使用者而言,在 Google 打『i7-6700 露天』比學你的介面更快。你插在使用者和平台中間,但沒有在那一層創造任何價值,這叫『無摩擦的中間人』,第一個被繞過的就是你。",
+    "en": "You're not a price comparator, you're a redirect button. The actual comparison work — scraping, sorting, comparing — you do none of it; the user still reads every page manually. Typing 'i7-6700 ruten' into Google is faster than learning your UI. You sit between user and platform without adding value at that layer — the frictionless middleman is the first thing everyone routes around."
+   },
+   {
+    "zh": "流量入口已經被吃滿。台灣比價心智是 BigGo 和飛比,二手是露天/蝦皮站內搜尋,通用問答是 ChatGPT/Perplexity。你想靠 SEO 接型號關鍵字流量?那些字早就被平台商品頁、比價站、Mobile01 文章佔據,一個 GitHub Pages 靜態站幾乎不可能排上去。沒有流量入口=沒有使用者=這工具做得再用心也沒人看見。",
+    "en": "The traffic funnel is already saturated. Taiwan's price-comparison mindshare is BigGo and Feebee; secondhand is Ruten/Shopee on-site search; general Q&A is ChatGPT/Perplexity. Hoping SEO catches model-number queries? Those keywords are owned by platform listings, comparison sites, and Mobile01 threads — a static GitHub Pages site has near-zero chance of ranking. No funnel means no users, no matter how earnest the tool is."
+   },
+   {
+    "zh": "它是免費跳板,且永遠免費。零轉換成本、零註冊、零黏著,使用者買完一張主機板可能一年不回來——這是一次性、低頻需求。BMC 裡寫的 affiliate 分潤,台灣三大站(露天/蝦皮/Yahoo)根本沒有對個人開放的聯盟計畫;能分潤的 eBay/Amazon Renewed 是你最不可能成交的海外平台。收益流那一欄基本是空想。",
+    "en": "It's a free springboard, and it always will be. Zero switching cost, zero signup, zero stickiness — someone buys one motherboard and doesn't return for a year. This is one-off, low-frequency demand. The affiliate revenue in your BMC: Taiwan's big three (Ruten/Shopee/Yahoo) have no consumer affiliate program; the platforms that do (eBay, Amazon Renewed) are exactly the ones your users least often transact on. The revenue column is wishful thinking."
+   },
+   {
+    "zh": "整個『顧問級交付』的厚度——五力雷達、BMC、SWOT、一鍵下載 PPT、AI 客服、拍照辨識——是功能堆疊,不是商業強度。對一個沒有護城河、沒有營收、沒有回訪的免費工具做這麼重的商業分析,本身就是個諷刺:你在替一個不需要商業計畫的東西寫商業計畫。",
+    "en": "The whole 'consultant-grade' heft — five-forces radar, BMC, SWOT, one-click PPT export, AI chat, photo recognition — is feature-stacking, not business strength. Building this much business analysis around a free tool with no moat, no revenue, and no return visits is itself the irony: you're writing a business plan for something that doesn't need a business plan."
+   }
+  ],
+  "redteam": [
+   {
+    "attack": {
+     "zh": "競爭者:我是 BigGo。我明天加一個『二手防詐』分頁、引用165的衛教、列幾個高評價賣家,挾我既有的數百萬月流量,你這個沒人知道網址的 GitHub Pages 站當天就被輾平。你唯一的差異化(防詐衛教)是我用一個下午就能補上的內容,不是技術。",
+     "en": "Competitor: I'm BigGo. Tomorrow I add a 'secondhand anti-fraud' tab, cite the national anti-scam hotline, list a few high-rated sellers — and with my millions of monthly visits I flatten your no-one-knows-the-URL GitHub Pages site overnight. Your only differentiation (anti-fraud education) is content I bolt on in an afternoon, not technology."
+    },
+    "severity": 5,
+    "rebuttal": {
+     "zh": "沒有有效反駁。唯一能說的是大平台未必想花力氣做這個小利基,但只要利基真有流量價值,他們就會做;沒做只證明利基太小,反而更糟。",
+     "en": "No effective rebuttal. The only thing to say is that big platforms may not bother with this small niche — but if the niche had real traffic value they would, and their not bothering just proves the niche is too small, which is worse."
+    }
+   },
+   {
+    "attack": {
+     "zh": "投資人:你的搜尋連結全寫死在 generate.py。露天、蝦皮哪天改一次 URL 結構或加登入牆,你的連結就整批死掉,而你沒有監控、沒有自動偵測,只能等使用者回報——但你根本沒有使用者會回報。這不是產品,是一顆等著腐爛的定時炸彈。",
+     "en": "Investor: your search URLs are all hardcoded in generate.py. The day Ruten or Shopee changes its URL structure or adds a login wall, your links die en masse — and you have no monitoring, no auto-detection, you wait for users to report it. Except you have no users to report it. This isn't a product, it's a time bomb waiting to rot."
+    },
+    "severity": 5,
+    "rebuttal": {
+     "zh": "部分可反駁:搜尋網址結構比 API 穩定,通常數年才大改一次,且同時導流10個平台分散了單點失效。但無監控、無團隊、單人維護這點無法反駁,維護者一停手就開始腐化。",
+     "en": "Partly rebuttable: search-URL structures are more stable than APIs and usually only change every few years, and routing to 10 platforms diversifies single-point failure. But the no-monitoring, no-team, solo-maintenance point stands — the moment the maintainer stops, decay begins."
+    }
+   },
+   {
+    "attack": {
+     "zh": "挑剔投資人:給我看留存和營收。你說目標客群是『幫長輩買零件的子女』——這是一年買一次的需求,沒有回訪、沒有付費意願、沒有黏著。你的 LTV 趨近於零,CAC 雖然也是零但你根本沒有獲客管道。一個 DAU 個位數、營收為零、且永遠不會有營收的東西,不是生意。",
+     "en": "Hard investor: show me retention and revenue. You say your segment is 'children buying parts for elderly parents' — that's a once-a-year need: no return visits, no willingness to pay, no stickiness. Your LTV approaches zero. CAC is also zero but you have no acquisition channel at all. A thing with single-digit DAU, zero revenue, and no path to revenue is not a business."
+    },
+    "severity": 5,
+    "rebuttal": {
+     "zh": "沒有合理反駁。若重新定位為『非營利防詐衛教公益站』則攻擊不成立——但那就承認它不是生意。作為生意,這個攻擊全中。",
+     "en": "No reasonable rebuttal. If repositioned as a non-profit anti-fraud public-service site the attack dissolves — but that concedes it isn't a business. As a business, this attack lands fully."
+    }
+   },
+   {
+    "attack": {
+     "zh": "競爭者:ChatGPT 或 Perplexity 一個 prompt 就能給出『i7-6700 各平台比價連結 + LGA1151/DDR3對DDR4相容性判斷 + 詢價話術 + 防詐提醒』,把你三大功能一鍋端走,而且還能對話追問、即時更新。你硬編在 content.json 的8顆CPU、8張主機板規格庫,在一個通用模型面前毫無價值。",
+     "en": "Competitor: ChatGPT or Perplexity answers in one prompt — 'i7-6700 comparison links across platforms + LGA1151/DDR3-vs-DDR4 compatibility + inquiry script + fraud warnings' — swallowing all three of your core features at once, plus follow-up dialogue and live updates. Your 8 hardcoded CPUs and 8 boards in content.json are worthless against a general model."
+    },
+    "severity": 4,
+    "rebuttal": {
+     "zh": "可部分反駁:通用模型對冷門型號規格會幻覺(例如混淆300系列和100系列腳位),你的硬編規格庫雖小但經人工查證較可靠;對長輩而言固定按鈕也比寫prompt友善。但這只在極窄的人工查證+長輩友善交集裡成立。",
+     "en": "Partly rebuttable: general models hallucinate on obscure SKU specs (e.g. confusing 300-series vs 100-series compatibility); your small hand-verified spec library is more reliable, and fixed buttons are friendlier for elderly users than writing prompts. But that edge holds only in the narrow intersection of hand-verification plus elderly-friendliness."
+    }
+   },
+   {
+    "attack": {
+     "zh": "挑剔投資人:你點名桀鑫、JULE、知飾家為『信任賣家』並提供直達。哪天其中一家標錯價、歇業、或被檢舉詐欺,你這個以『誠實防詐』為招牌的站就被視為連帶背書,信譽甚至法律風險全攬上身。免責聲明在消保法和民事過失面前保護力很有限。你用品牌信任當資產,卻把它押在你完全無法掌控的第三方賣家身上。",
+     "en": "Hard investor: you name specific sellers as 'trusted' and link straight to them. The day one mis-prices, shuts down, or gets reported for fraud, your 'honest anti-fraud' brand is seen as an endorser — reputational and even legal liability lands on you. A disclaimer offers thin protection under consumer-protection law and civil negligence. You use brand trust as your asset, then stake it on third-party sellers you cannot control."
+    },
+    "severity": 4,
+    "rebuttal": {
+     "zh": "部分可反駁:可改成『高評價賣家(評價數/好評率為客觀依據)』而非主觀『信任』背書,並加時間戳與『僅供參考、請自行查證』,降低背書語氣。但只要保留具名直達就無法完全消除連帶觀感。",
+     "en": "Partly rebuttable: reframe as 'high-rated sellers (objective review-count/positive-rate basis)' rather than a subjective 'trusted' endorsement, add timestamps and 'reference only, verify yourself' — softening the endorsement tone. But as long as named direct links remain, the guilt-by-association perception can't be fully removed."
+    }
+   }
+  ],
+  "blindspots": [
+   {
+    "zh": "金鑰外洩=立即的真實損失,不是假設風險。你的工作資料夾 pcfinder.rtf 裡有一把明文的 Anthropic API 金鑰(sk-ant-api03 開頭)。你整個專案的賣點就是『金鑰只放 Cloudflare Worker、絕不進靜態站』,結果金鑰躺在會被連同專案打包的檔案裡。這把鑰匙要當作已洩漏:立刻去 console 撤銷輪替,並用 git log 確認它沒進過版控歷史。這比所有商業分析都緊急。",
+    "en": "A leaked key is immediate real loss, not hypothetical risk. Your working folder's pcfinder.rtf holds a plaintext Anthropic API key (sk-ant-api03...). Your entire pitch is 'keys live only in the Cloudflare Worker, never in the static site' — yet the key sits in a file that gets bundled with the project. Treat it as compromised: revoke and rotate it now, and grep git history to confirm it was never committed. This is more urgent than any business analysis."
+   },
+   {
+    "zh": "『誠實防詐』的招牌會反噬成法律責任。固定7條鐵則給的是『虛假的安全感』:使用者照做了仍被新型手法騙,會回頭怪你『你不是說照做就安全?』。當你從『整理資訊』跨到『給交易建議+背書賣家』,你在法律上更接近一個有注意義務的推薦者,而非中立的搜尋入口。免責聲明擋不掉這層。",
+    "en": "The 'honest anti-fraud' badge can boomerang into liability. Seven fixed rules sell a false sense of security: a user who follows them and still gets hit by a newer scam comes back blaming you — 'you said following these made me safe.' The moment you cross from 'organizing information' to 'giving transaction advice and endorsing sellers,' you legally resemble a recommender with a duty of care, not a neutral search portal. A disclaimer doesn't cover that gap."
+   },
+   {
+    "zh": "維護腐化是這個架構的內建死亡時鐘,不是意外。所有資料(平台URL、賣家帳號、評價數、規格庫、防詐鐵則)都硬編,要手改檔重跑再push。單人、無排程、無監控。半年沒碰,賣家可能歇業、URL可能改版、防詐手法已換代——而站還掛著,給出過期甚至誤導的資訊,比沒這個站更糟,因為它頂著『誠實準確』的招牌。",
+    "en": "Maintenance rot is this architecture's built-in death clock, not an accident. Every datum — platform URLs, seller accounts, review counts, spec library, anti-fraud rules — is hardcoded, edited by hand and re-pushed. Solo, no schedule, no monitoring. Six untouched months and sellers may have closed, URLs changed, scam tactics evolved — yet the site stays up serving stale or misleading info, which is worse than no site, because it wears an 'honest and accurate' badge."
+   },
+   {
+    "zh": "你在替長輩決策,但把責任留給長輩。你列『信任賣家』直達、教『不要按買家取消』,長輩照單全收。一旦其中一條建議在他的具體情況下出錯(例如那賣家剛好出包、或平台規則已改),受害的是最信任你的人,而你最沒有能力為他善後。被濫用的不是系統,是長輩對『有人幫我把關了』的信任——這份信任正是詐騙集團也在利用的同一個心理弱點。",
+    "en": "You're making decisions for elderly users while leaving the responsibility with them. You provide 'trusted seller' direct links and teach 'never click buyer-cancel' — and they follow it wholesale. The day one piece of advice is wrong for their specific case (that seller just went bad, or the platform rule changed), the people hurt are the ones who trusted you most, and you're least able to make them whole. What gets exploited isn't the system — it's the elder's belief that 'someone is vetting this for me,' the very psychological lever scammers also pull."
+   },
+   {
+    "zh": "平台改版+反自動化是你無法談判的對手。一鍵連開10個搜尋分頁(goAll/window.open)會被瀏覽器彈窗攔截(長輩會以為壞了),也可能觸發目標站的速率限制或反爬。你對平台零議價力、零分潤、零通知管道——他們改規則不會問你,而你連知道都要等使用者回報。GitHub Pages 政策一變或專案被棄,服務無預警全斷。",
+    "en": "Platform redesigns plus anti-automation are an adversary you can't negotiate with. Opening 10 search tabs at once (goAll/window.open) gets popup-blocked (elders think it's broken) and can trip target-site rate limits or anti-scraping. You have zero bargaining power, zero revenue share, zero notification channel — platforms change rules without asking you, and you learn only when a user reports it. One GitHub Pages policy change or an abandoned repo, and the whole service dies without warning."
+   }
+  ],
+  "verdict": {
+   "zh": "作為一門生意:不成立——沒護城河、沒流量入口、沒營收路徑、永遠免費,你自己的五力分析已經判了死刑;作為一份『幫長輩防詐』的個人公益小工具:有溫度也有真實用處,但前提是先把那把外洩的金鑰撤掉、把『信任賣家』背書改成客觀標示、並接受它會隨無人維護而腐化。別再叫它生意,叫它善事。",
+   "en": "As a business: dead on arrival — no moat, no traffic funnel, no revenue path, free forever; your own five-forces already signed the death certificate. As a personal public-good tool to protect elders from scams: genuinely kind and genuinely useful — but only after you revoke that leaked key, downgrade 'trusted seller' endorsements to objective labels, and accept it will rot once unmaintained. Stop calling it a business; call it a good deed."
+  }
+ },
+ "monetize": {
+  "models": [
+   {
+    "name": {
+     "zh": "聯盟行銷分潤(誠實揭露)",
+     "en": "Affiliate Commissions (Disclosed)"
+    },
+    "how": {
+     "zh": "只在有正式聯盟方案的平台掛 affiliate tag:eBay Partner Network、Amazon Renewed(美/日)、Back Market。導流連結帶追蹤碼,頁面明白標示「本連結含分潤,不影響你看到的價格」。台灣主力流量(露天、蝦皮、Yahoo 拍賣)幾乎無站外靜態連結分潤,維持純導流、不假裝能賺。",
+     "en": "Tag only platforms with real affiliate programs: eBay Partner Network, Amazon Renewed (US/JP), Back Market. Links carry a tracking code with a plain on-page note: \"this link earns a commission, your price is unchanged.\" The Taiwan volume drivers (Ruten, Shopee, Yahoo Auctions) offer effectively no static-link payout, so keep those as pure referrals and don't pretend otherwise."
+    },
+    "potential": {
+     "zh": "誠實面:這是最弱的一條。二手/整新單價低、佣金率 1–4%,且賺得到的三家正好不是台灣使用者最常點的。月流量 1 萬次點擊、3% 轉外站、2% 佣金,實際可能只有每月數百到一兩千 TWD。把它當『不無小補、用來付網域費』,不能當主收入。",
+     "en": "Honest take: the weakest stream. Second-hand/refurb tickets are low and commissions run 1–4%, and the three payable platforms are exactly the ones Taiwanese users click least. At 10k clicks/month with ~3% going off-site and ~2% commission, realistically a few hundred to ~1–2k TWD/month. Treat it as covering the domain bill, not as primary income."
+    }
+   },
+   {
+    "name": {
+     "zh": "贊助與小額捐款",
+     "en": "Sponsorship & Micro-Donations"
+    },
+    "how": {
+     "zh": "頁尾放一個低調的『請我喝咖啡/贊助維護』連結(Buy Me a Coffee、街口、綠界),文案訴求創站初衷——幫長輩防詐、不造假、不收割。可選擇性開『月贊助』讓認同的人定額支持。不彈窗、不擋功能、不情緒勒索。",
+     "en": "A low-key \"buy me a coffee / fund maintenance\" link in the footer (Buy Me a Coffee, JKOPay, ECPay), framed around the origin story — protecting elders from scams, no fakery, no data harvesting. Offer an optional recurring tier for supporters. No popups, no gated features, no guilt-tripping."
+    },
+    "potential": {
+     "zh": "誠實面:捐款對『一次性、低頻、用完即走』的工具天花板很低,轉換率常 <0.5%。靠少數認同理念的人,月收可能 0 到數千 TWD,極不穩定、不可預測。價值在於『驗證有人真的在乎』而非養活專案。",
+     "en": "Honest take: donations cap out fast for a one-off, low-frequency, use-and-leave tool — conversion is often <0.5%. A handful of believers might yield anywhere from 0 to a few thousand TWD/month, unpredictable and lumpy. Its real value is proving someone cares, not funding the project."
+    }
+   },
+   {
+    "name": {
+     "zh": "Pro 訂閱(需 Cloudflare Worker 後端)",
+     "en": "Pro Subscription (requires Worker backend)"
+    },
+    "how": {
+     "zh": "把『需要伺服器才做得到、且靜態版做不出來』的功能做成 Pro:① 價格追蹤——存型號、定時抓平台搜尋頁、降價 email/LINE 通知;② 跨平台比價結果匯出 CSV/PDF;③ 賣家信用報告——彙整評價數、好評率、開店時間、避雷紀錄成一頁。免費版維持現有一鍵導流與防詐;Pro 只賣『省時間』。",
+     "en": "Reserve for Pro only the things that genuinely need a server and the static build can't do: (1) price tracking — save a model, poll platform search pages on a schedule, email/LINE the user on a price drop; (2) export cross-platform results to CSV/PDF; (3) a seller credit report — rating count, positive %, store age, and avoid-list history on one page. The free tier keeps the existing one-click referral and anti-scam content; Pro sells saved time only."
+    },
+    "potential": {
+     "zh": "誠實面:這是唯一可能成主收入的一條,但要先承認三個硬限制——(a)需要持續跑後端,等於放棄『零維運』優勢、產生固定成本;(b)客群低頻,買完零件就退訂,留存差;(c)『賣家信用報告』靠抓平台公開資料,平台改版或封爬就斷。實際:若能養出 100 位 Pro,月收約 1–2 萬 TWD,但需要真實留存證據再投入。",
+     "en": "Honest take: the only stream that could become primary income — but acknowledge three hard limits first: (a) it needs a running backend, surrendering the zero-ops advantage and adding fixed cost; (b) the audience is low-frequency and will churn the moment their build is done; (c) the seller credit report scrapes public platform data and breaks when a platform redesigns or blocks crawling. Realistically, 100 Pro users is roughly 10–20k TWD/month — but only invest after retention is proven."
+    }
+   },
+   {
+    "name": {
+     "zh": "低干擾誠實廣告",
+     "en": "Low-Intrusion Honest Ads"
+    },
+    "how": {
+     "zh": "只接『與防詐/二手 3C 不衝突、且揭露為廣告』的版位:例如本地維修店、二手驗機服務、正規記憶體/SSD 賣家的單一固定橫幅,明確標『廣告』。不接 AdSense 那種會追蹤、會塞滿、可能跳出博弈/詐騙廣告的聯播網——那會直接砸掉『防詐』招牌。",
+     "en": "Accept only ads that don't conflict with the anti-scam mission and are clearly labeled: a single fixed banner for a local repair shop, a hardware-testing service, or a legit RAM/SSD seller, marked \"Ad.\" Refuse tracking ad networks like AdSense that bloat the page and can surface gambling/scam creatives — those would torch the anti-scam brand outright."
+    },
+    "potential": {
+     "zh": "誠實面:手選誠實廣告賣得貴但賣得慢、要自己談,單一橫幅月收可能 1–3 千 TWD;規模化得靠流量,而本工具流量天花板低。優點是不傷信任;缺點是費工、收入薄。建議流量起來再談,寧缺勿濫。",
+     "en": "Honest take: hand-picked honest ads sell at a premium but slowly and require direct deals — a single banner might fetch 1–3k TWD/month. Scaling needs traffic the tool is unlikely to reach. Upside: it doesn't damage trust; downside: it's labor-heavy and thin. Pursue only once traffic justifies it, and keep it sparse over lucrative."
+    }
+   },
+   {
+    "name": {
+     "zh": "B2B 白牌授權",
+     "en": "B2B White-Label Licensing"
+    },
+    "how": {
+     "zh": "把整套(導流比價＋相容性檢查＋防詐 FAQ＋詢價範本)做成可換 logo/賣家名單的白牌版,授權給:① 二手電腦維修店——掛自家賣場與品牌;② 長照單位/社區大學/老人數位課程——當『教長輩防詐買 3C』的教材與工具。提供基本客製(平台清單、信任賣家、防詐內容)與半年更新。",
+     "en": "Package the whole stack (referral compare + compatibility check + anti-scam FAQ + inquiry templates) as a re-brandable white-label and license it to: (1) second-hand PC repair shops — branded with their own store and listings; (2) elder-care orgs / community colleges / senior digital-literacy programs — as a teaching tool for \"helping elders buy 3C safely.\" Include basic customization (platform list, trusted sellers, anti-scam content) and semi-annual updates."
+    },
+    "potential": {
+     "zh": "誠實面:這條最被低估、也最務實——它把『無護城河、可整頁複製』的弱點反過來變賣點(本來就好複製,那就有償複製給需要的人)。客單高(一次性建置＋年維護),不靠流量。限制:市場小、需主動 B2B 業務、長照單位預算保守、客製與更新都吃人力。但 5–10 個白牌客戶就可能勝過所有 C 端收入總和。",
+     "en": "Honest take: the most underrated and most pragmatic stream — it flips the \"no moat, copyable in an afternoon\" weakness into a selling point (it's easy to copy, so copy it for a fee to those who need it). High per-deal value (one-off build + annual maintenance), no traffic dependency. Limits: small market, requires active B2B selling, care orgs have tight budgets, and customization/updates cost labor. But 5–10 white-label clients could outearn all consumer revenue combined."
+    }
+   }
+  ],
+  "pricing": [
+   {
+    "tier": {
+     "zh": "免費版(Free)",
+     "en": "Free"
+    },
+    "price": {
+     "zh": "NT$0 / US$0 永久免費",
+     "en": "NT$0 / US$0 — free forever"
+    },
+    "features": {
+     "zh": "完整保留現有功能:一鍵 10 大平台真實搜尋導流、規則式防詐 FAQ(15 題)、下單鐵則＋詢價範本、相容性檢查、精選賣家直達、商業分析靜態圖。核心防詐價值永遠不上鎖——這是品牌信任的根基,不拿來當訂閱誘餌。",
+     "en": "Everything the tool does today stays free: one-click referral search across 10 platforms, rule-based anti-scam FAQ (15 entries), order rules + inquiry templates, compatibility check, trusted-seller links, static business-analysis charts. The core anti-scam value is never paywalled — it's the trust foundation, not subscription bait."
+    }
+   },
+   {
+    "tier": {
+     "zh": "Pro 月費",
+     "en": "Pro Monthly"
+    },
+    "price": {
+     "zh": "NT$99 / 月(約 US$3) 或 NT$990 / 年(省兩個月)",
+     "en": "NT$99/mo (~US$3) or NT$990/yr (two months free)"
+    },
+    "features": {
+     "zh": "價格追蹤＋降價通知(email/LINE)、跨平台比價結果匯出 CSV/PDF、賣家信用報告(評價數/好評率/店齡/避雷)、真 AI 客服與拍照辨識較高額度。定價刻意壓低:客群低頻、替代品免費,NT$99 是『一杯飲料、值得一試』的心理門檻,過此必流失。",
+     "en": "Price tracking with drop alerts (email/LINE), CSV/PDF export of compare results, seller credit reports (rating count / positive % / store age / avoid-list), and higher quota for true-AI chat and photo recognition. Priced deliberately low: the audience is infrequent and free substitutes abound. NT$99 is the \"one drink, worth a try\" threshold — go higher and they churn."
+    }
+   },
+   {
+    "tier": {
+     "zh": "Pro 一次性『買菜模式』",
+     "en": "Pro Day Pass"
+    },
+    "price": {
+     "zh": "NT$49 / 30 天單次(US$1.5),不自動續訂",
+     "en": "NT$49 / 30-day pass (US$1.5), no auto-renew"
+    },
+    "features": {
+     "zh": "承認核心痛點:多數人『買完這次零件就不再來』。提供一次性短期解鎖全部 Pro 功能,買完即走、不綁訂閱、不情緒勒索。誠實面對低頻,反而比硬推月費更可能成交。",
+     "en": "Acknowledges the core truth: most people buy their part once and never return. A one-time short-term unlock of all Pro features — use it, leave it, no subscription, no guilt. Pricing honestly for low frequency converts better than forcing a monthly plan."
+    }
+   },
+   {
+    "tier": {
+     "zh": "B2B 白牌授權",
+     "en": "B2B White-Label"
+    },
+    "price": {
+     "zh": "建置費 NT$30,000–80,000(一次性,依客製深度)＋年維護 NT$12,000–36,000(US$1,000–2,600 建置 / US$400–1,200 年維護)。長照/非營利單位 5 折優惠。",
+     "en": "Setup NT$30,000–80,000 one-time (by customization depth) + annual maintenance NT$12,000–36,000 (US$1,000–2,600 setup / US$400–1,200/yr maintenance). 50% discount for elder-care and non-profits."
+    },
+    "features": {
+     "zh": "換 logo/網域、客製平台清單與信任賣家、客製防詐內容、半年資料更新與連結健檢、可選 Worker 後端代管。報價區間反映人力工時,非軟體授權暴利——誠實計價、可被砍價但不假裝是 SaaS 訂閱。",
+     "en": "Re-branded logo/domain, custom platform list and trusted sellers, custom anti-scam content, semi-annual data refresh and link health-check, optional managed Worker backend. The range reflects labor hours, not SaaS-license markup — priced honestly, negotiable, and not dressed up as a recurring SaaS subscription."
+    }
+   }
+  ],
+  "action_plan": [
+   {
+    "phase": {
+     "zh": "第一階段:驗證需求與誠實導流",
+     "en": "Phase 1: Validate Demand & Honest Referral"
+    },
+    "timeframe": {
+     "zh": "0–30 天",
+     "en": "Days 0–30"
+    },
+    "steps": {
+     "zh": "1. 加上匿名、不追蹤個資的點擊計數(哪個平台、哪類零件被點),只為量化需求。\n2. 替 eBay/Amazon Renewed/Back Market 申請聯盟、掛 tag 並加明確分潤揭露。\n3. 頁尾上線低調贊助連結＋一句創站故事。\n4. 在 PTT、Mobile01、FB 二手社團、LINE 家族群分享單一連結,收第一批真實回饋。\n5. 確認免責聲明與廣告/分潤揭露符合公平交易法。",
+     "en": "1. Add anonymous, non-PII click counting (which platform, which part category) purely to quantify demand.\n2. Apply for eBay/Amazon Renewed/Back Market affiliate, add tags with a clear commission disclosure.\n3. Ship a low-key footer donation link plus a one-line origin story.\n4. Share the single link on PTT, Mobile01, FB second-hand groups, family LINE chats; collect the first real feedback.\n5. Confirm the disclaimer and ad/affiliate disclosure comply with Taiwan's Fair Trade Act."
+    },
+    "kpi": {
+     "zh": "月活躍 ≥ 500 次工具使用;導流點擊 ≥ 2,000;聯盟連結至少完成 1 筆成交以驗證金流;收集 ≥ 20 則使用者回饋。",
+     "en": "≥500 monthly tool uses; ≥2,000 referral clicks; at least 1 confirmed affiliate transaction to prove the payout path works; ≥20 pieces of user feedback collected."
+    }
+   },
+   {
+    "phase": {
+     "zh": "第二階段:上 Worker 後端、推出 Pro 與單次解鎖",
+     "en": "Phase 2: Ship Worker Backend, Launch Pro & Day Pass"
+    },
+    "timeframe": {
+     "zh": "30–90 天",
+     "en": "Days 30–90"
+    },
+    "steps": {
+     "zh": "1. 部署 Cloudflare Worker:價格追蹤(定時抓搜尋頁＋降價通知)、比價匯出、賣家信用報告。\n2. 接金流(街口/綠界/Stripe),上線 NT$99 月費、NT$990 年費、NT$49 單次三檔。\n3. 開啟真 AI 客服與拍照辨識的 Pro 額度。\n4. 對第一階段最活躍使用者做付費意願訪談(別猜,直接問願不願付 NT$99)。\n5. 監控連結健檢:平台改版即偵測告警,降低『連結死掉』風險。",
+     "en": "1. Deploy the Cloudflare Worker: price tracking (scheduled search-page polling + drop alerts), compare export, seller credit reports.\n2. Wire up payments (JKOPay/ECPay/Stripe) and launch the three tiers: NT$99/mo, NT$990/yr, NT$49 day pass.\n3. Enable Pro quota for true-AI chat and photo recognition.\n4. Interview the most active Phase 1 users about willingness to pay — don't guess, ask directly if they'd pay NT$99.\n5. Add link health monitoring: detect platform redesigns and alert, reducing the dead-link risk."
+    },
+    "kpi": {
+     "zh": "≥ 30 位付費使用者(含單次);Pro 月留存 ≥ 40%;價格追蹤啟用率 ≥ 25%;後端月成本控制在營收以內(不倒貼);連結失效偵測到修復 < 48 小時。",
+     "en": "≥30 paying users (including day passes); Pro monthly retention ≥40%; price-tracking activation ≥25%; backend cost stays within revenue (no net loss); dead-link detect-to-fix under 48 hours."
+    }
+   },
+   {
+    "phase": {
+     "zh": "第三階段:B2B 白牌與內容護城河",
+     "en": "Phase 3: B2B White-Label & Content Moat"
+    },
+    "timeframe": {
+     "zh": "90–180 天",
+     "en": "Days 90–180"
+    },
+    "steps": {
+     "zh": "1. 把整套打包成可換 logo/資料的白牌版,做一份 1 頁銷售說明＋ demo。\n2. 主動接觸 5–10 家二手電腦維修店、2–3 個長照/社大數位課程單位提案。\n3. 持續擴充防詐衛教內容(詐術圖解、平台金流保障比較、賣家黑名單),強化 SEO 與『防詐知識站』定位。\n4. 依第二階段數據決定:Pro 留存若太差,把資源全押 B2B;若 C 端意外有黏著,才加碼 C 端。\n5. 把賣家信用報告的資料來源做半自動快照,降低人工維護。",
+     "en": "1. Package the stack as a re-brandable white-label with a one-page sell sheet and a demo.\n2. Proactively pitch 5–10 second-hand PC repair shops and 2–3 elder-care / community-college digital programs.\n3. Keep expanding anti-scam content (scam-tactic explainers, platform payment-protection comparisons, seller blocklists) to strengthen SEO and the \"anti-scam knowledge hub\" position.\n4. Let Phase 2 data decide: if Pro retention is weak, pivot resources fully to B2B; only double down on consumer if stickiness surprises on the upside.\n5. Semi-automate the seller-credit data snapshots to cut manual maintenance."
+    },
+    "kpi": {
+     "zh": "簽下 ≥ 2 個白牌客戶(含 1 個付費,1 個可為非營利優惠);白牌單客收入 > 全部 C 端三個月總和;SEO 自然流量月增 ≥ 30%;整體月營收 ≥ 後端＋網域成本的 3 倍,確認專案能自給。",
+     "en": "Sign ≥2 white-label clients (at least 1 paying, 1 may be a discounted non-profit); per-client white-label revenue exceeds three months of total consumer revenue; organic SEO traffic up ≥30% month-over-month; total monthly revenue ≥3× backend + domain cost, confirming the project is self-sustaining."
+    }
+   },
+   {
+    "phase": {
+     "zh": "第四階段:取捨與止損",
+     "en": "Phase 4: Decide, Double-Down or Wind-Down"
+    },
+    "timeframe": {
+     "zh": "180 天後",
+     "en": "After Day 180"
+    },
+    "steps": {
+     "zh": "1. 攤開六個月數據,誠實判斷:這是『養得活的小生意』還是『該保持免費公益的工具』。\n2. 若 B2B 跑得通——專注白牌,把 C 端 Pro 收掉或維持低維護模式。\n3. 若全都跑不起來——坦然承認靜態免費工具的天花板,把它定位成『不賺錢但持續維護的防詐公益站』,只靠贊助與分潤養網域,並開源讓社群接手。\n4. 不論結果,維持核心防詐功能永久免費的承諾——這是當初為長輩做的初衷,不因變現失敗而背棄。",
+     "en": "1. Lay out six months of data and judge honestly: is this a viable small business, or a tool that should stay a free public good?\n2. If B2B works — focus on white-label, sunset or low-maintenance the consumer Pro.\n3. If nothing scales — accept the ceiling of a free static tool, reposition it as a \"non-profit anti-scam hub that's maintained but doesn't earn,\" funded only by donations and affiliate for the domain bill, and open-source it for the community to carry.\n4. Either way, keep the promise that core anti-scam features stay free forever — that was the whole point of building it for elders, and a failed monetization doesn't justify breaking it."
+    },
+    "kpi": {
+     "zh": "明確的 go/no-go 決策有數據支撐;若續做,12 個月可見正現金流路徑;若收斂,核心防詐功能仍免費上線且有人(社群或維護者)接手。",
+     "en": "A clear, data-backed go/no-go decision; if continuing, a visible path to positive cash flow within 12 months; if winding down, core anti-scam features remain live and free with a maintainer or community successor in place."
+    }
+   }
+  ]
+ },
+ "guide": {
+  "quickstart": [
+   {
+    "zh": "右上角先選 🌙／☀️ 切換深色或淺色,看哪個順眼。六大功能在頂部分頁列,點一下就切換。",
+    "en": "Top-right, tap the moon/sun to pick dark or light mode. The six tabs sit in the top bar; tap one to switch."
+   },
+   {
+    "zh": "【🔎 詢價比價】在搜尋框輸入型號(例:i7-6700、H110M-K D3),下方 10 大平台卡片即時帶入連結;按「一鍵全開」會同時開啟所有平台的搜尋頁。",
+    "en": "[Search & Compare] Type a model (e.g. i7-6700, H110M-K D3) in the box; the 10 platform cards update their links instantly. 'Open All' launches every platform's search page at once."
+   },
+   {
+    "zh": "【🔎 詢價比價】上方有「台灣／國際整新」篩選鈕,只開某類平台。下方常買零件分類(CPU、主機板、記憶體…)點一下自動填關鍵字。",
+    "en": "[Search & Compare] Use the Taiwan / International-refurbished filter to limit which platforms open. Tap a part category (CPU, motherboard, RAM…) to auto-fill the keyword."
+   },
+   {
+    "zh": "【🔎 詢價比價】可「載入 LINE 對話 txt」自動抓出對話裡的型號;「⭐ 一鍵比價書籤」拖到瀏覽器書籤列,以後在任何頁面點它就能比價。底部有防詐鐵則與可一鍵複製的詢價範本。",
+    "en": "[Search & Compare] Load a LINE chat .txt to auto-extract models mentioned; drag the 'Compare bookmarklet' to your bookmarks bar to compare from any page later. The anti-scam rules and a copy-ready inquiry template are at the bottom."
+   },
+   {
+    "zh": "【✅ 精選賣家】列出露天實查的高評價賣家(含帳號),點直達該賣場;下方兩張賣價對照表 PNG 可看單買主機板與整套板U的行情。",
+    "en": "[Trusted Sellers] Lists vetted high-rating Ruten sellers (with account IDs) linking straight to their stores; two price-table images below show going rates for boards alone and full board+CPU+RAM bundles."
+   },
+   {
+    "zh": "【🧩 規格相容】選 CPU、主機板、記憶體類型,按「檢查相容性」→ 立刻判斷腳位/晶片組世代/DDR3-D3 是否對得上;再勾零件按「產生比較表」做規格對照;下方附完整規格庫與相容規則。",
+    "en": "[Compatibility] Pick a CPU, motherboard, and RAM type, hit 'Check' to instantly verify socket / chipset generation / DDR3-vs-D3 match; tick parts and 'Generate table' for a spec comparison. Full spec library and rules are below."
+   },
+   {
+    "zh": "【📷 拍照找件】「上傳照片」或「開啟相機」留存零件照 → 在欄位輸入照片上看到的型號(晶片/主板絲印)→「拿去比價」自動帶去查相容＋比價;或按「Google Lens 以圖搜尋」。設定 AI 後才有「🤖 AI 辨識這張照片」自動讀型號。",
+    "en": "[Photo Finder] Upload a photo or open the camera to capture the part, then type the model you see on the chip/board silkscreen and hit 'Compare' to auto-check compatibility and pricing; or use 'Google Lens' for image search. The '🤖 AI-recognize this photo' button only works after you connect AI."
+   },
+   {
+    "zh": "【📊 商業分析】預設顯示本系統的波特五力雷達圖、商業模式圖 BMC、SWOT。按「⬇️ 下載 PPT」匯出 4 頁簡報(純前端)。輸入任意標的按「動態產生」需先設定 AI。",
+    "en": "[Business Analysis] Shows this system's Porter Five Forces radar, Business Model Canvas, and SWOT by default. '⬇️ Download PPT' exports a 4-slide deck (client-side). 'Generate' for a custom subject requires AI to be connected first."
+   },
+   {
+    "zh": "【💬 FAQ客服】在輸入框問「DDR3L 能用嗎」「賣家叫我取消」「嗶兩聲沒畫面」等,未設定 AI 用知識庫關鍵字比對(15 題);下方常見問題可點開看答案。設定 AI 後升級成真 AI 客服,連線失敗自動退回規則式。",
+    "en": "[FAQ Support] Ask things like 'can I use DDR3L', 'seller told me to cancel', 'two beeps no display'. Without AI it keyword-matches a 15-item knowledge base; the FAQ list below expands on tap. With AI connected it becomes a real AI agent, falling back to rules if the connection fails."
+   },
+   {
+    "zh": "【⚙️ 接 AI(選配)】右上 ⚙️ 貼上你的 Cloudflare Worker 代理網址,按「儲存」再「測試連線」。成功後 FAQ 變真 AI、拍照能自動辨識、商業分析可動態產生。留空則一切用誠實的規則式/手動版,網站照常可用。",
+    "en": "[⚙️ Connect AI (optional)] Tap the top-right gear, paste your Cloudflare Worker proxy URL, hit 'Save' then 'Test'. Once connected, FAQ becomes real AI, photos auto-recognize, and business analysis generates dynamically. Leave it blank and everything runs on the honest rule-based/manual version — the site works fine either way."
+   }
+  ],
+  "eli15": {
+   "zh": "想買二手電腦零件最怕兩件事:一是不知道哪裡最便宜,二是被賣家騙(像標錯價又反悔、或拿中國拆機貨充新)。這個網站幫你一次解決:打進型號,它就同時打開全球前 10 大二手平台的搜尋頁讓你比價;還會幫你檢查零件能不能裝在一起(像 i7-6700 配 H110M-K D3 要用 DDR3 不是 DDR4)、教你怎麼問賣家不被坑、用 AI 幫你回答防詐問題。它不賣東西、不經手錢、也不偷存假價格——只是個誠實的『比價＋防詐』入口。這門生意的起點,是有人幫長輩買零件被賣家標錯價又反悔,氣不過才做了這個專門保護不懂電腦的人的工具。",
+   "en": "Buying second-hand PC parts has two big fears: not knowing where it's cheapest, and getting scammed (a seller backing out of a 'mistaken' price, or passing off China-pulled parts as new). This site fixes both: type a model and it opens the search pages of the world's top 10 second-hand platforms at once so you can compare; it also checks whether parts fit together (e.g. an i7-6700 with an H110M-K D3 needs DDR3, not DDR4), teaches you how to question sellers without getting burned, and uses AI to answer anti-scam questions. It sells nothing, handles no money, and never fakes cached prices — it's just an honest 'compare + anti-scam' gateway. The whole thing started because someone helping an elder buy parts got jerked around by a seller's 'mispriced' backpedal, and built a tool to protect people who don't know computers."
+  },
+  "examples": [
+   {
+    "scenario": {
+     "zh": "幫長輩升級舊文書機:手上有顆 i7-6700 想沿用,要買一張二手主機板,但不確定該配什麼板、記憶體買哪種。",
+     "en": "Upgrading an elder's old office PC: keeping an existing i7-6700, buying a used motherboard, but unsure which board and which RAM to get."
+    },
+    "walkthrough": {
+     "zh": "先到【🧩 規格相容】,CPU 選 i7-6700、主機板選『華碩 H110M-K D3』、記憶體選 DDR3L,按「檢查相容性」→ 系統顯示相容(LGA1151＋100 系列＋D3 板吃 DDR3/DDR3L)。再到【🔎 詢價比價】輸入「H110M-K D3 主機板」按「一鍵全開」比價,或到【✅ 精選賣家】直達桀鑫電腦(js3c0800)、JULE 3C(jule1087)等實查的 H110 D3 高評價賣場。下單前到【🔎 詢價比價】底部複製詢價範本,白紙黑字問賣家『LGA1151＋DDR3L、頁面價=成交價、可貨到付款驗機嗎』。",
+     "en": "Go to [Compatibility]: pick CPU i7-6700, board 'ASUS H110M-K D3', RAM DDR3L, hit 'Check' → it confirms compatible (LGA1151 + 100-series + D3 board takes DDR3/DDR3L). Then in [Search & Compare] type 'H110M-K D3 主機板' and 'Open All' to compare, or use [Trusted Sellers] to jump straight to vetted H110-D3 stores like 桀鑫 (js3c0800) or JULE 3C (jule1087). Before ordering, copy the inquiry template at the bottom of [Search & Compare] and confirm in writing: 'LGA1151 + DDR3L, page price = final price, cash-on-delivery with inspection?'"
+    }
+   },
+   {
+    "scenario": {
+     "zh": "賣家標錯價,下單後傳訊叫我自己取消訂單;另一筆貨到付款的板子寄到,開機嗶兩聲、沒畫面。",
+     "en": "A seller mispriced an item and, after the order, messaged asking me to cancel it myself; separately, a cash-on-delivery board arrived and beeps twice with no display on boot."
+    },
+    "walkthrough": {
+     "zh": "到【💬 FAQ客服】直接問「賣家叫我取消怎麼辦」→ 系統答:別自己按取消,要求賣家以『賣家因素』取消、全程截圖,否則被記到你帳上。再問「嗶兩聲沒畫面」→ 給出排查步驟:斷電重插單條記憶體到第一插槽、橡皮擦擦金手指、清 CMOS、確認 24pin＋8pin 都插滿,多半是記憶體沒過 POST 而非板子壞。因為是貨到付款,真不行就『拒收』不簽收,零損失。設定 AI 後同樣問題會由真 AI 客服更完整地回。",
+     "en": "In [FAQ Support] ask 'seller told me to cancel' → it answers: don't hit cancel yourself, make the seller cancel as 'seller's fault', screenshot everything, or it counts against your record. Then ask 'two beeps no display' → it gives a checklist: power off and reseat a single RAM stick in the first slot, eraser-clean the contacts, clear CMOS, confirm both 24-pin and 8-pin are connected — usually RAM failing POST, not a dead board. Since it's cash-on-delivery, just 'refuse the delivery' if it's truly bad — zero loss. With AI connected, the same questions get fuller real-AI answers."
+    }
+   },
+   {
+    "scenario": {
+     "zh": "想換一台新一點的省電主機,看上 i5-9400F,但不確定能不能裝在現有的 H110 主機板上,還想買整套板U。",
+     "en": "Wanting a newer, power-efficient build around an i5-9400F, unsure if it fits an existing H110 board, and considering a full board+CPU bundle."
+    },
+    "walkthrough": {
+     "zh": "到【🧩 規格相容】CPU 選 i5-9400F、主機板選『華碩 H110M-K D3』按「檢查相容性」→ 系統判定不相容:i5-9400F 是第九代,只吃 300 系列晶片組(B360/B365),H110 是 100 系列裝不上,且 9400F 尾碼 F 沒內顯、必須另配獨顯。改選技嘉 B365M 才相容、記憶體要 DDR4。確認規格後到【🔎 詢價比價】輸入「i5-9400F」比價,或到【✅ 精選賣家】看『二手板U套前10名』賣價對照表抓行情,再挑高評價賣家貨到付款。",
+     "en": "In [Compatibility] pick CPU i5-9400F and board 'ASUS H110M-K D3', hit 'Check' → it flags incompatible: the i5-9400F is 9th-gen needing a 300-series chipset (B360/B365), the H110 is 100-series and won't fit; plus the 'F' suffix means no integrated graphics, so a discrete GPU is required. Switch the board to a GIGABYTE B365M for compatibility, with DDR4 RAM. Once specs check out, go to [Search & Compare], type 'i5-9400F' to compare, or use [Trusted Sellers] to read the 'top-10 board+CPU bundle' price table for going rates, then pick a high-rating seller with cash-on-delivery."
+    }
+   }
+  ]
+ },
+ "flows": {
+  "flows": [
+   {
+    "title": {
+     "zh": "二手電腦零件購買旅程",
+     "en": "Used PC Parts Buying Journey"
+    },
+    "desc": {
+     "zh": "從決定要買到貨到付款驗收的完整路徑。先把確切型號查清楚,再一鍵跳全球前十大二手與整新平台做真實比價;接著用相容性檢查確認零件能裝進你的機器——這是分流點,不相容就回頭換型號,而不是硬買。確認相容後,挑出貨紀錄與評價可信的賣家,優先選貨到付款,當面開箱驗貨無誤再付錢。整條流程的設計原則是「先比價、後相容、再信任、最後驗收」,把長輩最容易踩的坑(買錯規格、被標錯價誘導、付款後收不到貨)各設一道關卡。",
+     "en": "The full path from deciding to buy to inspecting on delivery. First pin down the exact model, then jump to the top-10 global used/refurbished platforms for a real price comparison. Next, run a compatibility check to confirm the part fits your machine — this is the branch point: if it doesn't fit, go back and pick another model rather than forcing the purchase. Once compatible, shortlist sellers with solid shipping history and ratings, prefer cash-on-delivery, and only pay after inspecting the item in person. The design principle is compare first, confirm fit, then trust, then verify — placing a checkpoint at each pitfall elders fall into (wrong spec, bait pricing, paying before receiving)."
+    },
+    "nodes": [
+     {
+      "id": "start",
+      "label": {
+       "zh": "想買零件",
+       "en": "Want a part"
+      },
+      "type": "start"
+     },
+     {
+      "id": "model",
+      "label": {
+       "zh": "確認型號",
+       "en": "Confirm model"
+      },
+      "type": "process"
+     },
+     {
+      "id": "compare",
+      "label": {
+       "zh": "一鍵全球比價",
+       "en": "One-click price compare"
+      },
+      "type": "process"
+     },
+     {
+      "id": "compat",
+      "label": {
+       "zh": "相容嗎?",
+       "en": "Compatible?"
+      },
+      "type": "decision"
+     },
+     {
+      "id": "reselect",
+      "label": {
+       "zh": "換型號",
+       "en": "Pick another"
+      },
+      "type": "process"
+     },
+     {
+      "id": "seller",
+      "label": {
+       "zh": "挑信任賣家",
+       "en": "Pick trusted seller"
+      },
+      "type": "process"
+     },
+     {
+      "id": "cod",
+      "label": {
+       "zh": "貨到付款驗收",
+       "en": "COD & inspect"
+      },
+      "type": "process"
+     },
+     {
+      "id": "done",
+      "label": {
+       "zh": "完成交易",
+       "en": "Deal done"
+      },
+      "type": "end"
+     }
+    ],
+    "edges": [
+     {
+      "from": "start",
+      "to": "model",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "model",
+      "to": "compare",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "compare",
+      "to": "compat",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "compat",
+      "to": "reselect",
+      "label": {
+       "zh": "否",
+       "en": "No"
+      }
+     },
+     {
+      "from": "reselect",
+      "to": "compare",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "compat",
+      "to": "seller",
+      "label": {
+       "zh": "是",
+       "en": "Yes"
+      }
+     },
+     {
+      "from": "seller",
+      "to": "cod",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "cod",
+      "to": "done",
+      "label": {
+       "zh": "驗收無誤",
+       "en": "Passes check"
+      }
+     }
+    ]
+   },
+   {
+    "title": {
+     "zh": "防詐決策流程",
+     "en": "Anti-Scam Decision Flow"
+    },
+    "desc": {
+     "zh": "遇到交易異常時的判斷與動作指南,專治三種常見話術:賣家說「標錯價、請你取消訂單」、付款後遲遲不出貨、或要你改用私下管道付款。核心判準只有一個——是否要求脫離平台保障(取消單、私下匯款、催你先付)。只要踩到這條紅線,一律不取消、不私下付款,直接保留對話與訂單截圖,循平台客服或消保管道申訴。第一個分流問「對方要你脫離平台保障嗎」,是→走檢舉自保;否則進第二個分流問「賣家正常出貨了嗎」,正常出貨就完成交易,逾期不出貨同樣轉申訴。原則:標錯價是賣家自己的風險,不該由買家吞;任何「先取消、再給你便宜」的說法都是把你推出保障傘外。",
+     "en": "A judgment-and-action guide for abnormal transactions, targeting three common scripts: the seller claims a 'pricing error, please cancel the order,' stalls on shipping after payment, or pushes you to pay through a private channel. There's one core test — does it ask you to leave the platform's protection (cancel the order, pay privately, pay upfront)? Cross that red line and the rule is fixed: don't cancel, don't pay privately; screenshot the chat and order, and file a complaint via platform support or consumer protection. The first branch asks 'are they pushing you off-platform?' — if yes, report and protect yourself; otherwise the second branch asks 'did the seller ship normally?' — normal shipping completes the deal, overdue shipping also routes to a complaint. Principle: a mispriced listing is the seller's own risk, not the buyer's to absorb; any 'cancel first, then I'll give you a deal' line is pushing you out from under the protection umbrella."
+    },
+    "nodes": [
+     {
+      "id": "start",
+      "label": {
+       "zh": "交易出現異常",
+       "en": "Transaction looks off"
+      },
+      "type": "start"
+     },
+     {
+      "id": "offplatform",
+      "label": {
+       "zh": "要你脫離平台保障?",
+       "en": "Pushed off-platform?"
+      },
+      "type": "decision"
+     },
+     {
+      "id": "keep",
+      "label": {
+       "zh": "截圖保留證據",
+       "en": "Screenshot evidence"
+      },
+      "type": "process"
+     },
+     {
+      "id": "report",
+      "label": {
+       "zh": "向平台/消保申訴",
+       "en": "Report to platform/CPA"
+      },
+      "type": "process"
+     },
+     {
+      "id": "shipped",
+      "label": {
+       "zh": "賣家正常出貨?",
+       "en": "Shipped normally?"
+      },
+      "type": "decision"
+     },
+     {
+      "id": "complete",
+      "label": {
+       "zh": "完成交易",
+       "en": "Complete deal"
+      },
+      "type": "end"
+     },
+     {
+      "id": "protected",
+      "label": {
+       "zh": "獲保障結案",
+       "en": "Resolved & protected"
+      },
+      "type": "end"
+     }
+    ],
+    "edges": [
+     {
+      "from": "start",
+      "to": "offplatform",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "offplatform",
+      "to": "keep",
+      "label": {
+       "zh": "是",
+       "en": "Yes"
+      }
+     },
+     {
+      "from": "keep",
+      "to": "report",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "report",
+      "to": "protected",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "offplatform",
+      "to": "shipped",
+      "label": {
+       "zh": "否",
+       "en": "No"
+      }
+     },
+     {
+      "from": "shipped",
+      "to": "complete",
+      "label": {
+       "zh": "是",
+       "en": "Yes"
+      }
+     },
+     {
+      "from": "shipped",
+      "to": "keep",
+      "label": {
+       "zh": "否",
+       "en": "No"
+      }
+     }
+    ]
+   },
+   {
+    "title": {
+     "zh": "零件相容性決策樹",
+     "en": "Part Compatibility Decision Tree"
+    },
+    "desc": {
+     "zh": "從你手上的零件一路判到「能不能裝」的結論,以記憶體為主軸示範最常見的世代誤判。第一步先確認類別與規格(腳位、世代)。第一個分流問「插槽腳位相符嗎」——例如 CPU 的 LGA1700 對主機板 LGA1700,腳位對不上直接判定不相容,免再往下。腳位相符後進第二個分流,問「記憶體世代相符嗎」,這裡專門擋 DDR3 對 DDR4:兩者缺口位置不同、電壓不同,外觀像但插不進去也不該硬插,世代不符同樣判不相容。兩關都過,才查 BIOS/晶片組支援清單做最後確認,通過即相容可安裝。原則:腳位與世代是硬性物理限制,先擋掉這兩個 90% 的退貨原因,再談細節支援。",
+     "en": "From the part in your hand to a clear 'will it fit' verdict, using memory as the worked example for the most common generational mix-up. Step one: confirm the category and spec (socket, generation). The first branch asks 'does the socket/pin layout match?' — e.g. a CPU's LGA1700 against an LGA1700 board; if pins don't match it's incompatible, no need to go further. Once pins match, the second branch asks 'does the memory generation match?', specifically to block DDR3 vs DDR4: the notch position and voltage differ, so they look alike but won't seat — and shouldn't be forced. A generation mismatch is also incompatible. Only after both gates do you check the BIOS/chipset support list for final confirmation; pass it and the part is compatible to install. Principle: socket and generation are hard physical limits — block these two (90% of returns) first, then worry about finer support details."
+    },
+    "nodes": [
+     {
+      "id": "start",
+      "label": {
+       "zh": "手上零件",
+       "en": "Part in hand"
+      },
+      "type": "start"
+     },
+     {
+      "id": "spec",
+      "label": {
+       "zh": "查類別與規格",
+       "en": "Check type & spec"
+      },
+      "type": "process"
+     },
+     {
+      "id": "socket",
+      "label": {
+       "zh": "腳位相符?",
+       "en": "Socket matches?"
+      },
+      "type": "decision"
+     },
+     {
+      "id": "gen",
+      "label": {
+       "zh": "世代相符?(DDR3/DDR4)",
+       "en": "Gen matches? (DDR3/DDR4)"
+      },
+      "type": "decision"
+     },
+     {
+      "id": "incompat",
+      "label": {
+       "zh": "不相容",
+       "en": "Incompatible"
+      },
+      "type": "end"
+     },
+     {
+      "id": "bios",
+      "label": {
+       "zh": "查支援清單",
+       "en": "Check support list"
+      },
+      "type": "process"
+     },
+     {
+      "id": "compat",
+      "label": {
+       "zh": "相容可安裝",
+       "en": "Compatible"
+      },
+      "type": "end"
+     }
+    ],
+    "edges": [
+     {
+      "from": "start",
+      "to": "spec",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "spec",
+      "to": "socket",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     },
+     {
+      "from": "socket",
+      "to": "incompat",
+      "label": {
+       "zh": "否",
+       "en": "No"
+      }
+     },
+     {
+      "from": "socket",
+      "to": "gen",
+      "label": {
+       "zh": "是",
+       "en": "Yes"
+      }
+     },
+     {
+      "from": "gen",
+      "to": "incompat",
+      "label": {
+       "zh": "否",
+       "en": "No"
+      }
+     },
+     {
+      "from": "gen",
+      "to": "bios",
+      "label": {
+       "zh": "是",
+       "en": "Yes"
+      }
+     },
+     {
+      "from": "bios",
+      "to": "compat",
+      "label": {
+       "zh": "",
+       "en": ""
+      }
+     }
+    ]
+   }
+  ]
+ }
+}
