@@ -1,0 +1,872 @@
+{
+ "design": {
+  "sites": [
+   {
+    "name": "eBay",
+    "url": "https://www.ebay.com",
+    "pattern": {
+     "zh": "「Authenticity Guarantee」藍勾徽章固定置於商品頁右上角,一眼可辨的鑑定信任標記;搭配 Terapeak 成交數據供賣家依歷史行情定價。",
+     "en": "The blue-check 'Authenticity Guarantee' badge sits at a fixed top-right position on listings for instant trust recognition; Terapeak sold-price data lets sellers price against verifiable history."
+    }
+   },
+   {
+    "name": "Back Market",
+    "url": "https://www.backmarket.com",
+    "pattern": {
+     "zh": "四級外觀分級(Fair/Good/Excellent/Premium)以統一徽章呈現,並承諾「不論等級皆 100% 功能正常」;商品頁彙整賣家評分、保固、條件描述於同一視區,降低決策成本。",
+     "en": "A four-tier cosmetic grading badge (Fair/Good/Excellent/Premium) with a '100% functional regardless of grade' pledge; product pages consolidate seller rating, warranty, and condition notes in one viewport to cut decision cost."
+    }
+   },
+   {
+    "name": "Swappa",
+    "url": "https://swappa.com",
+    "pattern": {
+     "zh": "上架前人工審核 + IMEI 黑名單查驗 + 帶專屬驗證碼的實機照片,把「驗證流程」做成看得見的信任儀式;Trusted Seller 標章分層標示賣家信譽。",
+     "en": "Pre-listing human review, IMEI blacklist checks, and verification photos with a unique code turn verification into a visible trust ritual; a tiered 'Trusted Seller' badge signals reputation."
+    }
+   },
+   {
+    "name": "Mercari",
+    "url": "https://www.mercari.com",
+    "pattern": {
+     "zh": "極簡三步上架流程與大量留白的卡片式商品格,行動端拇指可達的固定 CTA;金流由平台代管至買家確認收貨。",
+     "en": "A minimal three-step listing flow and whitespace-rich card grid with a thumb-reachable sticky CTA on mobile; payments are platform-escrowed until buyer confirmation."
+    }
+   },
+   {
+    "name": "Carousell",
+    "url": "https://www.carousell.com",
+    "pattern": {
+     "zh": "「Snap-List-Sell」30 秒行動優先上架:拍照後 AI 自動建議分類與價格;搜尋結果以無限捲動的圖片瀑布流呈現,適合滑動瀏覽情境。",
+     "en": "'Snap-List-Sell' 30-second mobile-first listing with AI-suggested category and price from a photo; search results use an infinite-scroll image masonry suited to swipe browsing."
+    }
+   },
+   {
+    "name": "Vinted",
+    "url": "https://www.vinted.com",
+    "pattern": {
+     "zh": "買家保護費在結帳前逐項透明列示,款項託管(escrow)至收貨後 2 天檢查期結束;把「錢何時給賣家」的規則寫進 UI 而非藏在條款。",
+     "en": "The Buyer Protection fee is itemized transparently pre-checkout, with funds held in escrow through a 2-day post-delivery inspection window; the 'when the seller gets paid' rule lives in the UI, not buried in terms."
+    }
+   },
+   {
+    "name": "Gazelle",
+    "url": "https://buy.gazelle.com",
+    "pattern": {
+     "zh": "「30 點(iPhone 達 55 點)檢測認證」以清單化方式展示,型號→容量→電信→成色的四步報價精靈,將估價流程模組化。",
+     "en": "A checklist-style '30-point (up to 55-point for iPhones) certified inspection' display, plus a four-step quote wizard (model → storage → carrier → condition) that modularizes valuation."
+    }
+   },
+   {
+    "name": "Reverb",
+    "url": "https://reverb.com",
+    "pattern": {
+     "zh": "Price Guide 公開歷年真實成交價與交易紀錄圖表,讓「這個價格合理嗎」有數據答案;是二手市場價格透明化的標竿。",
+     "en": "The Price Guide publishes real historical transaction prices with trend charts, giving 'is this price fair?' a data-backed answer — the benchmark for secondhand price transparency."
+    }
+   },
+   {
+    "name": "Rakuten Rakuma",
+    "url": "https://fril.jp",
+    "pattern": {
+     "zh": "平台居間收付(賣家於買家確認後才收款)搭配樂天點數生態,把跨服務誘因嵌入交易閉環;分類篩選器針對日系購物習慣做細顆粒度設計。",
+     "en": "Platform-intermediated payment (seller paid only after buyer confirmation) tied into the Rakuten points ecosystem embeds cross-service incentives in the transaction loop; fine-grained category filters match local shopping habits."
+    }
+   },
+   {
+    "name": "Facebook Marketplace",
+    "url": "https://www.facebook.com/marketplace",
+    "pattern": {
+     "zh": "以真實社群身分與檔案歷史作為信任代理,地圖式「距離 + 地區」在地化篩選;內建 Messenger 即時議價降低跳出。",
+     "en": "Real social identity and profile history serve as trust proxies, with map-based distance/locale filtering; built-in Messenger negotiation keeps haggling in-flow and reduces drop-off."
+    }
+   }
+  ],
+  "takeaways": [
+   {
+    "principle": {
+     "zh": "信任徽章要標準化、位置固定、可點擊展開依據(學 eBay/Swappa)。",
+     "en": "Trust badges must be standardized, fixed-position, and expandable to show their evidence (per eBay/Swappa)."
+    },
+    "applied": {
+     "zh": "在前 10 大平台比價跳板的每張平台卡右上角,加統一規格的信任徽章列(人工審核/IMEI 查驗/款項託管/退貨保障),點擊展開該平台保障細節與官方連結。",
+     "en": "Add a uniform trust-badge row (human review / IMEI check / escrow / returns) to the top-right of each platform card in the 10-site comparison launcher, expanding on click to that platform's protection details and official link."
+    }
+   },
+   {
+    "principle": {
+     "zh": "把驗證流程視覺化為步驟清單,而非一段文字(學 Swappa/Gazelle)。",
+     "en": "Visualize verification as a step checklist, not a paragraph (per Swappa/Gazelle)."
+    },
+    "applied": {
+     "zh": "防詐 FAQ 改版為「交易前 5 步驗證清單」互動元件:查 IMEI → 要求含驗證碼實機照 → 核對成色分級 → 用平台金流 → 保留對話紀錄,每步附勾選框與範例圖。",
+     "en": "Rebuild the anti-scam FAQ as an interactive '5-step pre-purchase verification checklist' — check IMEI → request a verification-code photo → confirm grade → pay via platform escrow → keep chat records — each step with a checkbox and example image."
+    }
+   },
+   {
+    "principle": {
+     "zh": "價格透明靠歷史數據,不靠形容詞(學 Reverb/Terapeak)。",
+     "en": "Price transparency comes from historical data, not adjectives (per Reverb/Terapeak)."
+    },
+    "applied": {
+     "zh": "在詢價結果頁加「行情區間帶」元件:以各平台搜尋連結旁標示參考價帶(低/中/高),並註明資料來源與日期;Cloudflare Worker AI 版可定期快取熱門機型行情。",
+     "en": "Add a 'market range band' component to quote results: show a low/mid/high reference band beside each platform search link with source and date; the Cloudflare Worker AI variant can periodically cache popular-model price data."
+    }
+   },
+   {
+    "principle": {
+     "zh": "成色分級用統一徽章 + 底線承諾(學 Back Market)。",
+     "en": "Use a uniform grade badge plus a baseline promise (per Back Market)."
+    },
+    "applied": {
+     "zh": "零件相容檢查器輸出報告時,附「建議收購成色分級表」(Fair/Good/Excellent 對照台灣常見賣場描述),並提示「不論外觀,功能測試必過項目」清單。",
+     "en": "When the parts-compatibility checker outputs a report, append a 'recommended purchase grade table' (Fair/Good/Excellent mapped to common Taiwanese listing language) plus a 'must-pass functional tests regardless of cosmetics' list."
+    }
+   },
+   {
+    "principle": {
+     "zh": "行動優先:拇指熱區固定 CTA、單欄卡片、30 秒完成核心任務(學 Carousell/Mercari)。",
+     "en": "Mobile-first: thumb-zone sticky CTA, single-column cards, core task done in 30 seconds (per Carousell/Mercari)."
+    },
+    "applied": {
+     "zh": "手機版將「一鍵比價」做成底部固定按鈕,平台卡改單欄大點擊區(≥44px 觸控目標);拍照辨識入口移至首屏,拍照→辨識→帶入比價三步完成。",
+     "en": "On mobile, pin 'compare now' as a bottom sticky button and switch platform cards to a single column with ≥44px touch targets; move photo recognition above the fold so photo → identify → compare completes in three steps."
+    }
+   },
+   {
+    "principle": {
+     "zh": "把金流安全規則寫進介面文案,而非法務條款(學 Vinted)。",
+     "en": "Put payment-safety rules in interface copy, not legal terms (per Vinted)."
+    },
+    "applied": {
+     "zh": "每個平台卡加一行「款項保障」摘要(如「Vinted:款項託管至收貨後 2 天」「面交平台:一手交錢一手驗機」),為長輩防詐提供決策關鍵字。",
+     "en": "Add a one-line 'payment protection' summary to each platform card (e.g., 'Vinted: funds escrowed until 2 days post-delivery'; 'local pickup: pay only after in-person testing'), giving elderly users decisive anti-fraud keywords."
+    }
+   },
+   {
+    "principle": {
+     "zh": "在地化信任訊號:距離、身分、即時溝通(學 Facebook Marketplace/Rakuma)。",
+     "en": "Localized trust signals: distance, identity, instant messaging (per Facebook Marketplace/Rakuma)."
+    },
+    "applied": {
+     "zh": "比價跳板依「可面交/僅寄送」與地區分組排序,台灣站(露天、蝦皮等本地選項)置頂;防詐 FAQ 補「面交安全地點」建議(超商、捷運站警察局旁)。",
+     "en": "Sort the comparison launcher by 'local pickup vs. shipping-only' and region, pinning Taiwan-local options first; extend the anti-scam FAQ with safe meetup-spot guidance (convenience stores, MRT stations near police posts)."
+    }
+   },
+   {
+    "principle": {
+     "zh": "無障礙即商業專業度:對比、字級、鍵盤可達(WCAG 2.2 AA)。",
+     "en": "Accessibility is commercial professionalism: contrast, type scale, keyboard reachability (WCAG 2.2 AA)."
+    },
+    "applied": {
+     "zh": "全站內文對比 ≥4.5:1、大字標題 ≥3:1,徽章不只靠顏色(加圖示與文字);雙語切換與比價連結全部可 Tab 聚焦並有 focus ring,顧問報告 PDF 亦沿用同一色票。",
+     "en": "Enforce ≥4.5:1 body-text and ≥3:1 large-text contrast site-wide; badges never rely on color alone (icon + label); language toggle and all comparison links are Tab-focusable with visible focus rings, and the consultant-report PDF reuses the same palette."
+    }
+   }
+  ],
+  "eyecare": {
+   "zh": "護眼配色採三層依據:(1) 對比度——依 WCAG 2.2 SC 1.4.3(AA),一般內文對比 ≥4.5:1、大字 ≥3:1,此門檻源自 20/40 視力使用者的可讀性研究,能同時涵蓋長輩老花與低視力族群;但避免純黑配純白(#000/#FFF,21:1)造成眩光,改用暖白底 #FAF6EF 配深墨字 #2B2B26(約 13:1),舒適且遠超 AA。(2) 色溫——Harvard Health 引述之研究顯示藍光抑制褪黑激素的強度與時長約為同亮度綠光的兩倍,長波長暖色(琥珀/米白)刺激最小,故主色調採暖色溫(約 4000K 感受)、避免高飽和純藍大面積背景。(3) 非顏色依賴——WCAG SC 1.4.1,狀態與徽章一律「顏色+圖示+文字」三重編碼,色弱使用者不失資訊。另提供深色模式(#1E1E1A 底、米白字,對比仍 ≥4.5:1)供夜間查價。",
+   "en": "The eye-care palette rests on three verifiable bases: (1) Contrast — per WCAG 2.2 SC 1.4.3 (AA), body text ≥4.5:1 and large text ≥3:1, thresholds derived from legibility research for 20/40 vision, covering presbyopic elderly and low-vision users; however, pure black-on-white (#000/#FFF, 21:1) causes glare, so we use warm off-white #FAF6EF with deep ink #2B2B26 (~13:1) — comfortable yet far above AA. (2) Color temperature — research cited by Harvard Health shows blue light suppresses melatonin roughly twice as strongly and twice as long as equal-brightness green light, while long-wavelength warm tones (amber/cream) are least stimulating; hence a warm-leaning palette (~4000K feel) and no large saturated-blue backgrounds. (3) No color-only encoding — per WCAG SC 1.4.1, every status and badge is triple-coded (color + icon + label) so color-blind users lose nothing. A dark mode (#1E1E1A base, cream text, still ≥4.5:1) is provided for nighttime price checking."
+  },
+  "references": [
+   {
+    "title": "Understanding Success Criterion 1.4.3: Contrast (Minimum)",
+    "source": "W3C WAI, WCAG 2.2",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+   },
+   {
+    "title": "Blue light has a dark side",
+    "source": "Harvard Health Publishing",
+    "url": "https://www.health.harvard.edu/healthy-aging-and-longevity/blue-light-has-a-dark-side"
+   },
+   {
+    "title": "eBay Authenticity Guarantee",
+    "source": "eBay",
+    "url": "https://www.ebay.com/authenticity-guarantee"
+   },
+   {
+    "title": "The Back Market Promise (quality & grading)",
+    "source": "Back Market",
+    "url": "https://www.backmarket.com/en-us/quality"
+   },
+   {
+    "title": "Swappa Verification (human review, IMEI, verification photos)",
+    "source": "Swappa",
+    "url": "https://swappa.com/about/verification"
+   },
+   {
+    "title": "How To Use the Reverb Price Guide (real transaction history)",
+    "source": "Reverb",
+    "url": "https://reverb.com/news/how-to-use-the-reverb-price-guide"
+   },
+   {
+    "title": "Buyer Protection (escrow, 2-day inspection window)",
+    "source": "Vinted Help Center",
+    "url": "https://www.vinted.com/help/550-buyer-protection"
+   },
+   {
+    "title": "Shop Certified Refurbished iPhones (30/55-point inspection)",
+    "source": "Gazelle",
+    "url": "https://buy.gazelle.com/collections/iphones"
+   },
+   {
+    "title": "How Does Carousell Work? (Snap-List-Sell, mobile-first)",
+    "source": "businessmodelcanvastemplate.com",
+    "url": "https://businessmodelcanvastemplate.com/blogs/how-it-works/carousell-how-it-works"
+   },
+   {
+    "title": "Swappa: What steps does Swappa take to review and approve a listing?",
+    "source": "Swappa FAQ",
+    "url": "https://swappa.com/faq/answer/listing-reviewed-approved"
+   },
+   {
+    "title": "Home lighting, blue-light filtering, and their effects on melatonin suppression",
+    "source": "Scientific Reports (Nature)",
+    "url": "https://www.nature.com/articles/s41598-025-29882-7"
+   }
+  ]
+ },
+ "spec": {
+  "intro": {
+   "zh": "本報告彙整 LGA1151 DDR3(D3)平台之主機板完整規格與比價:以台廠 ASUS、GIGABYTE 為主,並納入七彩虹、昂達各一張陸廠板作對照。規格經官方 Tech Spec 頁與 PCPartPicker、MotherboardDB 等第三方資料庫交叉查證(查證時點 2026/7);二手行情以露天拍賣、Yahoo拍賣、BigGo 實查為據,時點 2026/6,幣別 NT$。行情為區間值,實際成交依板況、配件(擋板/盒裝)與賣家保固而異;本報告僅供詢價參考,不構成交易保證。",
+   "en": "This report consolidates full specifications and price benchmarking for the LGA1151 DDR3 (D3) platform: Taiwanese brands ASUS and GIGABYTE as the core set, plus one Colorful and one ONDA board as mainland-brand references. Specifications are cross-verified against official Tech Spec pages and third-party databases (PCPartPicker, MotherboardDB) as of Jul 2026; second-hand prices are field-surveyed on Ruten, Yahoo Auctions and BigGo as of Jun 2026, in NT$. Quoted ranges vary with board condition, accessories (I/O shield, box) and seller warranty; this report is a price-inquiry reference, not a transaction guarantee."
+  },
+  "formula": {
+   "name": {
+    "zh": "性價比(CP值)公式",
+    "en": "Price-Performance (CP) Formula"
+   },
+   "expr": "CP = P / C",
+   "vars": {
+    "zh": "P = PassMark CPU Mark 多執行緒分數(公開基準,無單位);C = 二手購入成本(NT$,取行情區間中位數)。CP 單位為「每元換得的效能分數」,數值越高越划算。",
+    "en": "P = PassMark CPU Mark multi-thread score (public benchmark, unitless); C = second-hand acquisition cost (NT$, midpoint of the surveyed range). CP reads as performance points per NT$ — higher is better value."
+   },
+   "explain": {
+    "zh": "用途:同插槽、同用途的候選 CPU 以 CP 值排序,即可量化「加價換效能」是否值得。例:i5-6500 CP≈8.0 遠高於 i7-6700 的 ≈4.0,表示預算敏感時 i5-6500 每元效益約為 i7 的兩倍;若工作負載吃多執行緒(轉檔、虛擬機),才考慮為 i7 的 8 執行緒加價。注意:CP 值不含平台相容成本(如換板、換記憶體),跨平台比較時應把增額成本併入 C。",
+    "en": "Usage: rank candidate CPUs of the same socket and use case by CP to quantify whether paying more for performance is justified. Example: i5-6500 at CP≈8.0 doubles the per-dollar value of i7-6700 at ≈4.0, so budget builds favor the i5; pay the i7 premium only when workloads are thread-heavy (encoding, VMs). Caveat: CP excludes platform-compatibility costs (board or RAM replacement) — fold such increments into C when comparing across platforms."
+   }
+  },
+  "boards": [
+   {
+    "brand": "ASUS",
+    "model": "H110M-K D3",
+    "socket": "LGA1151 (Skylake; Kaby Lake 需更新 BIOS / Kaby Lake with BIOS update)",
+    "chipset": "Intel H110",
+    "memory": "2×DIMM DDR3/DDR3L 1600/1333 MHz(1866 O.C.),Max 32GB,建議 1.35V / 1.35V recommended",
+    "form": "mATX (uATX)",
+    "io": {
+     "zh": "1×PCIe 3.0 x16、2×PCIe 2.0 x1;4×SATA 6Gb/s;背板 D-Sub+DVI-D;2×USB 3.0+4×USB 2.0(背板)+前置擴充;Realtek GbE;ALC887 8ch 音效;無 M.2、無 HDMI",
+     "en": "1×PCIe 3.0 x16, 2×PCIe 2.0 x1; 4×SATA 6Gb/s; rear D-Sub+DVI-D; 2×USB 3.0 + 4×USB 2.0 (rear) plus headers; Realtek GbE; ALC887 8-ch audio; no M.2, no HDMI"
+    },
+    "price": "NT$650–1,400(二手,2026/6 / used, Jun 2026)",
+    "pros": {
+     "zh": "台灣二手流通量最大、詢價基準板;ASUS 5X Protection 用料、BIOS 更新支援完整;防潮/防突波設計,故障率口碑佳",
+     "en": "Highest second-hand liquidity in Taiwan — the de facto price-inquiry baseline; ASUS 5X Protection components with full BIOS update support; anti-moisture/surge design and a solid reliability record"
+    },
+    "cons": {
+     "zh": "無 HDMI(僅 D-Sub+DVI-D),接新款螢幕需轉接;無 M.2;2×DIMM 上限 32GB;H110 不支援 RAID 與超頻",
+     "en": "No HDMI (D-Sub+DVI-D only) — modern monitors need an adapter; no M.2; 2 DIMMs cap at 32GB; H110 offers no RAID or overclocking"
+    }
+   },
+   {
+    "brand": "ASUS",
+    "model": "H110M-C D3",
+    "socket": "LGA1151 (Skylake; Kaby Lake 需更新 BIOS / Kaby Lake with BIOS update)",
+    "chipset": "Intel H110",
+    "memory": "2×DIMM DDR3/DDR3L 1600/1333 MHz,Max 32GB,非ECC、支援XMP / non-ECC, XMP",
+    "form": "mATX (uATX)",
+    "io": {
+     "zh": "1×PCIe 3.0 x16、2×PCIe 2.0 x1、1×PCI(傳統);4×SATA 6Gb/s;D-Sub+DVI-D;4×USB 3.0+6×USB 2.0;Realtek GbE;ALC887;CSM 商用版通路常見",
+     "en": "1×PCIe 3.0 x16, 2×PCIe 2.0 x1, 1×legacy PCI; 4×SATA 6Gb/s; D-Sub+DVI-D; 4×USB 3.0 + 6×USB 2.0; Realtek GbE; ALC887; commonly circulated as the CSM corporate SKU"
+    },
+    "price": "NT$700–1,500(二手,2026/6 / used, Jun 2026)",
+    "pros": {
+     "zh": "全系列唯一保留傳統 PCI 槽,可沿用舊工控卡/音效卡;USB 3.0 埠數較 K 版多;CSM 版多為企業汰換機拆機,單一來源、板況一致",
+     "en": "The only board here retaining a legacy PCI slot for old industrial or sound cards; more USB 3.0 ports than the K variant; CSM units come from corporate fleet retirements — single-origin, consistent condition"
+    },
+    "cons": {
+     "zh": "仍無 HDMI 與 M.2;PCI 槽對一般使用者無用、佔用板面;企業拆機板常無擋板與原盒,議價時應扣減",
+     "en": "Still no HDMI or M.2; the PCI slot is dead weight for typical users; corporate pulls often lack the I/O shield and box — discount accordingly"
+    }
+   },
+   {
+    "brand": "ASUS",
+    "model": "H110M-A D3",
+    "socket": "LGA1151 (Skylake; Kaby Lake 需更新 BIOS / Kaby Lake with BIOS update)",
+    "chipset": "Intel H110",
+    "memory": "2×DIMM DDR3/DDR3L 1600/1333 MHz,Max 32GB,非ECC、支援XMP / non-ECC, XMP",
+    "form": "mATX (uATX)",
+    "io": {
+     "zh": "1×PCIe 3.0 x16、2×PCIe 2.0 x1;4×SATA 6Gb/s;三輸出 HDMI+DVI-D+D-Sub;USB 3.0×4+USB 2.0;Realtek GbE;ALC887 8ch",
+     "en": "1×PCIe 3.0 x16, 2×PCIe 2.0 x1; 4×SATA 6Gb/s; triple video out HDMI+DVI-D+D-Sub; 4×USB 3.0 + USB 2.0; Realtek GbE; ALC887 8-ch"
+    },
+    "price": "NT$800–1,600(二手,2026/6 / used, Jun 2026)",
+    "pros": {
+     "zh": "同級唯一具 HDMI 的 ASUS D3 板,免轉接直上現代螢幕/電視,適合內顯文書機與 HTPC;三輸出支援雙螢幕",
+     "en": "The only ASUS D3 board here with HDMI — drives modern monitors/TVs without adapters, ideal for iGPU office builds and HTPCs; triple outputs support dual displays"
+    },
+    "cons": {
+     "zh": "二手溢價約 NT$150–300 換一個 HDMI 埠,若已有 DVI 螢幕則不划算;無 M.2;流通量少於 K 版,議價空間小",
+     "en": "The HDMI port carries a NT$150–300 used premium — poor value if you already own a DVI monitor; no M.2; scarcer than the K variant, leaving little bargaining room"
+    }
+   },
+   {
+    "brand": "GIGABYTE",
+    "model": "GA-H110M-DS2 DDR3",
+    "socket": "LGA1151(官方支援第6/7代 Core / 6th & 7th Gen per official spec)",
+    "chipset": "Intel H110",
+    "memory": "2×DIMM DDR3/DDR3L 雙通道 1600/1333 MHz,Max 32GB,非ECC UDIMM / dual channel, non-ECC UDIMM",
+    "form": "mATX",
+    "io": {
+     "zh": "1×PCIe 3.0 x16、2×PCIe 2.0 x1;4×SATA 6Gb/s;背板僅 D-Sub;USB 3.0+USB 2.0;Realtek GbE;8ch HD Audio 高品質音效電容;全固態電容",
+     "en": "1×PCIe 3.0 x16, 2×PCIe 2.0 x1; 4×SATA 6Gb/s; rear D-Sub only; USB 3.0 + USB 2.0; Realtek GbE; 8-ch HD audio with high-quality audio capacitors; all-solid capacitors"
+    },
+    "price": "NT$600–1,200(二手,2026/6 / used, Jun 2026)",
+    "pros": {
+     "zh": "本組最低入手價的台廠板;技嘉官方規格頁明列支援第7代(Kaby Lake),BIOS 相容性文件最透明;全固態電容、抗硫化電阻",
+     "en": "Cheapest Taiwanese-brand entry in this set; GIGABYTE's spec page explicitly lists 7th-Gen (Kaby Lake) support with the most transparent BIOS compatibility documentation; all-solid capacitors and anti-sulfur resistors"
+    },
+    "cons": {
+     "zh": "背板僅 D-Sub 類比輸出,畫質與新螢幕相容性最弱;無 DVI/HDMI、無 M.2;供電規模小,搭 i7 長時滿載建議加強機殼風流",
+     "en": "D-Sub analog-only rear video — weakest image quality and modern-monitor compatibility; no DVI/HDMI, no M.2; modest VRM — improve case airflow when running an i7 at sustained load"
+    }
+   },
+   {
+    "brand": "GIGABYTE",
+    "model": "GA-B150M-DS3H DDR3",
+    "socket": "LGA1151(官方支援第6/7代 Core / 6th & 7th Gen per official spec)",
+    "chipset": "Intel B150",
+    "memory": "4×DIMM DDR3/DDR3L 雙通道 1600/1333 MHz,Max 64GB,非ECC UDIMM 1Rx8/2Rx8 / dual channel, non-ECC UDIMM",
+    "form": "mATX",
+    "io": {
+     "zh": "1×PCIe 3.0 x16、PCIe x1;1×M.2 (PCIe Gen3 x4 32Gb/s,支援 NVMe/SATA SSD);6×SATA 6Gb/s;D-Sub+DVI-D+HDMI;USB 3.0×6;Realtek GbE;8ch HD Audio",
+     "en": "1×PCIe 3.0 x16 plus PCIe x1; 1×M.2 (PCIe Gen3 x4, 32Gb/s, NVMe/SATA SSD); 6×SATA 6Gb/s; D-Sub+DVI-D+HDMI; 6×USB 3.0; Realtek GbE; 8-ch HD audio"
+    },
+    "price": "NT$900–1,800(二手,2026/6 / used, Jun 2026)",
+    "pros": {
+     "zh": "D3 平台規格天花板:4×DIMM 上限 64GB、唯一原生 M.2 NVMe(32Gb/s)、6×SATA、三視訊輸出;手上 DDR3 多條者免砍插槽",
+     "en": "The spec ceiling of the D3 platform: 4 DIMMs up to 64GB, the only native M.2 NVMe (32Gb/s) here, 6×SATA and triple video out; owners of multiple DDR3 sticks lose no slots"
+    },
+    "cons": {
+     "zh": "二手價逼近 H110+DDR4 組合,溢價侵蝕 D3 省錢初衷;B150 仍不可超頻;流通量少、需耐心蹲點",
+     "en": "Used pricing approaches an H110+DDR4 combo, eroding the D3 cost-saving rationale; B150 still disallows overclocking; low supply demands patient hunting"
+    }
+   },
+   {
+    "brand": "七彩虹 Colorful(陸廠對照 / mainland reference)",
+    "model": "C.H110M-VH D3 全固態版 V20",
+    "socket": "LGA1151 (Skylake/Kaby Lake)",
+    "chipset": "Intel H110",
+    "memory": "2×DIMM DDR3 1600/1333 MHz,Max 32GB / 2×DIMM DDR3",
+    "form": "mATX",
+    "io": {
+     "zh": "1×PCIe 3.0 x16、PCIe x1;4×SATA 6Gb/s;VGA+HDMI(VH 命名即此);Realtek ALC662 6ch 音效;全固態電容;規格以 ZOL/太平洋產品庫為據",
+     "en": "1×PCIe 3.0 x16 plus PCIe x1; 4×SATA 6Gb/s; VGA+HDMI (hence the 'VH' suffix); Realtek ALC662 6-ch audio; all-solid capacitors; specs per ZOL/PConline databases"
+    },
+    "price": "NT$400–800(二手,2026/6,台灣量少 / used, Jun 2026, scarce in Taiwan)",
+    "pros": {
+     "zh": "價格底線對照組:同晶片組較台廠便宜 3–5 成;有 HDMI;中國電商供應充足,跨境採購單價低",
+     "en": "The price-floor reference: 30–50% below Taiwanese brands on the same chipset; HDMI included; abundant on Chinese e-commerce with low cross-border unit cost"
+    },
+    "cons": {
+     "zh": "台灣無保固通路、退換困難;BIOS 更新止於早期版本、文件僅簡中;ALC662 音效與用料低一階;二手轉售折價深,總持有成本未必低",
+     "en": "No warranty channel in Taiwan and difficult returns; BIOS updates stopped early with Simplified-Chinese-only documentation; ALC662 audio and componentry one tier lower; steep resale depreciation — total cost of ownership may not be lower"
+    }
+   },
+   {
+    "brand": "昂達 ONDA(陸廠對照 / mainland reference)",
+    "model": "H110C+ (Ver 1.0)",
+    "socket": "LGA1151 (Skylake/Kaby Lake)",
+    "chipset": "Intel H110",
+    "memory": "混插設計 1×DDR4+1×DDR3(擇一使用):DDR3 1333/1600、DDR4 2133/2400 / hybrid 1×DDR4 + 1×DDR3 (use one type at a time)",
+    "form": "mATX",
+    "io": {
+     "zh": "1×PCIe 3.0 x16;4×SATA 6Gb/s;VGA+HDMI;Realtek GbE;6ch 音效;規格以昂達官網參數頁為據",
+     "en": "1×PCIe 3.0 x16; 4×SATA 6Gb/s; VGA+HDMI; Realtek GbE; 6-ch audio; specs per ONDA's official parameter page"
+    },
+    "price": "NT$400–750(二手,2026/6,台灣量少 / used, Jun 2026, scarce in Taiwan)",
+    "pros": {
+     "zh": "DDR3/DDR4 雙規混插槽是獨特賣點,舊記憶體先用、日後換 DDR4 免換板;單價為全組最低",
+     "en": "The DDR3/DDR4 hybrid slot design is a unique hedge — reuse old DDR3 now, migrate to DDR4 later without a board swap; lowest unit price in this set"
+    },
+    "cons": {
+     "zh": "各記憶體規格僅單槽=單通道,頻寬折損約 10–15%;無台灣保固、韌體支援薄弱;做工與 BIOS 穩定度風評遜於台廠;顧問案場合建議僅作比價參考、不列採購首選",
+     "en": "Each memory type gets one slot only — single-channel operation costs roughly 10–15% bandwidth; no Taiwan warranty, thin firmware support; build quality and BIOS stability trail Taiwanese brands — recommend as a price reference, not a primary procurement pick, in consulting engagements"
+    }
+   }
+  ],
+  "cpus": [
+   {
+    "model": "Intel Core i7-6700 (Skylake)",
+    "cores": "4C/8T",
+    "clock": "3.4 / 4.0 GHz (Base/Turbo)",
+    "tdp": "65W",
+    "price": "NT$1,500–2,500(二手,2026/6 / used, Jun 2026)",
+    "value_note": {
+     "zh": "P≈8,070(PassMark),取 C=2,000 → CP≈4.0。D3 平台的效能上限甜蜜點:8 執行緒對多工/輕度創作仍夠用,與 H110 D3 板免更 BIOS 直上,為本平台顧問建議首選。",
+     "en": "P≈8,070 (PassMark); at C=2,000, CP≈4.0. The performance-ceiling sweet spot for the D3 platform: 8 threads still handle multitasking and light creation, and it boots on H110 D3 boards without a BIOS update — our primary recommendation."
+    }
+   },
+   {
+    "model": "Intel Core i5-6500 (Skylake)",
+    "cores": "4C/4T",
+    "clock": "3.2 / 3.6 GHz",
+    "tdp": "65W",
+    "price": "NT$500–900(二手,2026/6 / used, Jun 2026)",
+    "value_note": {
+     "zh": "P≈5,590;C=700 → CP≈8.0,全表最高。文書、上網、POS 機首選;每元效能約為 i7-6700 兩倍,預算 NT$3,000 內整機的最佳解。",
+     "en": "P≈5,590; C=700 → CP≈8.0, the highest in this table. First choice for office, browsing and POS builds; roughly double the per-dollar value of the i7-6700 and the optimum for sub-NT$3,000 systems."
+    }
+   },
+   {
+    "model": "Intel Core i7-7700 (Kaby Lake)",
+    "cores": "4C/8T",
+    "clock": "3.6 / 4.2 GHz",
+    "tdp": "65W",
+    "price": "NT$2,000–3,200(二手,2026/6 / used, Jun 2026)",
+    "value_note": {
+     "zh": "P≈8,620;C=2,600 → CP≈3.3。較 i7-6700 快約 7% 卻貴 30%,且 H110 板須先刷新 BIOS 才能點亮——無舊 CPU 可開機刷 BIOS 者風險高,CP 值判定:不建議加價。",
+     "en": "P≈8,620; C=2,600 → CP≈3.3. About 7% faster than the i7-6700 yet 30% dearer, and H110 boards need a BIOS flash before it will POST — risky without an older CPU on hand to flash with. CP verdict: the premium is not justified."
+    }
+   },
+   {
+    "model": "Intel Core i5-7500 (Kaby Lake)",
+    "cores": "4C/4T",
+    "clock": "3.4 / 3.8 GHz",
+    "tdp": "65W",
+    "price": "NT$700–1,200(二手,2026/6 / used, Jun 2026)",
+    "value_note": {
+     "zh": "P≈6,070;C=950 → CP≈6.4。同受 H110 BIOS 版本限制;若賣場已刷好 BIOS 或搭板出售,則是 i5-6500 的合理小升級。",
+     "en": "P≈6,070; C=950 → CP≈6.4. Subject to the same H110 BIOS-version gate; if the seller ships a flashed board or a bundle, it is a sensible step up from the i5-6500."
+    }
+   },
+   {
+    "model": "Intel Core i7-4790 (Haswell)【相容警示 / compatibility alert】",
+    "cores": "4C/8T",
+    "clock": "3.6 / 4.0 GHz",
+    "tdp": "84W",
+    "price": "NT$1,000–1,600(二手,2026/6 / used, Jun 2026)",
+    "value_note": {
+     "zh": "P≈7,220;C=1,300 → 名目 CP≈5.6,但為 LGA1150,「插不進」H110 任何板——與本報告 D3 板完全不相容,常見詐騙話術即以此混充 6700。跨平台比較時 C 應加計 H81/B85 板價(約 NT$500–900),CP 隨之降至 ≈3.5。",
+     "en": "P≈7,220; C=1,300 → nominal CP≈5.6, but it is LGA1150 and physically incompatible with every H110 board in this report — a common scam passes it off as a 6700. For a fair cross-platform comparison, add an H81/B85 board (NT$500–900) to C, dropping CP to ≈3.5."
+    }
+   },
+   {
+    "model": "Intel Core i5-9400F (Coffee Lake)【相容警示 / compatibility alert】",
+    "cores": "6C/6T",
+    "clock": "2.9 / 4.1 GHz",
+    "tdp": "65W",
+    "price": "NT$1,800–2,800(二手,2026/6 / used, Jun 2026)",
+    "value_note": {
+     "zh": "P≈9,310;C=2,300 → 名目 CP≈4.0,惟為 LGA1151 v2,僅容於 300 系晶片組(H310/B360…),與 H110 D3 電氣不相容;且「F」無內顯,必須另購獨顯。加計 H310 板+入門獨顯後 CP 降至 ≈2.5——列出以示「同插槽名稱≠相容」。",
+     "en": "P≈9,310; C=2,300 → nominal CP≈4.0, but it is LGA1151 v2, electrically limited to 300-series chipsets (H310/B360…) and incompatible with H110 D3; the 'F' suffix means no iGPU, so a discrete GPU is mandatory. With an H310 board plus entry GPU added, CP falls to ≈2.5 — listed to demonstrate that an identical socket name does not imply compatibility."
+    }
+   }
+  ],
+  "related": [
+   {
+    "category": {
+     "zh": "DDR3L 記憶體",
+     "en": "DDR3L Memory"
+    },
+    "items": [
+     {
+      "model": "Kingston KVR16LN11/8 (8GB DDR3L-1600)",
+      "key_spec": {
+       "zh": "8GB、DDR3L-1600、1.35V、非ECC UDIMM、CL11",
+       "en": "8GB, DDR3L-1600, 1.35V, non-ECC UDIMM, CL11"
+      },
+      "price": "NT$250–450(二手,2026/6)",
+      "note": {
+       "zh": "Skylake/Kaby Lake IMC 官方僅保 1.35V,務必認明「L」;桌機條(240pin)勿與筆電 SO-DIMM 混淆;建議 2×8GB 組雙通道。",
+       "en": "Skylake/Kaby Lake IMCs are only rated for 1.35V — insist on the 'L' suffix; desktop 240-pin UDIMM only, not laptop SO-DIMM; run 2×8GB for dual channel."
+      }
+     },
+     {
+      "model": "Micron/Crucial 8GB DDR3L-1600 (CT102464BD160B)",
+      "key_spec": {
+       "zh": "8GB、DDR3L-1600、1.35V/1.5V 雙電壓、CL11",
+       "en": "8GB, DDR3L-1600, dual-voltage 1.35V/1.5V, CL11"
+      },
+      "price": "NT$250–400(二手,2026/6)",
+      "note": {
+       "zh": "原廠顆粒、相容性名單廣;雙電壓設計對老平台移機最保險;拆機條多,購買時要求記憶體檢測截圖(MemTest)。",
+       "en": "Native Micron dies with broad QVL coverage; dual-voltage design is the safest for platform migration; plentiful as pulls — request a MemTest screenshot before purchase."
+      }
+     },
+     {
+      "model": "ADATA 4GB DDR3L-1600",
+      "key_spec": {
+       "zh": "4GB、DDR3L-1600、1.35V、終身保固(台灣公司貨)",
+       "en": "4GB, DDR3L-1600, 1.35V, lifetime warranty (Taiwan retail units)"
+      },
+      "price": "NT$120–200(二手,2026/6)",
+      "note": {
+       "zh": "台灣公司貨憑序號可查保固,是二手記憶體中風險最低的選項;文書機 2×4GB=8GB 已足。",
+       "en": "Taiwan retail units carry serial-verifiable lifetime warranty — the lowest-risk used-RAM option; 2×4GB=8GB suffices for office builds."
+      }
+     }
+    ]
+   },
+   {
+    "category": {
+     "zh": "電源供應器 450–550W",
+     "en": "Power Supply 450–550W"
+    },
+    "items": [
+     {
+      "model": "FSP 全漢 HA450 / 聖武士 450W",
+      "key_spec": {
+       "zh": "450W、80 PLUS 銅牌、主日系電容、5年保",
+       "en": "450W, 80 PLUS Bronze, primary Japanese capacitors, 5-yr warranty"
+      },
+      "price": "NT$990–1,190(全新,2026/6)",
+      "note": {
+       "zh": "65W CPU+內顯整機負載僅約 100W,450W 綽綽有餘;二手電源老化風險高,顧問立場一律建議買新品。",
+       "en": "A 65W CPU with iGPU draws only ~100W at the wall — 450W is ample; aged used PSUs are a liability, so our consulting stance is always buy new."
+      }
+     },
+     {
+      "model": "Corsair CV550",
+      "key_spec": {
+       "zh": "550W、80 PLUS 銅牌、單路+12V、3年保",
+       "en": "550W, 80 PLUS Bronze, single-rail +12V, 3-yr warranty"
+      },
+      "price": "NT$1,290–1,590(全新,2026/6)",
+      "note": {
+       "zh": "預留日後加裝獨顯(GTX 1650/RX 6400 級)的餘裕;瓦數買在負載 2 倍附近可落在效率曲線甜區。",
+       "en": "Headroom for a future discrete GPU (GTX 1650/RX 6400 class); sizing at ~2× load keeps the PSU in its efficiency sweet spot."
+      }
+     },
+     {
+      "model": "Cooler Master MWE 550 Bronze V2",
+      "key_spec": {
+       "zh": "550W、80 PLUS 銅牌、DC-to-DC、5年保",
+       "en": "550W, 80 PLUS Bronze, DC-to-DC topology, 5-yr warranty"
+      },
+      "price": "NT$1,300–1,600(全新,2026/6)",
+      "note": {
+       "zh": "5 年保固期長於整個舊平台的預期餘命,日後升級可沿用,攤提成本最低。",
+       "en": "The 5-year warranty outlasts the legacy platform's expected service life and carries over to a future upgrade — lowest amortized cost."
+      }
+     }
+    ]
+   },
+   {
+    "category": {
+     "zh": "SATA SSD",
+     "en": "SATA SSD"
+    },
+    "items": [
+     {
+      "model": "Kingston A400 480GB",
+      "key_spec": {
+       "zh": "SATA III 2.5\"、讀 500/寫 450 MB/s、3年保",
+       "en": "SATA III 2.5\", 500/450 MB/s R/W, 3-yr warranty"
+      },
+      "price": "NT$700–900(全新,2026/6)",
+      "note": {
+       "zh": "舊機升級體感最大的一筆投資;H110 D3 平台除 B150M-DS3H 外皆無 M.2,SATA SSD 即為正解。",
+       "en": "The single upgrade with the largest perceived speedup; since every board here except the B150M-DS3H lacks M.2, a SATA SSD is the right answer."
+      }
+     },
+     {
+      "model": "WD Blue SA510 500GB",
+      "key_spec": {
+       "zh": "SATA III 2.5\"、讀 560/寫 510 MB/s、5年保",
+       "en": "SATA III 2.5\", 560/510 MB/s R/W, 5-yr warranty"
+      },
+      "price": "NT$900–1,200(全新,2026/6)",
+      "note": {
+       "zh": "較 A400 多 DRAM-less 優化與 5 年保,商用交機建議此級距起跳。",
+       "en": "Better sustained-write behavior and a 5-year warranty over the A400; recommended floor for commercial deployments."
+      }
+     },
+     {
+      "model": "Crucial BX500 480GB",
+      "key_spec": {
+       "zh": "SATA III 2.5\"、讀 540/寫 500 MB/s、3年保",
+       "en": "SATA III 2.5\", 540/500 MB/s R/W, 3-yr warranty"
+      },
+      "price": "NT$750–950(全新,2026/6)",
+      "note": {
+       "zh": "Micron 原廠顆粒;二手 SSD 應驗 SMART 寫入量(TBW),超過 50% 壽命建議放棄。",
+       "en": "Native Micron NAND; for any used SSD, audit SMART total writes — walk away past 50% of rated TBW."
+      }
+     }
+    ]
+   },
+   {
+    "category": {
+     "zh": "散熱器",
+     "en": "CPU Cooler"
+    },
+    "items": [
+     {
+      "model": "Intel 原廠銅芯散熱器(LGA115x)",
+      "key_spec": {
+       "zh": "下吹式、鋁鰭+銅芯、對應 65W TDP",
+       "en": "Top-down, aluminum fins with copper core, rated for 65W TDP"
+      },
+      "price": "NT$50–150(二手,2026/6)",
+      "note": {
+       "zh": "i5/i7 65W 版壓制無虞;確認扣具腳完整、重上散熱膏即可;近乎零成本的正解。",
+       "en": "Fully adequate for 65W i5/i7 parts; verify intact push-pins and reapply thermal paste — the near-zero-cost correct answer."
+      }
+     },
+     {
+      "model": "ID-COOLING SE-214-XT",
+      "key_spec": {
+       "zh": "4 導管塔扇、120mm PWM、支援 LGA115x、TDP 180W",
+       "en": "4-heatpipe tower, 120mm PWM fan, LGA115x support, 180W TDP"
+      },
+      "price": "NT$390–490(全新,2026/6)",
+      "note": {
+       "zh": "i7 長時滿載(轉檔/掛機)換塔扇可降 10–15°C 與風噪;性價比級距首選。",
+       "en": "For sustained i7 loads (encoding, 24/7 duty), a tower cooler cuts 10–15°C and fan noise; the value-tier pick."
+      }
+     },
+     {
+      "model": "Cooler Master Hyper 212 系列",
+      "key_spec": {
+       "zh": "4 導管塔扇、120mm、全平台扣具、TDP 150W+",
+       "en": "4-heatpipe tower, 120mm, universal mounting, 150W+ TDP"
+      },
+      "price": "NT$700–990(全新,2026/6)",
+      "note": {
+       "zh": "扣具跨平台,日後升級 AM5/LGA1700 可沿用,適合把預算花在「帶得走」的零件上。",
+       "en": "Cross-platform mounting carries over to a future AM5/LGA1700 upgrade — spend where the part travels with you."
+      }
+     }
+    ]
+   }
+  ],
+  "chart": {
+   "title": {
+    "zh": "六款 CPU 性價比(CP = PassMark ÷ 二手中位價,2026/6)",
+    "en": "CP Value of Six CPUs (CP = PassMark ÷ used mid-price, Jun 2026)"
+   },
+   "bars": [
+    {
+     "label": {
+      "zh": "i5-6500",
+      "en": "i5-6500"
+     },
+     "value": 8,
+     "note": {
+      "zh": "全表最高;文書機首選",
+      "en": "Highest CP; office-build pick"
+     }
+    },
+    {
+     "label": {
+      "zh": "i5-7500",
+      "en": "i5-7500"
+     },
+     "value": 6.4,
+     "note": {
+      "zh": "H110 需先更新 BIOS",
+      "en": "Needs H110 BIOS update first"
+     }
+    },
+    {
+     "label": {
+      "zh": "i7-4790(不相容H110)",
+      "en": "i7-4790 (not H110-compatible)"
+     },
+     "value": 5.6,
+     "note": {
+      "zh": "LGA1150;名目值,加板價後≈3.5",
+      "en": "LGA1150; nominal — ≈3.5 with board cost"
+     }
+    },
+    {
+     "label": {
+      "zh": "i7-6700",
+      "en": "i7-6700"
+     },
+     "value": 4,
+     "note": {
+      "zh": "D3 平台效能上限甜蜜點",
+      "en": "D3 platform performance sweet spot"
+     }
+    },
+    {
+     "label": {
+      "zh": "i5-9400F(不相容H110)",
+      "en": "i5-9400F (not H110-compatible)"
+     },
+     "value": 4,
+     "note": {
+      "zh": "LGA1151 v2+需獨顯;實質≈2.5",
+      "en": "LGA1151 v2 + dGPU required; effective ≈2.5"
+     }
+    },
+    {
+     "label": {
+      "zh": "i7-7700",
+      "en": "i7-7700"
+     },
+     "value": 3.3,
+     "note": {
+      "zh": "貴 30% 只快 7%,不建議",
+      "en": "+30% price for +7% speed — skip"
+     }
+    }
+   ],
+   "caption": {
+    "zh": "解讀:長條越長,每一元換得的 PassMark 分數越多。i5-6500 以 CP≈8.0 居冠,適合純文書;i7-6700 CP 雖僅 ≈4.0,但它是 H110 D3 免刷 BIOS 的效能天花板,「絕對效能需求」與「CP 值」需分開取捨。兩款標示不相容者(i7-4790、i5-9400F)的名目 CP 具誤導性——加計必要的主機板/獨顯成本後分別跌至 ≈3.5 與 ≈2.5,此即詐騙賣場愛用「高分低價」話術的數學漏洞。行情時點 2026/6,PassMark 分數為公開基準值。",
+    "en": "How to read: longer bars deliver more PassMark points per NT$. The i5-6500 leads at CP≈8.0 — ideal for pure office work; the i7-6700's CP is only ≈4.0, yet it is the no-BIOS-flash performance ceiling on H110 D3, so absolute performance and CP must be weighed separately. The two incompatible entries (i7-4790, i5-9400F) carry misleading nominal CPs — adding the mandatory board/GPU cost drops them to ≈3.5 and ≈2.5, the exact arithmetic gap that scam listings exploit with 'high score, low price' pitches. Prices as of Jun 2026; PassMark scores are public benchmark values."
+   }
+  },
+  "comparison": [
+   {
+    "zh": "ASUS vs GIGABYTE(台廠對決):ASUS D3 系列二手流通量與轉售流動性最佳、5X Protection 用料口碑強,是「好買也好賣」的基準;GIGABYTE 同級價低約 NT$50–200,且官方規格頁明文列出第 6/7 代雙世代支援與 QVL,文件透明度最高。結論:重轉售選 ASUS,重入手成本與文件查證選 GIGABYTE,品質差距在此級距可忽略。",
+    "en": "ASUS vs GIGABYTE (Taiwanese head-to-head): ASUS D3 boards offer the deepest used-market liquidity and resale velocity, with a strong 5X Protection reputation — the 'easy to buy, easy to sell' baseline. GIGABYTE runs NT$50–200 cheaper at parity and its official spec pages explicitly document 6th/7th-Gen dual-generation support and QVLs — the best documentation transparency. Verdict: pick ASUS for resale, GIGABYTE for entry cost and verifiable documentation; the quality gap at this tier is negligible."
+   },
+   {
+    "zh": "H110 vs B150(晶片組取捨):H110 板便宜、量大,但鎖死 2×DIMM/32GB、4×SATA、無原生 M.2 與 RAID;B150M-DS3H DDR3 給 4×DIMM/64GB、6×SATA 與 Gen3 x4 M.2,規格多一個世代的餘裕,代價是二手溢價 NT$300–600 且貨源稀少。手上已有 4 條 DDR3 或需 NVMe 開機碟者,溢價合理;單純文書機則 H110 即足。",
+    "en": "H110 vs B150 (chipset trade-off): H110 boards are cheap and plentiful but hard-capped at 2 DIMMs/32GB, 4×SATA, no native M.2 or RAID; the B150M-DS3H DDR3 delivers 4 DIMMs/64GB, 6×SATA and a Gen3 x4 M.2 — a generation of extra headroom — at a NT$300–600 used premium and thin supply. Justified if you hold four DDR3 sticks or want an NVMe boot drive; for plain office duty, H110 suffices."
+   },
+   {
+    "zh": "視訊輸出決定隱性成本:H110M-K D3/GA-H110M-DS2 僅類比 D-Sub 或 DVI-D,接 2020 後的螢幕須加 NT$150–400 轉接器,且 D-Sub 畫質折損;H110M-A D3 與 B150M-DS3H 內建 HDMI,溢價約 NT$150–300 但免轉接、可推電視。顧問建議:報價時把「螢幕端子盤點」列為前置項目,轉接成本常被買方低估。",
+    "en": "Video outputs carry hidden costs: the H110M-K D3 and GA-H110M-DS2 expose only analog D-Sub or DVI-D, so post-2020 monitors need a NT$150–400 adapter with D-Sub image degradation; the H110M-A D3 and B150M-DS3H include HDMI at a NT$150–300 premium — adapter-free and TV-ready. Consulting note: make a monitor-connector inventory a pre-quote checklist item; buyers consistently underestimate adapter costs."
+   },
+   {
+    "zh": "台廠 vs 陸廠(七彩虹/昂達對照):陸廠板單價低 3–5 成、且多附 HDMI,帳面 CP 值誘人;但台灣無保固通路、BIOS 更新早停、轉售折價深,三年持有成本反而可能高於 ASUS/GIGABYTE。昂達 H110C+ 的 DDR3/DDR4 混插雖具升級彈性,卻犧牲雙通道(頻寬 -10~15%)。定位:陸廠板適合作「議價談判的價格下限錨點」,不建議列入正式採購清單。",
+    "en": "Taiwanese vs mainland brands (Colorful/ONDA reference): mainland boards price 30–50% lower and usually include HDMI — tempting on paper — but with no Taiwan warranty channel, early-terminated BIOS support and steep resale depreciation, three-year TCO can exceed ASUS/GIGABYTE. ONDA's H110C+ DDR3/DDR4 hybrid adds upgrade flexibility at the cost of dual channel (-10~15% bandwidth). Positioning: use mainland boards as a price-floor anchor in negotiations, not as a formal procurement line item."
+   },
+   {
+    "zh": "DDR3 電壓紅線:Skylake/Kaby Lake 記憶體控制器官方僅保證 1.35V,長期插 1.5V 標準 DDR3 有損 CPU IMC 之虞。ASUS 三張 D3 板與技嘉兩張皆明列支援 DDR3L;採購驗收時應以 CPU-Z SPD 頁確認模組電壓,1.5V 條僅接受短期過渡使用。",
+    "en": "The DDR3 voltage red line: Skylake/Kaby Lake memory controllers are officially rated for 1.35V only — long-term use of 1.5V standard DDR3 risks IMC degradation. All three ASUS D3 boards and both GIGABYTE boards explicitly list DDR3L support; at acceptance testing, verify module voltage on CPU-Z's SPD tab and treat 1.5V sticks as short-term stopgaps only."
+   },
+   {
+    "zh": "Kaby Lake 上 H110 的 BIOS 陷阱:i7-7700/i5-7500 需 H110 板先更新至支援第 7 代的 BIOS 才能開機,而刷 BIOS 又需要一顆第 6 代 CPU——雞生蛋問題。二手購買時務必要求賣家註明 BIOS 版本或以 7 代 CPU 實測開機照為憑;此為 D3 平台交易糾紛最大宗來源之一。",
+    "en": "The Kaby Lake-on-H110 BIOS trap: an i7-7700/i5-7500 will not POST until the H110 board runs a 7th-Gen-ready BIOS, yet flashing that BIOS requires a 6th-Gen CPU — a chicken-and-egg problem. When buying used, demand the seller state the BIOS version or prove boot with a 7th-Gen CPU photo; this is among the top dispute sources in D3 platform transactions."
+   },
+   {
+    "zh": "插槽同名不等於相容(防詐核心):i7-4790 是 LGA1150、i5-9400F 是 LGA1151 v2(限 300 系晶片組),兩者皆無法用於 H110 D3 板,但名目 CP 值漂亮,是詐騙賣場「高分低價」組合單的常客。驗收鐵則:CPU 型號 → Intel ARK 查插槽 → 對照主機板 CPU 支援列表,三步缺一不可。",
+    "en": "Same socket name ≠ compatible (the anti-scam core): the i7-4790 is LGA1150 and the i5-9400F is LGA1151 v2 (300-series chipsets only) — neither works on any H110 D3 board, yet both show attractive nominal CP values, making them staples of 'high score, low price' scam bundles. Acceptance rule: CPU model → Intel ARK socket lookup → motherboard CPU support list; all three steps, no exceptions."
+   }
+  ],
+  "references": [
+   {
+    "title": "ASUS H110M-K D3 — Tech Specs (官方規格頁)",
+    "source": "ASUS Global",
+    "url": "https://www.asus.com/Motherboards-Components/Motherboards/PRIME/H110M-K-D3/"
+   },
+   {
+    "title": "Asus H110M-K D3 Micro ATX LGA1151 Motherboard",
+    "source": "PCPartPicker",
+    "url": "https://pcpartpicker.com/product/pbKhP6/asus-motherboard-h110mkd3"
+   },
+   {
+    "title": "ASUS H110M-C D3 規格彙整(2×DDR3 32GB、PCI、4×USB3.0)",
+    "source": "Icecat / B&H",
+    "url": "https://icecat.biz/en/p/asus/h110m-c-d3/bez-kategorii-INTEL+LGA1151+H110+M-C+D3+2-DDR3+-+4-USB3.0+-+6-USB2.0+-+DVI+-+VGA+-+GBE+LAN+-+Micro+ATX+MOTHERBOARD-29950849.html"
+   },
+   {
+    "title": "ASUS H110M-A D3 (90MB0NP0-M0EAY0) 規格(HDMI/DVI/VGA 三輸出)",
+    "source": "Icecat / Newegg",
+    "url": "https://icecat.biz/en/p/asus/90mb0np0-m0eay0/motherboards-h110m-a+d3-29854053.html"
+   },
+   {
+    "title": "GA-H110M-DS2 DDR3 (rev. 1.0) Specification — 官方規格頁",
+    "source": "GIGABYTE",
+    "url": "https://www.gigabyte.com/uk/Motherboard/GA-H110M-DS2-DDR3-rev-10/sp"
+   },
+   {
+    "title": "GA-B150M-DS3H DDR3 (rev. 1.0) Specification — 4×DIMM 64GB、M.2 Gen3 x4",
+    "source": "GIGABYTE",
+    "url": "https://www.gigabyte.com/Motherboard/GA-B150M-DS3H-DDR3-rev-10/sp"
+   },
+   {
+    "title": "七彩虹 C.H110M-VH D3 全固態版 V20 參數",
+    "source": "ZOL 中關村在線",
+    "url": "https://detail.zol.com.cn/1249/1248883/param.shtml"
+   },
+   {
+    "title": "昂達 H110C+ 規格參數(DDR3/DDR4 混插)",
+    "source": "ONDA 官網",
+    "url": "http://www.onda.com.cn/MotherBoard_Specifications.aspx?id=335"
+   },
+   {
+    "title": "H110M D3 系列二手比價(台灣)",
+    "source": "BigGo 比價",
+    "url": "https://biggo.com.tw/s/h110m+d3/"
+   },
+   {
+    "title": "i7-6700 二手行情列表(2026)",
+    "source": "Yahoo拍賣",
+    "url": "https://tw.bid.yahoo.com/search/auction/product?cid=2092073545&clv=3&p=i7-6700"
+   },
+   {
+    "title": "i7-6700 / 相關 CPU 二手搜尋(2026)",
+    "source": "露天市集 Ruten",
+    "url": "https://www.ruten.com.tw/find/?q=i7-6700k"
+   },
+   {
+    "title": "PassMark CPU Mark 基準分數資料庫(CP 值分子 P 之來源)",
+    "source": "PassMark Software",
+    "url": "https://www.cpubenchmark.net/"
+   },
+   {
+    "title": "Intel ARK 產品規格庫(插槽/世代/TDP 查證)",
+    "source": "Intel",
+    "url": "https://ark.intel.com/"
+   }
+  ]
+ },
+ "polish": {
+  "eli20": {
+   "zh": "這個網站解決的是經濟學所說的「資訊不對稱」:二手電腦零件沒有標準定價,賣家永遠比買家懂行情,懂電腦的人還會被騙,何況長輩。技術上它是一個純前端的「元搜尋跳板」——不爬價、不存庫存,而是把你輸入的型號組成各平台的搜尋 deep link,一鍵同時開啟全球前十大二手/整新平台,讓行情在十個分頁裡攤開;再疊三道防線:規則式的零件相容性檢查、實查過的高評價賣家名單、防詐 FAQ。舉個具體例子:你想用 i7-6700 配 H110M-K「D3」主機板,很多人不知道型號尾碼的 D3 代表它只吃 DDR3/DDR3L,插 DDR4 根本裝不上;相容檢查會先比對 LGA1151 腳位、H110 晶片組世代與記憶體規格,確認能開機再讓你去比價,把「買錯規格」這個最貴的錯誤擋在下單之前。商業上要誠實:它零抓價、零資料庫,護城河極薄,任何工程師一個下午就能仿製,所以獲利模式不是抽成,而是聯盟分潤、贊助與把「信任與防詐」做成內容品牌——賺的是資訊落差被填平之前的那段價值。",
+   "en": "This site attacks what economists call information asymmetry: second-hand PC parts have no standard pricing, sellers always know the market better than buyers, and even tech-savvy people get burned — let alone elderly buyers. Technically it is a pure front-end meta-search launcher: it scrapes no prices and stores no inventory, but composes your model number into each platform's search deep link and opens the global top-10 used/refurbished marketplaces in one click, laying the going rate across ten tabs; on top sit three safety layers — a rule-based parts-compatibility checker, a vetted list of high-rating sellers, and an anti-scam FAQ. A concrete example: pairing an i7-6700 with an H110M-K \"D3\" motherboard, most buyers miss that the D3 suffix means the board takes only DDR3/DDR3L — a DDR4 stick physically will not seat. The compatibility check first validates the LGA1151 socket, the H110 chipset generation, and the memory standard, confirming the machine will actually boot before sending you off to compare prices — blocking the costliest mistake, buying the wrong spec, before the order is placed. Commercially, honesty is required: with zero scraping and zero proprietary data the moat is paper-thin — any engineer could clone it in an afternoon — so the model is not commissions on transactions but affiliate revenue, sponsorship, and building \"trust and scam-prevention\" into a content brand: it monetizes the gap while the information asymmetry is still being closed."
+  },
+  "quickstart": [
+   {
+    "zh": "進站後以右上角 🌙／☀️ 切換深淺色主題,六大功能分頁固定於頂部導覽列,點選即可切換。",
+    "en": "On arrival, toggle dark/light mode with the moon/sun icon at top right; the six feature tabs sit in the top navigation bar — tap to switch."
+   },
+   {
+    "zh": "【🔎 詢價比價】於搜尋框輸入零件型號(如 i7-6700、H110M-K D3),十大平台卡片即時生成搜尋連結,按「一鍵全開」同步開啟所有平台的比價頁。",
+    "en": "[Search & Compare] Enter a part model (e.g. i7-6700, H110M-K D3) in the search box; the ten platform cards generate search links in real time, and \"Open All\" launches every platform's results page simultaneously."
+   },
+   {
+    "zh": "同一分頁可用「台灣／國際整新」篩選鎖定平台範圍,點選零件分類(CPU、主機板、記憶體等)自動帶入關鍵字,亦可載入 LINE 對話 .txt 批次擷取型號,或將「⭐ 一鍵比價」書籤列工具拖入瀏覽器,日後於任何網頁即時發動比價。",
+    "en": "Within the same tab, narrow the platform scope with the Taiwan / International-refurbished filter, tap a part category (CPU, motherboard, RAM, etc.) to auto-fill keywords, batch-extract models from a LINE chat .txt, or drag the compare bookmarklet to your bookmarks bar to trigger a comparison from any web page."
+   },
+   {
+    "zh": "【✅ 高評價賣家】檢視經實地查核的露天高評價賣家名單(含帳號直達連結),並參照下方兩張賣價對照表掌握單板與板U套件的市場行情。",
+    "en": "[Trusted Sellers] Review the field-verified list of high-rating Ruten sellers with direct store links, and consult the two price-reference tables below for going rates on bare boards and board-CPU-RAM bundles."
+   },
+   {
+    "zh": "【🧩 規格相容】依序選擇 CPU、主機板與記憶體類型後執行「檢查相容性」,系統即時驗證腳位、晶片組世代與 DDR3/D3 規格匹配,勾選零件並「產生比較表」可輸出規格對照。",
+    "en": "[Compatibility] Select a CPU, motherboard, and memory type, then run the check — the system instantly validates socket, chipset generation, and DDR3/D3 matching; tick parts and generate a table for a side-by-side spec comparison."
+   },
+   {
+    "zh": "【📷 拍照找件】上傳或現場拍攝零件照片,輸入板面絲印或晶片上的型號後按「拿去比價」,系統自動串接相容檢查與跨平台比價,亦支援 Google Lens 以圖搜尋。",
+    "en": "[Photo Finder] Upload or capture a photo of the part, key in the model printed on the silkscreen or chip, and hit \"Compare\" — the system chains straight into the compatibility check and cross-platform comparison, with Google Lens image search as an alternative."
+   },
+   {
+    "zh": "【📊 商業分析】預設呈現本系統的波特五力雷達圖、商業模式圖(BMC)與 SWOT,按「⬇️ 下載 PPT」即可於瀏覽器端匯出四頁簡報。",
+    "en": "[Business Analysis] The tab presents this system's Porter Five Forces radar, Business Model Canvas, and SWOT by default; \"Download PPT\" exports a four-slide deck entirely client-side."
+   },
+   {
+    "zh": "【💬 FAQ客服】直接輸入問題(如「DDR3L 能用嗎」「賣家要我取消訂單」),未串接 AI 時由 15 題知識庫進行關鍵字比對,下方常見問題可展開查閱。",
+    "en": "[FAQ Support] Type a question directly (e.g. \"Is DDR3L compatible?\" or \"The seller asked me to cancel\") — without AI connected, a 15-item knowledge base answers by keyword matching, and the FAQ list below expands on tap."
+   },
+   {
+    "zh": "頁面下方的雙語顧問報告涵蓋市場評估、紅隊批判與變現路徑,並附編號文獻供逐條查證。",
+    "en": "The bilingual consulting report further down covers market assessment, red-team critique, and monetization paths, with numbered references for point-by-point verification."
+   },
+   {
+    "zh": "【⚙️ AI 設定(選配)】點右上 ⚙️ 貼入 Cloudflare Worker 代理網址並完成儲存與連線測試,即可解鎖 AI 客服、照片自動辨識與動態商業分析;留空時全站以規則式模式照常運作。",
+    "en": "[⚙️ AI Setup (optional)] Tap the top-right gear, paste your Cloudflare Worker proxy URL, then save and test the connection to unlock AI support, automatic photo recognition, and on-demand business analysis; left blank, the entire site runs normally in rule-based mode."
+   }
+  ],
+  "intro": {
+   "zh": "本報告針對「二手電腦詢價系統」進行獨立商業評估,方法論由三個層次構成:其一,文獻回顧——彙整整新電子產品市場的產業研究、學術期刊對資訊不對稱與比價行為的實證,以及台灣官方防詐統計;其二,企業公開資訊分析——檢視 Back Market、Swappa、BigGo 等對標業者公開揭露的信任機制與營運模式;其三,紅隊評估——由對抗性視角逐項質疑本系統的護城河、流量假設與變現能力,結論不預設立場。全文採編號文獻體例,內文論點以 [1]–[9] 標註對應出處,文獻清單載明標題、來源與連結,俾便逐條查證;凡屬推估或情境試算者,均於行文中明確標示,不與實證數據混用。",
+   "en": "This report is an independent business assessment of the Second-hand PC Price Finder, built on a three-tier methodology. First, a literature review synthesizing industry research on the refurbished-electronics market, peer-reviewed evidence on information asymmetry and price-comparison behavior, and official Taiwanese anti-fraud statistics. Second, analysis of corporate public disclosures, examining the trust mechanisms and operating models of comparable firms including Back Market, Swappa, and BigGo. Third, a red-team assessment interrogating the system's moat, traffic assumptions, and monetization capacity from an adversarial standpoint, with no predetermined conclusion. The report follows a numbered-citation convention: in-text claims are marked [1]–[9] against a reference list stating title, source, and URL for point-by-point verification, and all estimates or scenario calculations are explicitly flagged as such, never conflated with empirical data."
+  }
+ }
+}

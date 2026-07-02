@@ -103,6 +103,10 @@ def build_html():
         consult = json.load(open("consult.json", encoding="utf-8"))
     except FileNotFoundError:
         consult = {}
+    try:
+        research = json.load(open("research.json", encoding="utf-8"))
+    except FileNotFoundError:
+        research = {}
     app = {
         "platforms":PLATFORMS,"avoid":AVOID,"categories":CATEGORIES,
         "trusted":TRUSTED_SELLERS,"priceTables":PRICE_TABLES,
@@ -110,6 +114,7 @@ def build_html():
         "parts":c["parts"],"faq":c["faq"]["items"],
         "fiveForces":c["fiveForces"]["forces"],"bmc":c["bmc"]["blocks"],"swot":c["swot"],
         "consult":consult,
+        "research":research,
         "date":datetime.date.today().isoformat(),
     }
     return HTML_TEMPLATE.replace("/*__APP_DATA__*/", json.dumps(app, ensure_ascii=False))
@@ -131,9 +136,10 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <meta name="description" content="台灣二手電腦詢價系統：一鍵跳全球前10大平台真實搜尋比價、零件相容性檢查、規格比較表、商業分析、防詐 FAQ 客服、深色模式。">
 <style>
 :root{
- --bg:#f4f6fb;--card:#fff;--ink:#1f2430;--sub:#6b7280;--line:#e6e9f0;--accent:#2f5496;--accent2:#3b82f6;
- --tw:#16a34a;--intl:#7c3aed;--warn:#b91c1c;--chip:#eef2fb;--ok:#16a34a;--bad:#dc2626;
- --shadow:0 1px 3px rgba(16,24,40,.08),0 1px 2px rgba(16,24,40,.06);
+ /* 護眼淺色:低藍光暖底、柔和對比(WCAG AA 以上) */
+ --bg:#eef0e4;--card:#faf9f0;--ink:#2f3428;--sub:#67705c;--line:#dcdfcd;--accent:#31694d;--accent2:#3d7d5f;
+ --tw:#2e7d4f;--intl:#6d5fa8;--warn:#a33a2a;--chip:#e7ecdb;--ok:#2e7d4f;--bad:#b3402e;
+ --shadow:0 1px 3px rgba(47,52,40,.08),0 1px 2px rgba(47,52,40,.05);
 }
 [data-theme="dark"]{
  --bg:#0f1420;--card:#1a2030;--ink:#e8ecf4;--sub:#9aa3b2;--line:#2a3344;--accent:#5b8def;--accent2:#60a5fa;
@@ -141,7 +147,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
  --shadow:0 1px 3px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-text-size-adjust:100%;
+html{font-size:17px}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-text-size-adjust:100%;
  font-family:-apple-system,"PingFang TC","Microsoft JhengHei",system-ui,"Segoe UI",sans-serif;transition:background .2s,color .2s}
 .wrap{max-width:1060px;margin:0 auto;padding:14px 16px 70px}
 header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0}
@@ -245,6 +252,35 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
 .pcard2{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
 .ptier{font-weight:800;color:var(--accent)}.pprice{font-size:1.15rem;font-weight:800;margin:4px 0}
 @media(max-width:520px){.brand{font-size:1.1rem}}
+/* ---- v5:動態流程圖/圖表動畫 ---- */
+@keyframes nodeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes edgeDraw{to{stroke-dashoffset:0}}
+@keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.anim .fnode{opacity:0;animation:nodeIn .5s ease forwards}
+.anim .fedge{stroke-dasharray:400;stroke-dashoffset:400;animation:edgeDraw .6s ease forwards}
+.anim .fbar{transform-origin:left center;animation:barGrow .8s ease forwards}
+@media(prefers-reduced-motion:reduce){.anim .fnode,.anim .fedge,.anim .fbar{animation-duration:.01s}}
+.replay{margin-top:6px;font-size:.85rem;padding:6px 12px;border:1px solid var(--line);background:var(--card);color:var(--accent);border-radius:8px;cursor:pointer;font-weight:700}
+/* ---- v5:SWOT 縮放 ---- */
+.zoomrow{display:flex;align-items:center;gap:10px;margin:6px 0}
+.zoomrow input[type=range]{flex:1;max-width:260px}
+#swotWrap{overflow:auto}
+/* ---- v5:SPEC/報價單 ---- */
+.spec-pros{color:var(--ok)}.spec-cons{color:var(--bad)}
+.formula{font-family:ui-monospace,Menlo,monospace;background:var(--chip);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:1.02rem;display:inline-block;margin:6px 0}
+.refnum{color:var(--accent);font-weight:700;text-decoration:none}
+#quoteTbl input{padding:6px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%;font-size:.92rem}
+#quoteTbl td{vertical-align:middle}
+.qtotal{font-size:1.15rem;font-weight:800;color:var(--accent);text-align:right;margin:8px 0}
+.qbtns{display:flex;flex-wrap:wrap;gap:8px}
+/* ---- v5:列印(報價單→PDF) ---- */
+@media print{
+ body *{visibility:hidden}
+ #printArea,#printArea *{visibility:visible}
+ #printArea{position:absolute;left:0;top:0;width:100%;background:#fff;color:#000}
+ #printArea table{width:100%;border-collapse:collapse;font-size:12pt}
+ #printArea th,#printArea td{border:1px solid #333;padding:6px 8px}
+}
 </style>
 </head>
 <body>
@@ -274,6 +310,7 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
   <button data-v="biz" data-zh="📊 商業分析" data-en="📊 Business">📊 商業分析</button>
   <button data-v="faq" data-zh="💬 FAQ客服" data-en="💬 FAQ">💬 FAQ客服</button>
   <button data-v="consult" data-zh="📑 顧問報告" data-en="📑 Consulting">📑 顧問報告</button>
+  <button data-v="spec" data-zh="🧾 SPEC報價" data-en="🧾 SPEC & Quote">🧾 SPEC報價</button>
  </nav>
 
  <!-- 詢價 -->
@@ -375,8 +412,28 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
   <h2 data-i18n="hBmc">🧱 商業模式圖 BMC</h2>
   <div class="bmc" id="bmc"></div>
   <h2 data-i18n="hSwot">🎯 SWOT 分析</h2>
-  <div class="swot" id="swot"></div>
+  <div class="zoomrow"><span data-i18n="zoomLbl">縮放</span><input type="range" id="swotZoom" min="50" max="150" value="100" step="10"><span id="swotZoomVal">100%</span></div>
+  <div id="swotWrap"><div class="swot" id="swot"></div></div>
  </section>
+
+ <!-- SPEC 報價 -->
+ <section class="view" id="spec">
+  <h2 data-i18n="hSpec">🧾 各廠商完整 SPEC 與比價報告</h2>
+  <div id="specBody"></div>
+  <h2 data-i18n="hQuote">🧮 報價單(可匯出/匯入)</h2>
+  <div class="card">
+   <div class="qbtns">
+    <button class="btn" id="qAdd" data-i18n="qAdd">＋ 新增一列</button>
+    <button class="btn sec" id="qXls" data-i18n="qXls">⬇️ 匯出 XLS</button>
+    <button class="btn sec" id="qPdf" data-i18n="qPdf">🖨 匯出 PDF(列印)</button>
+    <label class="btn sec" style="cursor:pointer"><span data-i18n="qImp">⬆️ 匯入 XLS</span><input type="file" id="qImport" accept=".xlsx,.xls" hidden></label>
+   </div>
+   <div class="tblscroll" style="margin-top:10px"><table id="quoteTbl"><thead></thead><tbody></tbody></table></div>
+   <div class="qtotal" id="qTotal"></div>
+   <div class="note" data-i18n="qNote">匯出 XLS 可在 Excel 開啟編輯,之後可再「匯入」回本頁繼續;PDF 走系統列印(選「儲存為 PDF」)。</div>
+  </div>
+ </section>
+ <div id="printArea" style="display:none"></div>
 
  <!-- FAQ -->
  <section class="view" id="faq">
@@ -406,7 +463,8 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
  <footer id="foot"></footer>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="libs/pptxgen.bundle.js"></script>
+<script src="libs/xlsx.full.min.js"></script>
 <script>
 const APP = /*__APP_DATA__*/;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -633,6 +691,67 @@ $("#copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(APP.temp
  const b=$("#copyBtn");b.textContent="已複製 ✓";b.classList.add("done");setTimeout(()=>{b.textContent="複製";b.classList.remove("done");},1800);
 }catch(e){alert("複製失敗，請手動選取。");}};
 
+/* ---------- v5:SPEC 比價報告 ---------- */
+function renderSpec(){const S=(APP.research||{}).spec;const host=$("#specBody");if(!host)return;
+ if(!S){host.innerHTML='<div class="note">尚無 SPEC 報告資料。</div>';renderQuote();return;}
+ let n=0;const T=(UI[lang]||UI.zh);
+ host.innerHTML=
+  '<div class="bigtext">'+esc(L(S.intro))+'</div>'+
+  '<div class="card"><b>'+ui("formulaH")+'：'+esc(L(S.formula.name))+'</b><div class="formula">'+esc(S.formula.expr)+'</div><div class="big2">'+esc(L(S.formula.vars))+'<br>'+esc(L(S.formula.explain))+'</div></div>'+
+  '<div class="card"><b>'+(lang==="zh"?"主機板 SPEC(LGA1151・DDR3/DDR3L)":"Motherboard SPEC (LGA1151 · DDR3/DDR3L)")+'</b><div class="tblscroll">'+
+   tbl(T.thBoards,(S.boards||[]).map(b=>[b.brand,b.model,b.socket,b.chipset,b.memory,b.form,L(b.io),b.price,L(b.pros),L(b.cons)]))+'</div></div>'+
+  '<div class="card"><b>'+(lang==="zh"?"CPU 行情與 CP 值":"CPU used prices & value")+'</b><div class="tblscroll">'+
+   tbl(T.thCpus2,(S.cpus||[]).map(c=>[c.model,c.cores,c.clock,c.tdp,c.price,L(c.value_note)]))+'</div></div>'+
+  (S.related||[]).map(cat=>'<div class="card"><b>'+esc(L(cat.category))+'</b><div class="tblscroll">'+
+   tbl(T.thRel,(cat.items||[]).map(i=>[i.model,L(i.key_spec),i.price,L(i.note)]))+'</div></div>').join("")+
+  '<div class="card anim" id="sChart"><b>'+esc(L(S.chart.title))+'</b>'+barChart(S.chart.bars)+'<div class="note">'+esc(L(S.chart.caption))+'</div><button class="replay" data-rp="#sChart">'+ui("flowReplay")+'</button></div>'+
+  '<div class="card"><b>'+ui("compH")+'</b><ul class="big2">'+(S.comparison||[]).map(x=>"<li>"+esc(L(x))+"</li>").join("")+'</ul></div>'+
+  '<div class="card"><b>'+ui("refsH")+'</b><div class="reflist">'+(S.references||[]).map(r=>refItem(r,++n)).join("")+'</div></div>';
+ $$("#specBody .replay").forEach(b=>b.onclick=()=>animate(b.dataset.rp));
+ renderQuote();}
+
+/* ---------- v5:報價單(匯出/匯入) ---------- */
+let qRows=[
+ {item:"ASUS H110M-K D3",spec:"LGA1151 / DDR3L",qty:1,price:1000,seller:"js3c0800(露天)",note:"D3版,非D4"},
+ {item:"Intel i7-6700",spec:"4C8T / LGA1151",qty:1,price:1800,seller:"露天",note:"含風扇"},
+ {item:"DDR3L-1600 8GB",spec:"1.35V",qty:2,price:250,seller:"露天",note:""},
+];
+function qTotal(){return qRows.reduce((s,r)=>s+(Number(r.qty)||0)*(Number(r.price)||0),0);}
+function renderQuote(){const T=(UI[lang]||UI.zh);const thead=$("#quoteTbl thead"),tbody=$("#quoteTbl tbody");if(!thead)return;
+ thead.innerHTML="<tr>"+T.qth.map(h=>"<th>"+esc(h)+"</th>").join("")+"</tr>";
+ tbody.innerHTML=qRows.map((r,i)=>"<tr>"+
+  ['item','spec','qty','price'].map(k=>'<td'+(k==='qty'||k==='price'?' style="max-width:90px"':'')+'><input data-i="'+i+'" data-k="'+k+'" value="'+esc(String(r[k]??""))+'"'+(k==='qty'||k==='price'?' type="number" min="0"':'')+'></td>').join("")+
+  '<td style="text-align:right;font-weight:700">'+((Number(r.qty)||0)*(Number(r.price)||0)).toLocaleString()+'</td>'+
+  ['seller','note'].map(k=>'<td><input data-i="'+i+'" data-k="'+k+'" value="'+esc(String(r[k]??""))+'"></td>').join("")+
+  '<td><button class="replay" data-del="'+i+'">'+ui("delRow")+'</button></td></tr>').join("");
+ $("#qTotal").textContent=ui("qTotalLbl")+" "+qTotal().toLocaleString();
+ tbody.querySelectorAll("input").forEach(inp=>inp.onchange=()=>{qRows[+inp.dataset.i][inp.dataset.k]=inp.value;renderQuote();});
+ tbody.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{qRows.splice(+b.dataset.del,1);renderQuote();});}
+$("#qAdd").onclick=()=>{qRows.push({item:"",spec:"",qty:1,price:0,seller:"",note:""});renderQuote();};
+$("#qXls").onclick=()=>{const T=(UI[lang]||UI.zh);
+ const aoa=[[T.qTitle],[ui("qTotalLbl"),qTotal()],[],T.qth.slice(0,7)]
+  .concat(qRows.map(r=>[r.item,r.spec,Number(r.qty)||0,Number(r.price)||0,(Number(r.qty)||0)*(Number(r.price)||0),r.seller,r.note]));
+ const ws=XLSX.utils.aoa_to_sheet(aoa);ws["!cols"]=[{wch:22},{wch:18},{wch:6},{wch:10},{wch:10},{wch:18},{wch:18}];
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,lang==="zh"?"報價單":"Quote");
+ XLSX.writeFile(wb,(lang==="zh"?"報價單_":"quote_")+APP.date+".xlsx");};
+$("#qImport").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
+ rd.onload=()=>{try{const wb=XLSX.read(rd.result,{type:"array"});const ws=wb.Sheets[wb.SheetNames[0]];
+  const aoa=XLSX.utils.sheet_to_json(ws,{header:1});
+  const hi=aoa.findIndex(row=>row&&row.length>=4&&String(row[2]||"").match(/數量|Qty/i));
+  const body=aoa.slice(hi>=0?hi+1:0).filter(r=>r&&(r[0]||r[1]));
+  qRows=body.map(r=>({item:String(r[0]??""),spec:String(r[1]??""),qty:Number(r[2])||0,price:Number(r[3])||0,seller:String(r[5]??""),note:String(r[6]??"")}));
+  renderQuote();}catch(err){alert((lang==="zh"?"匯入失敗:":"Import failed: ")+err.message);}e.target.value="";};
+ rd.readAsArrayBuffer(f);});
+$("#qPdf").onclick=()=>{const T=(UI[lang]||UI.zh);const pa=$("#printArea");
+ pa.innerHTML="<h2>"+esc(T.qTitle)+"</h2><div>"+APP.date+"</div><table><tr>"+T.qth.slice(0,7).map(h=>"<th>"+esc(h)+"</th>").join("")+"</tr>"+
+  qRows.map(r=>"<tr>"+[r.item,r.spec,r.qty,r.price,(Number(r.qty)||0)*(Number(r.price)||0),r.seller,r.note].map(c=>"<td>"+esc(String(c??""))+"</td>").join("")+"</tr>").join("")+
+  '<tr><td colspan="4" style="text-align:right;font-weight:bold">'+ui("qTotalLbl")+'</td><td style="font-weight:bold">'+qTotal().toLocaleString()+"</td><td></td><td></td></tr></table>";
+ pa.style.display="block";window.print();setTimeout(()=>{pa.style.display="none";},400);};
+
+/* ---------- v5:SWOT 縮放 ---------- */
+$("#swotZoom").addEventListener("input",e=>{const v=+e.target.value;$("#swotZoomVal").textContent=v+"%";
+ const s=$("#swot");s.style.zoom=v/100;if(getComputedStyle(s).zoom==="1"&&v!==100){s.style.transformOrigin="top left";s.style.transform="scale("+(v/100)+")";}else if(v===100){s.style.transform="";}});
+
 /* ---------- 設定面板 ---------- */
 let bizTopicName="本系統";
 $("#setBtn").onclick=()=>{const p=$("#setPanel");const open=p.style.display==="none";p.style.display=open?"block":"none";if(open)$("#aiUrl").value=aiEndpoint();};
@@ -716,7 +835,12 @@ const UI={zh:{
  hFaq:"💬 規則式 FAQ 客服",faqNote:"問「DDR3L 能用嗎」「賣家叫我取消」「嗶兩聲沒畫面」等都行。<b>未設定 AI</b> 時用本專案知識庫的關鍵字比對；<b>設定 AI 後</b>(右上 ⚙️)升級成真 AI 客服。",askPh:"輸入你的問題…",ask:"問",hFaqList:"📚 常見問題（點開看答案）",
  tagTw:"🇹🇼 台灣",tagIntl:"🌐 國際",needKw:"先輸入關鍵字",common:"常搜：",gotoStore:"前往賣場",verdictOk:"✅ 可相容",verdictBad:"❌ 不相容",thinking:"🤖 思考中…",
  footer:"資料更新：{date}　|　只開各平台<b>真實搜尋</b>，不爬價、不造假快取價，價格以平台即時頁面為準。<br>個人比價與防詐用途，使用前自行判斷賣家信用。一律貨到付款、收到先驗、不對拒收。<br>🤖 以 Claude Code 製作",
- thCpu:["","型號","腳位","世代","核心緒","TDP","記憶體支援"],thBoard:["","型號","腳位","晶片組","記憶體","插槽","最大","板型"],thRam:["類型","電壓","插槽","說明"],thCmp:["型號","類型","腳位","世代/晶片組","核緒/板型","TDP/最大","記憶體","備註"]
+ thCpu:["","型號","腳位","世代","核心緒","TDP","記憶體支援"],thBoard:["","型號","腳位","晶片組","記憶體","插槽","最大","板型"],thRam:["類型","電壓","插槽","說明"],thCmp:["型號","類型","腳位","世代/晶片組","核緒/板型","TDP/最大","記憶體","備註"],
+ zoomLbl:"縮放",hSpec:"🧾 各廠商完整 SPEC 與比價報告",hQuote:"🧮 報價單(可匯出/匯入)",qAdd:"＋ 新增一列",qXls:"⬇️ 匯出 XLS",qPdf:"🖨 匯出 PDF(列印)",qImp:"⬆️ 匯入 XLS",
+ qNote:"匯出 XLS 可在 Excel 開啟編輯,之後可再「匯入」回本頁繼續;PDF 走系統列印(選「儲存為 PDF」)。",
+ qth:["項目","規格","數量","單價 NT$","小計","賣家/來源","備註",""],qTotalLbl:"總計 NT$",qTitle:"二手電腦零件報價單",
+ thBoards:["廠牌","型號","腳位","晶片組","記憶體","板型","關鍵 I/O","二手行情","優點","缺點"],thCpus2:["型號","核心/緒","時脈","TDP","二手行情","CP 值評註"],thRel:["型號","關鍵規格","行情","選購提醒"],
+ designH:"🎨 設計優化依據(世界前 10 大二手網站)",flowReplay:"▶ 重播動畫",refsH:"參考文獻(依編號順序)",formulaH:"評估公式",compH:"跨廠牌優缺點比較",delRow:"刪"
 },en:{
  brand:"🖥️ Second-hand PC Price Finder",brandSub:"Top-10 platforms · compatibility · anti-scam",
  aiPanelLabel:"AI proxy URL (Cloudflare Worker) — blank = rule-based/manual",aiSave:"Save",aiTest:"Test",
@@ -732,7 +856,12 @@ const UI={zh:{
  hFaq:"💬 FAQ assistant",faqNote:"Ask things like “can I use DDR3L”, “seller asked me to cancel”, “two beeps no display”. <b>Without AI</b> it uses the project's keyword knowledge base; <b>with AI</b> (top-right ⚙️) it becomes a real AI assistant.",askPh:"Ask a question…",ask:"Ask",hFaqList:"📚 FAQ (tap to expand)",
  tagTw:"🇹🇼 TW",tagIntl:"🌐 Intl",needKw:"Enter a keyword first",common:"Common:",gotoStore:"Visit store",verdictOk:"✅ Compatible",verdictBad:"❌ Not compatible",thinking:"🤖 Thinking…",
  footer:"Updated {date}　|　Opens each platform's <b>real search</b> — no scraping, no fake cached prices; prices are live on each platform.<br>For personal comparison & anti-scam use; judge seller credibility yourself. Always cash-on-delivery, inspect on arrival, refuse if wrong.<br>🤖 Built with Claude Code",
- thCpu:["","Model","Socket","Gen","Cores/Threads","TDP","Memory"],thBoard:["","Model","Socket","Chipset","Memory","Slots","Max","Form"],thRam:["Type","Voltage","Slot","Note"],thCmp:["Model","Type","Socket","Gen/Chipset","Cores/Form","TDP/Max","Memory","Note"]
+ thCpu:["","Model","Socket","Gen","Cores/Threads","TDP","Memory"],thBoard:["","Model","Socket","Chipset","Memory","Slots","Max","Form"],thRam:["Type","Voltage","Slot","Note"],thCmp:["Model","Type","Socket","Gen/Chipset","Cores/Form","TDP/Max","Memory","Note"],
+ zoomLbl:"Zoom",hSpec:"🧾 Full vendor SPEC & price-comparison report",hQuote:"🧮 Quotation (export/import)",qAdd:"＋ Add row",qXls:"⬇️ Export XLS",qPdf:"🖨 Export PDF (print)",qImp:"⬆️ Import XLS",
+ qNote:"The exported XLS opens in Excel for editing and can be re-imported here; PDF uses the system print dialog (choose “Save as PDF”).",
+ qth:["Item","Spec","Qty","Unit NT$","Subtotal","Seller/Source","Note",""],qTotalLbl:"Total NT$",qTitle:"Second-hand PC Parts Quotation",
+ thBoards:["Brand","Model","Socket","Chipset","Memory","Form","Key I/O","Used price","Pros","Cons"],thCpus2:["Model","Cores/Threads","Clock","TDP","Used price","Value note"],thRel:["Model","Key spec","Price","Buying note"],
+ designH:"🎨 Design rationale (world's top-10 second-hand sites)",flowReplay:"▶ Replay animation",refsH:"References (numbered)",formulaH:"Evaluation formula",compH:"Cross-vendor pros & cons",delRow:"Del"
 }};
 const ui=k=>{const v=(UI[lang]||UI.zh)[k];return v!=null?v:k;};
 function applyUI(){
@@ -743,7 +872,7 @@ function applyUI(){
 }
 function applyLang(){document.documentElement.lang=lang==="zh"?"zh-Hant":"en";$("#langBtn").textContent=lang==="zh"?"EN":"中";
  $$("#nav button").forEach(b=>{const v=lang==="zh"?b.dataset.zh:b.dataset.en;if(v)b.textContent=v;});
- applyUI();renderStatic();renderPlatforms();renderSellers();renderCompat();renderConsult();}
+ applyUI();renderStatic();renderPlatforms();renderSellers();renderCompat();renderConsult();renderSpec();}
 $("#langBtn").onclick=()=>{lang=lang==="zh"?"en":"zh";try{localStorage.setItem("pcf-lang",lang)}catch(e){}applyLang();};
 
 function flowSVG(flow){const N=flow.nodes||[],E=flow.edges||[],idx={};N.forEach((n,i)=>idx[n.id]=i);
@@ -755,34 +884,45 @@ function flowSVG(flow){const N=flow.nodes||[],E=flow.edges||[],idx={};N.forEach(
   const round=(n.type==="start"||n.type==="end")?H/2:12,fill=n.type==="start"?"#dcfce7":n.type==="end"?"#e0e7ff":"#eef2fb";
   return '<rect x="'+x+'" y="'+y+'" width="'+W+'" height="'+H+'" rx="'+round+'" fill="'+fill+'" stroke="#9bb0d6"/>'+txt(L(n.label),CX,y+H/2);};
  let g='';
- E.forEach(e=>{const si=idx[e.from],ti=idx[e.to];if(si==null||ti==null)return;const lab=L(e.label);
-  if(ti===si+1){const y1=top+si*ROW+H,y2=top+ti*ROW;g+='<line x1="'+CX+'" y1="'+y1+'" x2="'+CX+'" y2="'+(y2-2)+'" stroke="#7c8aa6" stroke-width="1.6" marker-end="url(#ar)"/>';if(lab)g+='<text x="'+(CX+7)+'" y="'+((y1+y2)/2)+'" font-size="11" fill="#b45309">'+esc(lab)+'</text>';}
-  else{const sy=top+si*ROW+H/2,ey=top+ti*ROW+H/2,gx=CX+W/2+46;g+='<path d="M'+(CX+W/2)+','+sy+' H'+gx+' V'+ey+' H'+(CX+W/2)+'" fill="none" stroke="#7c8aa6" stroke-width="1.6" marker-end="url(#ar)"/>';if(lab)g+='<text x="'+(gx+3)+'" y="'+((sy+ey)/2)+'" font-size="11" fill="#b45309">'+esc(lab)+'</text>';}});
- N.forEach((n,i)=>g+=shape(n,top+i*ROW));
+ E.forEach(e=>{const si=idx[e.from],ti=idx[e.to];if(si==null||ti==null)return;const lab=L(e.label);const dl=' class="fedge" style="animation-delay:'+(0.25+si*0.28)+'s"';
+  if(ti===si+1){const y1=top+si*ROW+H,y2=top+ti*ROW;g+='<line'+dl+' x1="'+CX+'" y1="'+y1+'" x2="'+CX+'" y2="'+(y2-2)+'" stroke="#7c8aa6" stroke-width="1.6" marker-end="url(#ar)"/>';if(lab)g+='<text x="'+(CX+7)+'" y="'+((y1+y2)/2)+'" font-size="11" fill="#b45309">'+esc(lab)+'</text>';}
+  else{const sy=top+si*ROW+H/2,ey=top+ti*ROW+H/2,gx=CX+W/2+46;g+='<path'+dl+' d="M'+(CX+W/2)+','+sy+' H'+gx+' V'+ey+' H'+(CX+W/2)+'" fill="none" stroke="#7c8aa6" stroke-width="1.6" marker-end="url(#ar)"/>';if(lab)g+='<text x="'+(gx+3)+'" y="'+((sy+ey)/2)+'" font-size="11" fill="#b45309">'+esc(lab)+'</text>';}});
+ N.forEach((n,i)=>g+='<g class="fnode" style="animation-delay:'+(i*0.28)+'s">'+shape(n,top+i*ROW)+'</g>');
  const ht=top+N.length*ROW;
  return '<svg viewBox="0 0 '+(CX+W/2+80)+' '+ht+'" width="100%" style="max-width:420px"><defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#7c8aa6"/></marker></defs>'+g+'</svg>';}
 
 function barChart(bars){bars=bars||[];const max=Math.max(...bars.map(b=>b.value||0),1),bh=30,gap=16,top=8,h=top+bars.length*(bh+gap);let g='';
  bars.forEach((b,i)=>{const y=top+i*(bh+gap),w=Math.max(2,(b.value/max)*250);
   g+='<text x="0" y="'+(y+bh/2+4)+'" font-size="11.5" fill="var(--ink)">'+esc(L(b.label))+'</text>';
-  g+='<rect x="250" y="'+y+'" width="'+w+'" height="'+bh+'" rx="5" fill="#3b82f6"/>';
+  g+='<rect class="fbar" style="animation-delay:'+(i*0.15)+'s" x="250" y="'+y+'" width="'+w+'" height="'+bh+'" rx="5" fill="var(--accent2)"/>';
   g+='<text x="'+(254+w)+'" y="'+(y+bh/2+4)+'" font-size="12" font-weight="700" fill="var(--ink)">'+esc(String(b.value))+'</text>';});
  return '<svg viewBox="0 0 560 '+h+'" width="100%" style="margin:8px 0">'+g+'</svg>';}
 
-function renderConsult(){const C=APP.consult||{};const host=$("#consult");if(!C.guide){$("#cIntro").innerHTML='<div class="note">尚無顧問報告資料。</div>';return;}
- $("#cIntro").innerHTML=lang==="zh"
-  ?"本報告參考<b>國際期刊、產業報告與企業公開資訊</b>(來源附於文末),以顧問角度<b>誠實</b>評估本系統。右上 <b>EN</b> 可切換英文。內含:使用指南、運作流程圖、市場與文獻、紅隊評估、變現與行動計畫。"
-  :"This consultant report draws on <b>international journals, industry reports and public company information</b> (sources at the end) for an <b>honest</b> assessment. Use <b>中</b> (top-right) for Chinese. Sections: user guide, flowcharts, market & literature, red-team critique, monetization & action plan.";
+function refItem(r,n){return '<div class="ref"><div><a class="refnum" '+(r.url?'href="'+r.url+'" target="_blank" rel="noopener"':'')+'>['+n+']</a> '+esc(r.title)+' <span class="muted">— '+esc(r.source)+'</span></div>'+(r.takeaway?'<div class="big2">'+esc(L(r.takeaway))+'</div>':'')+'</div>';}
+function animate(sel){$$(sel).forEach(el=>{el.classList.remove("anim");void el.offsetWidth;el.classList.add("anim");});}
+function renderConsult(){const C=APP.consult||{};const R=APP.research||{};if(!C.guide){$("#cIntro").innerHTML='<div class="note">尚無顧問報告資料。</div>';return;}
+ const P=R.polish||{};
+ $("#cIntro").innerHTML=P.intro?esc(L(P.intro)):(lang==="zh"
+  ?"本報告參考<b>國際期刊、產業報告與企業公開資訊</b>(文獻依編號列於各節末),以顧問角度<b>誠實</b>評估本系統。右上 <b>EN</b> 可切換英文。"
+  :"This consultant report draws on <b>international journals, industry reports and public company information</b> (numbered references per section) for an <b>honest</b> assessment. Use <b>中</b> (top-right) for Chinese.");
  $("#cH_guide").textContent=tr("guide");$("#cH_flows").textContent=tr("flows");$("#cH_market").textContent=tr("market");$("#cH_critique").textContent=tr("critique");$("#cH_money").textContent=tr("money");
  const g=C.guide;
- $("#cGuide").innerHTML='<div class="card"><ol class="big">'+(g.quickstart||[]).map(s=>"<li>"+esc(L(s))+"</li>").join("")+'</ol></div>'+
-  '<div class="card eli"><b>ELI15</b><div class="big" style="margin-top:5px">'+esc(L(g.eli15))+'</div></div>'+
+ const qs=(P.quickstart&&P.quickstart.length?P.quickstart:g.quickstart)||[];
+ const eli=P.eli20||g.eli15;const eliTag=P.eli20?"ELI20":"ELI15";
+ $("#cGuide").innerHTML='<div class="card"><ol class="big">'+qs.map(s=>"<li>"+esc(L(s))+"</li>").join("")+'</ol></div>'+
+  '<div class="card eli"><b>'+eliTag+'</b><div class="big" style="margin-top:5px">'+esc(L(eli))+'</div></div>'+
   (g.examples||[]).map(e=>'<div class="card"><b>'+esc(L(e.scenario))+'</b><div class="big2" style="margin-top:5px">'+esc(L(e.walkthrough)).replace(/\n/g,"<br>")+'</div></div>').join("");
- $("#cFlows").innerHTML=((C.flows&&C.flows.flows)||[]).map(f=>'<div class="card"><h3>'+esc(L(f.title))+'</h3><div class="flowwrap"><div class="flowimg">'+flowSVG(f)+'</div><div class="flowdesc big2">'+esc(L(f.desc)).replace(/\n/g,"<br>")+'</div></div></div>').join("");
+ $("#cFlows").innerHTML=((C.flows&&C.flows.flows)||[]).map((f,i)=>'<div class="card"><h3>'+esc(L(f.title))+'</h3><div class="flowwrap"><div class="flowimg anim" data-flow="'+i+'">'+flowSVG(f)+'</div><div class="flowdesc big2">'+esc(L(f.desc)).replace(/\n/g,"<br>")+'<br><button class="replay" data-rp=".flowimg[data-flow=\''+i+'\']">'+ui("flowReplay")+'</button></div></div></div>').join("");
  const m=C.market;
+ const mrefs=m.references||[],drefs=(R.design&&R.design.references)||[];
+ let refN=0;
  $("#cMarket").innerHTML='<div class="card"><ul class="big">'+(m.market_points||[]).map(p=>"<li>"+esc(L(p))+"</li>").join("")+'</ul></div>'+
-  '<div class="card"><b>'+esc(L(m.chart.title))+'</b>'+barChart(m.chart.bars)+'<div class="note">'+esc(L(m.chart.caption))+'</div></div>'+
-  '<div class="card"><b>'+tr("refs")+'</b><div class="reflist">'+(m.references||[]).map(r=>'<div class="ref"><div>'+(r.url?'<a class="src" href="'+r.url+'" target="_blank" rel="noopener">'+esc(r.title)+'</a>':esc(r.title))+' <span class="muted">— '+esc(r.source)+'</span></div><div class="big2">'+esc(L(r.takeaway))+'</div></div>').join("")+'</div></div>';
+  '<div class="card anim" id="mChart"><b>'+esc(L(m.chart.title))+'</b>'+barChart(m.chart.bars)+'<div class="note">'+esc(L(m.chart.caption))+'</div><button class="replay" data-rp="#mChart">'+ui("flowReplay")+'</button></div>'+
+  (R.design?('<div class="card"><b>'+ui("designH")+'</b><div class="big2" style="margin:6px 0">'+esc(L(R.design.eyecare))+'</div>'+
+   '<div class="reflist">'+(R.design.sites||[]).map(s=>'<div class="ref"><b>'+esc(s.name)+'</b> <span class="muted">'+esc(s.url)+'</span><div class="big2">'+esc(L(s.pattern))+'</div></div>').join("")+'</div>'+
+   '<ul class="big2">'+(R.design.takeaways||[]).map(t=>'<li><b>'+esc(L(t.principle))+'</b>：'+esc(L(t.applied))+'</li>').join("")+'</ul></div>'):"")+
+  '<div class="card"><b>'+ui("refsH")+'</b><div class="reflist">'+mrefs.map(r=>refItem(r,++refN)).join("")+drefs.map(r=>refItem(r,++refN)).join("")+'</div></div>';
+ $$("#cFlows .replay, #cMarket .replay").forEach(b=>b.onclick=()=>animate(b.dataset.rp));
  const cr=C.critique;
  $("#cCritique").innerHTML='<div class="card"><div class="verdict bad" style="font-size:1.04rem"><b>⚖ '+tr("verdict")+'：</b>'+esc(L(cr.verdict))+'</div></div>'+
   '<details class="card"><summary style="cursor:pointer;font-weight:700">'+(lang==="zh"?"▸ 展開完整紅隊評估（內含對本案的嚴厲批評；點此展開）":"▸ Expand full red-team critique (harsh by design — tap to open)")+'</summary>'+

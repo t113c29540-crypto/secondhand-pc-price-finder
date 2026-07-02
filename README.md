@@ -4,7 +4,13 @@
 
 > 🔗 線上版：**https://t113c29540-crypto.github.io/secondhand-pc-price-finder/**
 
-## ✨ 特色（v4）
+## 📦 本機完整包(離線可用)
+
+**[⬇️ 下載 pcfinder_完整包_v5.zip](https://github.com/t113c29540-crypto/secondhand-pc-price-finder/raw/main/release/pcfinder_完整包_v5.zip)** — 解壓後雙擊 `index.html` 即用;JS 套件已本地化(`libs/`),離線可跑。詳見 [README_本機使用_LOCAL.md](README_本機使用_LOCAL.md)。
+
+## ✨ 特色（v5）
+
+**v5 新增**:護眼配色(WCAG AA 對比、低藍光暖色系)、全站字級加大、**動態流程圖/圖表**(節點浮現+箭頭描邊+長條生長動畫,含重播鈕、respect `prefers-reduced-motion`)、**SWOT 縮放**(50–150%)、**🧾 SPEC 報價分頁**(各廠商主機板/CPU/相關產品完整規格與優缺點、CP 值公式、編號參考文獻 [1]–[13])、**報價單匯出/匯入**(真 .xlsx 回圈編輯 + PDF 列印)、**設計依據**(實查世界前 10 大二手網站的可落地設計模式,文獻 [10]–[20])、JS 套件本地化(離線)、ELI20 與使用指南全文精修(雙語)。
 
 六大分頁，全部純靜態、手機／桌面響應式、支援深色模式：
 
@@ -23,6 +29,9 @@
 - `content.json`：零件規格庫、FAQ 知識庫、五力／BMC／SWOT 內容（多代理研究產出，可手改）。
 - `assets/`：兩張賣價表 PNG。
 - `consult.json`：顧問報告內容（市場文獻、紅隊評估、變現、使用指南、流程圖節點，皆雙語 zh/en；多代理研究產出，可手改）。
+- `research.json`：v5 研究資料（世界前 10 大二手網站設計模式、各廠商 SPEC 比價報告＋公式＋編號文獻、ELI20 精修文字，皆雙語）。
+- `libs/`：本地化 JS 套件（PptxGenJS、SheetJS）— 離線可用的關鍵。
+- `release/`：本機完整包 zip。
 
 ## 🚀 本機使用
 
