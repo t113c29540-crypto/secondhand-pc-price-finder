@@ -39,6 +39,14 @@
 | `vision` | 拍照/上傳 → 辨識零件型號與規格(回 JSON) |
 | `analysis` | 輸入任意標的 → 產生五力/BMC/SWOT(供動態商業分析 + 下載 PPT) |
 
+## 會員審核(只開放審核通過的會員用 AI)
+- 在 Worker 變數加 **`MEMBER_CODES`**(Text 明文即可),值為逗號分隔的會員碼名單,例:`BRO-2026,MOM-01,GUEST-7`。
+- **設定後**:所有 AI 模式(chat/vision/analysis)都要求有效會員碼;沒碼或碼錯回 `401 member_required`,網站會自動退回免費的規則式 FAQ。
+- **留空或不設** = 不啟用審核(所有人可用)。
+- **核發會員**:把新碼加進名單 → Deploy;**撤銷**:從名單移除 → Deploy。建議一人一碼,方便單獨撤銷。
+- 會員在網站右上 **⚙️ → 會員碼** 欄輸入,存在他自己的瀏覽器(localStorage),之後自動帶上。
+
 ## 安全
 - 金鑰用 `wrangler secret` 存,不要寫進 `wrangler.toml` 或前端。
 - 建議把 `ALLOWED_ORIGIN` 鎖成你的 Pages 網址,避免被別人盜用你的額度。
+- `MEMBER_CODES` 是第二道防線:就算有人拿到 Worker 網址,沒有會員碼也用不了你的額度。

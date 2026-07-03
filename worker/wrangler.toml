@@ -7,6 +7,7 @@ compatibility_date = "2026-01-01"
 PROVIDER = "anthropic"          # 或 "openai"
 MODEL = "claude-opus-4-8"       # 省錢可改 claude-haiku-4-5 / claude-sonnet-4-6 / gpt-4o-mini
 ALLOWED_ORIGIN = "*"            # 建議改成 https://t113c29540-crypto.github.io
+MEMBER_CODES = ""               # 會員審核:填 "BRO-2026,MOM-01" 等逗號分隔名單即啟用;留空=所有人可用
 
 # 機密金鑰「不要」寫在這裡。用指令設定密鑰:
 #   npx wrangler secret put ANTHROPIC_API_KEY     (PROVIDER=anthropic 時)

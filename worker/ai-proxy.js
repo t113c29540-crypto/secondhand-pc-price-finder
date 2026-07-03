@@ -14,6 +14,8 @@
  *   ANTHROPIC_API_KEY: PROVIDER=anthropic 時必填(密鑰)
  *   OPENAI_API_KEY   : PROVIDER=openai 時必填(密鑰)
  *   ALLOWED_ORIGIN   : CORS 允許來源,預設 "*";建議設成你的 Pages 網址
+ *   MEMBER_CODES     : 會員審核名單(逗號分隔,例 "BRO-2026,MOM-01")。設定後所有 AI 模式
+ *                      僅限持有效會員碼者;留空 = 不啟用審核。核發/撤銷 = 增刪名單後 Deploy。
  */
 
 const SYSTEM_CHAT = `你是「二手電腦詢價系統」的繁體中文防詐客服,協助台灣使用者(常是替長輩採購)買二手電腦零件。請用繁體中文、條列、務實可執行地回答。核心知識:
@@ -114,6 +116,16 @@ export default {
 
     let body;
     try { body = await request.json(); } catch (_) { return json({ error: "invalid JSON" }, 400, origin); }
+
+    // 會員審核:設定 MEMBER_CODES(逗號分隔)後,所有 AI 模式僅限有效會員碼
+    const codes = (env.MEMBER_CODES || "").split(",").map((s) => s.trim()).filter(Boolean);
+    if (codes.length) {
+      const mc = String(body.member_code || "").trim();
+      if (!mc || !codes.includes(mc)) {
+        return json({ error: "member_required" }, 401, origin);
+      }
+    }
+
     const provider = (env.PROVIDER || "anthropic").toLowerCase();
     const call = provider === "openai" ? callOpenAI : callAnthropic;
 

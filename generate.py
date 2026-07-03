@@ -296,6 +296,8 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
  <div id="setPanel" class="card" style="display:none;margin:8px 0">
   <label class="fld" data-i18n="aiPanelLabel">AI 代理網址(Cloudflare Worker）— 留空則用規則式／手動版</label>
   <input type="text" id="aiUrl" placeholder="https://pcfinder-ai-proxy.xxx.workers.dev">
+  <label class="fld" data-i18n="aiMemberLabel">會員碼 — AI 客服僅開放審核通過的會員(向站長申請)</label>
+  <input type="text" id="aiMember" data-i18n-ph="aiMemberPh" placeholder="例:BRO-2026">
   <div class="searchrow" style="margin-top:8px">
    <button class="btn" id="aiSave" style="flex:1" data-i18n="aiSave">儲存</button>
    <button class="btn sec" id="aiTest" style="flex:1" data-i18n="aiTest">測試連線</button>
@@ -473,13 +475,17 @@ const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&g
 let region="all";
 let lastPhotoB64=null,lastPhotoMime="image/jpeg";
 
-/* ---------- AI 代理 (選配) ---------- */
+/* ---------- AI 代理 (選配,會員審核) ---------- */
 function aiEndpoint(){try{return localStorage.getItem("pcf-ai")||""}catch(e){return ""}}
+function memberCode(){try{return localStorage.getItem("pcf-member")||""}catch(e){return ""}}
 async function callAI(payload){const url=aiEndpoint();if(!url)throw new Error("未設定 AI 代理網址");
+ payload=Object.assign({member_code:memberCode()},payload);
  const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload)});
- const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||("HTTP "+r.status));return d;}
+ const d=await r.json().catch(()=>({}));
+ if(!r.ok){if(d.error==="member_required")throw new Error(ui("memberErr"));throw new Error(d.error||("HTTP "+r.status));}
+ return d;}
 function refreshAIStatus(){const on=!!aiEndpoint();const s=$("#aiStatus");
- if(s)s.innerHTML=on?"✅ 已啟用真 AI:FAQ 客服與拍照辨識會用 AI;商業分析可動態產生。":"未設定:FAQ 用規則式、拍照用手動型號、商業分析用內建。設定後升級成真 AI。";}
+ if(s)s.innerHTML=on?(ui("aiOn")+(memberCode()?"":("<br>"+ui("memberMiss")))):ui("aiOff");}
 
 /* ---------- theme ---------- */
 function setTheme(t){document.documentElement.dataset.theme=t;$("#themeBtn").textContent=t==="dark"?"☀️":"🌙";try{localStorage.setItem("pcf-theme",t)}catch(e){}}
@@ -754,8 +760,8 @@ $("#swotZoom").addEventListener("input",e=>{const v=+e.target.value;$("#swotZoom
 
 /* ---------- 設定面板 ---------- */
 let bizTopicName="本系統";
-$("#setBtn").onclick=()=>{const p=$("#setPanel");const open=p.style.display==="none";p.style.display=open?"block":"none";if(open)$("#aiUrl").value=aiEndpoint();};
-$("#aiSave").onclick=()=>{try{localStorage.setItem("pcf-ai",$("#aiUrl").value.trim());}catch(e){}refreshAIStatus();};
+$("#setBtn").onclick=()=>{const p=$("#setPanel");const open=p.style.display==="none";p.style.display=open?"block":"none";if(open){$("#aiUrl").value=aiEndpoint();$("#aiMember").value=memberCode();}};
+$("#aiSave").onclick=()=>{try{localStorage.setItem("pcf-ai",$("#aiUrl").value.trim());localStorage.setItem("pcf-member",$("#aiMember").value.trim());}catch(e){}refreshAIStatus();};
 $("#aiTest").onclick=async()=>{const s=$("#aiStatus");s.textContent="測試中…";try{const d=await callAI({mode:"chat",messages:[{role:"user",content:"測試:H110M-K D3 能用 DDR3L 嗎?一句話"}]});s.textContent="✅ 連線成功:"+String(d.reply||"").slice(0,50);}catch(e){s.textContent="❌ 失敗:"+e.message;}};
 
 /* ---------- FAQ:真 AI 優先,否則規則式 ---------- */
@@ -763,7 +769,8 @@ const chatHist=[];
 $("#askBtn").onclick=async()=>{const q=$("#askIn").value.trim();if(!q)return;chat("me",q);$("#askIn").value="";
  if(aiEndpoint()){chatHist.push({role:"user",content:q});chat("bot",ui("thinking"));const ph=$("#chatlog").lastChild;
   try{const d=await callAI({mode:"chat",messages:chatHist});const a=d.reply||"(無回覆)";ph.textContent="🤖 "+a;chatHist.push({role:"assistant",content:a});}
-  catch(e){const m=matchFaq(q);ph.textContent=m?("【"+m.q+"】\n"+m.a):("AI 連線失敗("+e.message+"),知識庫也無對應。");}
+  catch(e){const m=matchFaq(q);const pre=e.message+"\n\n";
+   ph.textContent=m?(pre+(lang==="zh"?"改用內建知識庫回答:":"Rule-based answer instead:")+"\n【"+m.q+"】\n"+m.a):(pre+(lang==="zh"?"知識庫也無對應答案。":"No rule-based match either."));}
   return;}
  const m=matchFaq(q);chat("bot",m?("【"+m.q+"】\n"+m.a):"知識庫沒有直接答案。可在右上 ⚙️ 設定 AI 升級成真客服,或往下看常見問題。");};
 
@@ -832,7 +839,7 @@ const UI={zh:{
  hPhoto:"📷 拍照／上傳 找相容零件",upload:"🖼️ 上傳照片",openCam:"📸 開啟相機",shoot:"拍照",photoModelLabel:"輸入照片上看到的型號（晶片/主板絲印），自動查相容＋比價",photoModelPh:"例：i7-6700、H110M-K D3、DDR3L 8G",photoFind:"🔎 拿去比價",lens:"🔍 Google Lens 以圖搜尋",aiVision:"🤖 AI 辨識這張照片（需設定 AI)",
  photoNote:"⚠️ 誠實說明：純靜態網站<b>無法自動辨識</b>照片裡的晶片（那需要 AI 後端）。未設定 AI 時做的是「拍照／上傳留存 ＋ 你輸入型號 → 自動查相容性＋一鍵比價」；設定 AI 後可按「🤖 AI 辨識」真讀型號。",
  bizLabel:"分析標的(預設「本系統」;輸入任意公司／產品,需設定 AI 才會動態產生)",bizTopicPh:"例:二手筆電回收事業、某新創 App",bizGen:"動態產生",pptBtn:"⬇️ 下載 PPT（封面＋五力＋BMC＋SWOT）",bizTitle:"📊 波特五力分析（本系統）",hBmc:"🧱 商業模式圖 BMC",hSwot:"🎯 SWOT 分析",
- hFaq:"💬 規則式 FAQ 客服",faqNote:"問「DDR3L 能用嗎」「賣家叫我取消」「嗶兩聲沒畫面」等都行。<b>未設定 AI</b> 時用本專案知識庫的關鍵字比對；<b>設定 AI 後</b>(右上 ⚙️)升級成真 AI 客服。",askPh:"輸入你的問題…",ask:"問",hFaqList:"📚 常見問題（點開看答案）",
+ hFaq:"💬 規則式 FAQ 客服",faqNote:"問「DDR3L 能用嗎」「賣家叫我取消」「嗶兩聲沒畫面」等都行。規則式問答<b>人人可用</b>;<b>真 AI 客服僅開放審核通過的會員</b>(右上 ⚙️ 填 AI 網址+會員碼)。",askPh:"輸入你的問題…",ask:"問",hFaqList:"📚 常見問題（點開看答案）",
  tagTw:"🇹🇼 台灣",tagIntl:"🌐 國際",needKw:"先輸入關鍵字",common:"常搜：",gotoStore:"前往賣場",verdictOk:"✅ 可相容",verdictBad:"❌ 不相容",thinking:"🤖 思考中…",
  footer:"資料更新：{date}　|　只開各平台<b>真實搜尋</b>，不爬價、不造假快取價，價格以平台即時頁面為準。<br>個人比價與防詐用途，使用前自行判斷賣家信用。一律貨到付款、收到先驗、不對拒收。<br>🤖 以 Claude Code 製作",
  thCpu:["","型號","腳位","世代","核心緒","TDP","記憶體支援"],thBoard:["","型號","腳位","晶片組","記憶體","插槽","最大","板型"],thRam:["類型","電壓","插槽","說明"],thCmp:["型號","類型","腳位","世代/晶片組","核緒/板型","TDP/最大","記憶體","備註"],
@@ -840,7 +847,12 @@ const UI={zh:{
  qNote:"匯出 XLS 可在 Excel 開啟編輯,之後可再「匯入」回本頁繼續;PDF 走系統列印(選「儲存為 PDF」)。",
  qth:["項目","規格","數量","單價 NT$","小計","賣家/來源","備註",""],qTotalLbl:"總計 NT$",qTitle:"二手電腦零件報價單",
  thBoards:["廠牌","型號","腳位","晶片組","記憶體","板型","關鍵 I/O","二手行情","優點","缺點"],thCpus2:["型號","核心/緒","時脈","TDP","二手行情","CP 值評註"],thRel:["型號","關鍵規格","行情","選購提醒"],
- designH:"🎨 設計優化依據(世界前 10 大二手網站)",flowReplay:"▶ 重播動畫",refsH:"參考文獻(依編號順序)",formulaH:"評估公式",compH:"跨廠牌優缺點比較",delRow:"刪"
+ designH:"🎨 設計優化依據(世界前 10 大二手網站)",flowReplay:"▶ 重播動畫",refsH:"參考文獻(依編號順序)",formulaH:"評估公式",compH:"跨廠牌優缺點比較",delRow:"刪",
+ aiMemberLabel:"會員碼 — AI 客服僅開放審核通過的會員(向站長申請)",aiMemberPh:"例:BRO-2026",
+ memberErr:"🔒 AI 客服僅開放審核通過的會員。請向站長申請會員碼,並在右上 ⚙️ 填入。",
+ memberMiss:"ℹ️ 尚未填會員碼:若站長已開啟會員審核,AI 會拒絕並自動退回規則式。",
+ aiOn:"✅ 已啟用真 AI:FAQ 客服與拍照辨識會用 AI;商業分析可動態產生。",
+ aiOff:"未設定:FAQ 用規則式、拍照用手動型號、商業分析用內建。設定後升級成真 AI(需會員碼)。"
 },en:{
  brand:"🖥️ Second-hand PC Price Finder",brandSub:"Top-10 platforms · compatibility · anti-scam",
  aiPanelLabel:"AI proxy URL (Cloudflare Worker) — blank = rule-based/manual",aiSave:"Save",aiTest:"Test",
@@ -853,7 +865,7 @@ const UI={zh:{
  hPhoto:"📷 Photo/upload to find parts",upload:"🖼️ Upload",openCam:"📸 Camera",shoot:"Capture",photoModelLabel:"Type the model you see (chip/board silkscreen) → auto compatibility + compare",photoModelPh:"e.g. i7-6700, H110M-K D3, DDR3L 8G",photoFind:"🔎 Compare it",lens:"🔍 Google Lens",aiVision:"🤖 AI-identify this photo (needs AI)",
  photoNote:"⚠️ Honest note: a static site <b>can't auto-identify</b> the chip (that needs an AI backend). Without AI it keeps the photo + you type the model → auto compatibility + one-click compare; with AI set, hit “🤖 AI-identify” to read the model for you.",
  bizLabel:"Analysis subject (default: this system; any company/product — needs AI to generate)",bizTopicPh:"e.g. used-laptop recycling, a startup app",bizGen:"Generate",pptBtn:"⬇️ Download PPT (cover + 5 Forces + BMC + SWOT)",bizTitle:"📊 Porter's Five Forces (this system)",hBmc:"🧱 Business Model Canvas",hSwot:"🎯 SWOT",
- hFaq:"💬 FAQ assistant",faqNote:"Ask things like “can I use DDR3L”, “seller asked me to cancel”, “two beeps no display”. <b>Without AI</b> it uses the project's keyword knowledge base; <b>with AI</b> (top-right ⚙️) it becomes a real AI assistant.",askPh:"Ask a question…",ask:"Ask",hFaqList:"📚 FAQ (tap to expand)",
+ hFaq:"💬 FAQ assistant",faqNote:"Ask things like “can I use DDR3L”, “seller asked me to cancel”, “two beeps no display”. The rule-based FAQ is <b>open to everyone</b>; the <b>real AI assistant is for approved members only</b> (set the AI URL + member code in ⚙️).",askPh:"Ask a question…",ask:"Ask",hFaqList:"📚 FAQ (tap to expand)",
  tagTw:"🇹🇼 TW",tagIntl:"🌐 Intl",needKw:"Enter a keyword first",common:"Common:",gotoStore:"Visit store",verdictOk:"✅ Compatible",verdictBad:"❌ Not compatible",thinking:"🤖 Thinking…",
  footer:"Updated {date}　|　Opens each platform's <b>real search</b> — no scraping, no fake cached prices; prices are live on each platform.<br>For personal comparison & anti-scam use; judge seller credibility yourself. Always cash-on-delivery, inspect on arrival, refuse if wrong.<br>🤖 Built with Claude Code",
  thCpu:["","Model","Socket","Gen","Cores/Threads","TDP","Memory"],thBoard:["","Model","Socket","Chipset","Memory","Slots","Max","Form"],thRam:["Type","Voltage","Slot","Note"],thCmp:["Model","Type","Socket","Gen/Chipset","Cores/Form","TDP/Max","Memory","Note"],
@@ -861,7 +873,12 @@ const UI={zh:{
  qNote:"The exported XLS opens in Excel for editing and can be re-imported here; PDF uses the system print dialog (choose “Save as PDF”).",
  qth:["Item","Spec","Qty","Unit NT$","Subtotal","Seller/Source","Note",""],qTotalLbl:"Total NT$",qTitle:"Second-hand PC Parts Quotation",
  thBoards:["Brand","Model","Socket","Chipset","Memory","Form","Key I/O","Used price","Pros","Cons"],thCpus2:["Model","Cores/Threads","Clock","TDP","Used price","Value note"],thRel:["Model","Key spec","Price","Buying note"],
- designH:"🎨 Design rationale (world's top-10 second-hand sites)",flowReplay:"▶ Replay animation",refsH:"References (numbered)",formulaH:"Evaluation formula",compH:"Cross-vendor pros & cons",delRow:"Del"
+ designH:"🎨 Design rationale (world's top-10 second-hand sites)",flowReplay:"▶ Replay animation",refsH:"References (numbered)",formulaH:"Evaluation formula",compH:"Cross-vendor pros & cons",delRow:"Del",
+ aiMemberLabel:"Member code — the AI assistant is for approved members only (ask the site owner)",aiMemberPh:"e.g. BRO-2026",
+ memberErr:"🔒 The AI assistant is for approved members only. Ask the site owner for a member code and enter it in ⚙️ (top-right).",
+ memberMiss:"ℹ️ No member code yet: if the owner enabled member review, AI requests will be rejected and fall back to the rule-based FAQ.",
+ aiOn:"✅ Real AI enabled: the FAQ assistant and photo recognition use AI; business analysis can be generated dynamically.",
+ aiOff:"Not set: FAQ uses rules, photo uses manual model entry, business analysis uses built-in data. Configure to upgrade to real AI (member code required)."
 }};
 const ui=k=>{const v=(UI[lang]||UI.zh)[k];return v!=null?v:k;};
 function applyUI(){
