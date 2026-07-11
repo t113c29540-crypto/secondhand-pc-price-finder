@@ -868,5 +868,331 @@
    "zh": "本報告針對「二手電腦詢價系統」進行獨立商業評估,方法論由三個層次構成:其一,文獻回顧——彙整整新電子產品市場的產業研究、學術期刊對資訊不對稱與比價行為的實證,以及台灣官方防詐統計;其二,企業公開資訊分析——檢視 Back Market、Swappa、BigGo 等對標業者公開揭露的信任機制與營運模式;其三,紅隊評估——由對抗性視角逐項質疑本系統的護城河、流量假設與變現能力,結論不預設立場。全文採編號文獻體例,內文論點以 [1]–[9] 標註對應出處,文獻清單載明標題、來源與連結,俾便逐條查證;凡屬推估或情境試算者,均於行文中明確標示,不與實證數據混用。",
    "en": "This report is an independent business assessment of the Second-hand PC Price Finder, built on a three-tier methodology. First, a literature review synthesizing industry research on the refurbished-electronics market, peer-reviewed evidence on information asymmetry and price-comparison behavior, and official Taiwanese anti-fraud statistics. Second, analysis of corporate public disclosures, examining the trust mechanisms and operating models of comparable firms including Back Market, Swappa, and BigGo. Third, a red-team assessment interrogating the system's moat, traffic assumptions, and monetization capacity from an adversarial standpoint, with no predetermined conclusion. The report follows a numbered-citation convention: in-text claims are marked [1]–[9] against a reference list stating title, source, and URL for point-by-point verification, and all estimates or scenario calculations are explicitly flagged as such, never conflated with empirical data."
   }
+ },
+ "links": {
+  "boards": [
+   {
+    "model": "ASUS H110M-K D3",
+    "official_url": "https://www.asus.com/supportonly/h110m-k%20d3/helpdesk/",
+    "note": {
+     "zh": "原廠行銷頁已下架（舊網址現重導至主機板分類頁）；此為 ASUS 官方支援頁，頁首含官方產品照，已驗證可達（HTTP 200，標題「H110M-K D3 - Support」）。",
+     "en": "The retail product page has been delisted (legacy URLs now redirect to the motherboard category page); this is the official ASUS support page with the official product photo at the top, verified reachable (HTTP 200, title \"H110M-K D3 - Support\")."
+    }
+   },
+   {
+    "model": "ASUS H110M-C D3",
+    "official_url": "https://www.asus.com/supportonly/h110m-c%20d3/helpdesk/",
+    "note": {
+     "zh": "原廠行銷頁已下架；此為 ASUS 官方支援頁，含官方產品照，已驗證可達（HTTP 200，標題「H110M-C D3 - Support」）。",
+     "en": "The retail product page has been delisted; this is the official ASUS support page with the official product photo, verified reachable (HTTP 200, title \"H110M-C D3 - Support\")."
+    }
+   },
+   {
+    "model": "ASUS H110M-A D3",
+    "official_url": "https://www.asus.com/supportonly/h110m-a%20d3/helpdesk/",
+    "note": {
+     "zh": "原廠行銷頁已下架；此為 ASUS 官方支援頁，含官方產品照，已驗證可達（HTTP 200，標題「H110M-A D3 - Support」）。",
+     "en": "The retail product page has been delisted; this is the official ASUS support page with the official product photo, verified reachable (HTTP 200, title \"H110M-A D3 - Support\")."
+    }
+   },
+   {
+    "model": "GIGABYTE GA-H110M-DS2 DDR3",
+    "official_url": "https://www.gigabyte.com/Motherboard/GA-H110M-DS2-DDR3-rev-10",
+    "note": {
+     "zh": "GIGABYTE 官方產品頁（rev. 1.0），含官方產品圖庫；已在真實瀏覽器驗證載入正常（標題「GA-H110M-DS2 DDR3 (Rev. 1.0) Motherboard - GIGABYTE Global」）。注意：官網 WAF 會對 curl 等非瀏覽器用戶端回 403，一般使用者以瀏覽器開啟不受影響。",
+     "en": "Official GIGABYTE product page (rev. 1.0) with the official product gallery; verified loading correctly in a real browser (title \"GA-H110M-DS2 DDR3 (Rev. 1.0) Motherboard - GIGABYTE Global\"). Note: the site WAF returns 403 to non-browser clients such as curl; normal browser visits are unaffected."
+    }
+   },
+   {
+    "model": "GIGABYTE GA-B150M-DS3H DDR3",
+    "official_url": "https://www.gigabyte.com/Motherboard/GA-B150M-DS3H-DDR3-rev-10",
+    "note": {
+     "zh": "GIGABYTE 官方產品頁（rev. 1.0），含官方產品圖庫；已在真實瀏覽器驗證載入正常（標題「GA-B150M-DS3H DDR3 (Rev. 1.0) Motherboard - GIGABYTE Global」）。同樣有非瀏覽器用戶端 403 的 WAF 行為。",
+     "en": "Official GIGABYTE product page (rev. 1.0) with the official product gallery; verified loading correctly in a real browser (title \"GA-B150M-DS3H DDR3 (Rev. 1.0) Motherboard - GIGABYTE Global\"). Same WAF behavior: 403 for non-browser clients."
+    }
+   },
+   {
+    "model": "七彩虹 C.H110M-VH D3 (Colorful C.H110M-VH D3)",
+    "official_url": "https://www.colorful.cn/home/product?mid=84&id=733",
+    "note": {
+     "zh": "七彩虹官網產品頁，官方型號為「C.H110M-VH D3 全固態版 V20」（即市售 C.H110M-VH D3 之官方版本名），頁面含多角度官方產品照；已驗證可達（HTTP 200）。",
+     "en": "Official Colorful product page; the official model name is \"C.H110M-VH D3 全固态版 V20\" (the official designation of the retail C.H110M-VH D3), with multi-angle official product photos; verified reachable (HTTP 200)."
+    }
+   },
+   {
+    "model": "昂達 H110C (ONDA H110C)",
+    "official_url": "http://www.onda.cn/MotherBoard_Specifications.aspx?id=343",
+    "note": {
+     "zh": "昂達官網規格頁，官方型號「H110C全固版（Ver:2.0）」，頁面含官方產品照（/Upfiles/20160831101441.jpg）；已驗證可達（HTTP 200）。注意：昂達官網僅支援 HTTP（無 HTTPS），另有 Ver:5.0 版本頁 http://www.onda.cn/MotherBoard_Specifications.aspx?id=352。",
+     "en": "Official ONDA specifications page for \"H110C 全固版 (Ver:2.0)\", containing the official product photo (/Upfiles/20160831101441.jpg); verified reachable (HTTP 200). Note: onda.cn is HTTP-only (no HTTPS); a Ver:5.0 page also exists at http://www.onda.cn/MotherBoard_Specifications.aspx?id=352."
+    }
+   }
+  ],
+  "cpus": [
+   {
+    "model": "Intel Core i7-6700",
+    "ark_url": "https://www.intel.com/content/www/us/en/products/sku/88196/intel-core-i76700-processor-8m-cache-up-to-4-00-ghz/specifications.html"
+   },
+   {
+    "model": "Intel Core i5-6500",
+    "ark_url": "https://www.intel.com/content/www/us/en/products/sku/88184/intel-core-i56500-processor-6m-cache-up-to-3-60-ghz/specifications.html"
+   },
+   {
+    "model": "Intel Core i7-7700",
+    "ark_url": "https://www.intel.com/content/www/us/en/products/sku/97128/intel-core-i77700-processor-8m-cache-up-to-4-20-ghz/specifications.html"
+   },
+   {
+    "model": "Intel Core i5-7500",
+    "ark_url": "https://www.intel.com/content/www/us/en/products/sku/97123/intel-core-i57500-processor-6m-cache-up-to-3-80-ghz/specifications.html"
+   },
+   {
+    "model": "Intel Core i7-4790",
+    "ark_url": "https://www.intel.com/content/www/us/en/products/sku/80806/intel-core-i74790-processor-8m-cache-up-to-4-00-ghz/specifications.html"
+   },
+   {
+    "model": "Intel Core i5-9400F",
+    "ark_url": "https://www.intel.com/content/www/us/en/products/sku/190883/intel-core-i59400f-processor-9m-cache-up-to-4-10-ghz/specifications.html"
+   }
+  ]
+ },
+ "deck": {
+  "radar": {
+   "dims": [
+    {
+     "zh": "價格實惠",
+     "en": "Affordability"
+    },
+    {
+     "zh": "品質用料",
+     "en": "Build Quality"
+    },
+    {
+     "zh": "保固售後",
+     "en": "Warranty & After-Sales"
+    },
+    {
+     "zh": "取得容易度",
+     "en": "Availability"
+    },
+    {
+     "zh": "擴充彈性",
+     "en": "Expandability"
+    }
+   ],
+   "series": [
+    {
+     "name": {
+      "zh": "ASUS 華碩",
+      "en": "ASUS"
+     },
+     "values": [
+      3,
+      4.5,
+      4,
+      4.5,
+      4
+     ],
+     "rationale": {
+      "zh": "H110M-K/C/A D3 三型號在露天流通量最大、二手價略高但穩定；一線板廠用料與 BIOS 更新紀錄完整，惟原廠保固多已過期，僅剩店保。",
+      "en": "The H110M-K/C/A D3 trio has the deepest listing pool on Ruten with slightly higher but stable used prices; tier-1 component quality and complete BIOS update history, though factory warranty has mostly lapsed, leaving only seller warranty."
+     }
+    },
+    {
+     "name": {
+      "zh": "GIGABYTE 技嘉",
+      "en": "GIGABYTE"
+     },
+     "values": [
+      3.5,
+      4,
+      4,
+      4,
+      3.5
+     ],
+     "rationale": {
+      "zh": "GA-H110M-DS2 DDR3 均價低於同級華碩約一成，B150M-DS3H DDR3 多兩條記憶體插槽補足擴充；品質與售後同屬一線，流通量略遜華碩。",
+      "en": "GA-H110M-DS2 DDR3 averages roughly 10% below equivalent ASUS boards, and the B150M-DS3H DDR3 adds two extra DIMM slots for expandability; quality and support are equally tier-1, with slightly thinner market supply than ASUS."
+     }
+    },
+    {
+     "name": {
+      "zh": "陸廠(七彩虹·昂達)",
+      "en": "China Brands (Colorful / Onda)"
+     },
+     "values": [
+      5,
+      2.5,
+      1.5,
+      3,
+      2
+     ],
+     "rationale": {
+      "zh": "C.H110M-VH D3 與昂達 H110C 價格最低、常見於整機賣場；但用料精簡（供電相數少、無散熱片）、台灣無原廠售後通路，故障即報廢，擴充介面也最陽春。",
+      "en": "The C.H110M-VH D3 and Onda H110C are the cheapest options, common in prebuilt bundles; but components are pared down (fewer power phases, no heatsinks), there is no official service channel in Taiwan so a failure means disposal, and I/O expansion is minimal."
+     }
+    }
+   ],
+   "method": {
+    "zh": "本評分為顧問依據露天/蝦皮成交行情、原廠規格表與台灣裝機社群公開討論所做的主觀綜合判斷，非實驗室量測或大樣本統計，僅供二手選購參考。",
+    "en": "These scores are the consultant's subjective synthesis of Ruten/Shopee transaction prices, official spec sheets, and public Taiwanese PC-building community discussions — not laboratory testing or large-sample statistics. For used-purchase reference only."
+   }
+  },
+  "slides": [
+   {
+    "key": "cover",
+    "title": {
+     "zh": "二手 H110/B150 主機板選購指南",
+     "en": "Used H110/B150 Motherboard Buying Guide"
+    },
+    "body": {
+     "zh": "這是一份為長輩與預算型買家準備的二手主機板決策簡報。範圍鎖定 LGA1151 的 H110/B150 DDR3 板，搭配 i5-6500 到 i7-7700 等六款常見二手 CPU。目標只有一個：用最少的錢，買到不會踩雷的板子。所有評分皆為顧問主觀判斷，依據會在後面誠實交代。",
+     "en": "This is a decision deck for elderly users and budget buyers shopping for used motherboards. Scope is limited to LGA1151 H110/B150 DDR3 boards paired with six common used CPUs from the i5-6500 to the i7-7700. One goal only: spend the least money without stepping on a landmine. All scores are the consultant's subjective judgment, with the basis disclosed honestly at the end."
+    }
+   },
+   {
+    "key": "market",
+    "title": {
+     "zh": "市場現況：DDR3 平台的最後甜蜜點",
+     "en": "Market Snapshot: The Last Sweet Spot for DDR3"
+    },
+    "body": {
+     "zh": "H110/B150 DDR3 板讓舊 DDR3 記憶體直接沿用，是升級成本最低的路徑。六代、七代 Core 二手 CPU 供應充足，i5-6500 常見數百元即可入手。但這是十年前的平台，官方支援已終止，買的是剩餘價值，不是未來性。市場正在萎縮，好板子只會愈來愈少。",
+     "en": "H110/B150 DDR3 boards let old DDR3 memory carry over directly — the cheapest upgrade path available. 6th/7th-gen Core used CPUs are plentiful; an i5-6500 often costs just a few hundred TWD. But this is a decade-old platform with official support ended: you are buying residual value, not a future. The market is shrinking, and good boards will only get scarcer."
+    }
+   },
+   {
+    "key": "boards",
+    "title": {
+     "zh": "七張候選板：三個陣營",
+     "en": "Seven Candidate Boards, Three Camps"
+    },
+    "body": {
+     "zh": "華碩陣營三張：H110M-K D3 最普及、H110M-C D3 多 PCI 插槽、H110M-A D3 影音輸出較齊。技嘉兩張：GA-H110M-DS2 DDR3 走極簡路線、GA-B150M-DS3H DDR3 有四條記憶體插槽是全場擴充王。陸廠兩張：七彩虹 C.H110M-VH D3 與昂達 H110C，價格殺手但風險自負。同晶片組效能幾乎無差，差的是用料、保固與轉手性。",
+     "en": "ASUS camp, three boards: H110M-K D3 is the most common, H110M-C D3 adds PCI slots, H110M-A D3 has fuller display outputs. GIGABYTE, two: GA-H110M-DS2 DDR3 is minimalist, GA-B150M-DS3H DDR3 with four DIMM slots is the expandability king. China camp, two: Colorful C.H110M-VH D3 and Onda H110C — price killers, risk yours to carry. Same chipset means near-identical performance; the real differences are components, warranty, and resale value."
+    }
+   },
+   {
+    "key": "radar",
+    "title": {
+     "zh": "五維雷達：一張圖看懂三個陣營",
+     "en": "Five-Axis Radar: Three Camps at a Glance"
+    },
+    "body": {
+     "zh": "華碩以品質、流通量與轉手性取勝，唯一弱點是二手價偏高。技嘉是均衡解：便宜一成、品質同級，B150 板還多了擴充空間。陸廠板只贏一個維度——價格，其餘四項全面墊底，尤其保固售後接近於零。請記住：這是主觀評分，不是實測數據。",
+     "en": "ASUS wins on quality, market liquidity, and resale value; its only weakness is a higher used price. GIGABYTE is the balanced play: about 10% cheaper, same-tier quality, and the B150 board adds expansion headroom. China-brand boards win exactly one axis — price — and finish last on the other four, with after-sales support near zero. Remember: these are subjective scores, not lab measurements."
+    }
+   },
+   {
+    "key": "price",
+    "title": {
+     "zh": "價格帶與合理成交價",
+     "en": "Price Bands and Fair Deal Ranges"
+    },
+    "body": {
+     "zh": "行情概況：陸廠板約 300–500 元、技嘉 H110 約 500–800 元、華碩 H110 約 600–1000 元、B150M-DS3H DDR3 因擴充性可到 800–1200 元。CPU 方面 i5-6500 約 300–500 元、i7-7700 仍要 1500 元上下，i5-9400F 則需注意不相容本簡報所有主機板。省錢的正確姿勢是板便宜、CPU 挑 i5，而不是為 i7 多付一倍。行情隨時變動，出手前請以當日露天成交價為準。",
+     "en": "Ballpark rates: China-brand boards TWD 300–500, GIGABYTE H110 500–800, ASUS H110 600–1000, and the B150M-DS3H DDR3 commands 800–1200 for its expandability. On CPUs, an i5-6500 runs 300–500 while an i7-7700 still costs around 1500; note the i5-9400F is incompatible with every board in this deck. The smart save is a cheap board plus an i5 — not paying double for an i7. Prices move constantly; verify same-day Ruten sold listings before buying."
+    }
+   },
+   {
+    "key": "proscons",
+    "title": {
+     "zh": "優劣勢對決:誠實版",
+     "en": "Pros and Cons: The Honest Cut"
+    },
+    "body": {
+     "zh": "華碩:優點是最好脫手、BIOS 資源齊全;缺點是同規格貴一到兩成,且部分賣場賣的是拆機無保品。技嘉:CP 值最佳,缺點是 DS2 供電陽春,不建議配 i7-7700 長時間滿載。陸廠:唯一優點是便宜,缺點是電容與供電縮水、故障率口碑差、壞了沒地方修,也幾乎無轉手價值。給長輩用的機器,穩定比省兩百元重要。",
+     "en": "ASUS: easiest to resell with full BIOS resources; downside is a 10–20% premium and some listings are pulls with no warranty. GIGABYTE: best value; the DS2's basic power delivery makes it a poor match for a sustained-load i7-7700. China brands: the sole advantage is price — thinner capacitors and VRMs, poor reliability reputation, nowhere to repair, and near-zero resale value. For a machine an elderly parent depends on, stability matters more than saving TWD 200."
+    }
+   },
+   {
+    "key": "action",
+    "title": {
+     "zh": "行動建議:三句話決策",
+     "en": "Action Plan: Decide in Three Lines"
+    },
+    "body": {
+     "zh": "預算優先選技嘉 GA-H110M-DS2 DDR3 配 i5-6500,總價可壓在千元內。要留升級空間選 GA-B150M-DS3H DDR3,四條記憶體插槽最有彈性。重視省心與轉手選華碩 H110M-A/K D3。陸廠板只在「壞了就丟、完全不心疼」的前提下考慮。出手前必做:要求賣家開機照、確認含擋板、問清楚保固天數。",
+     "en": "Budget-first: GIGABYTE GA-H110M-DS2 DDR3 with an i5-6500 keeps the total under TWD 1000. Upgrade headroom: GA-B150M-DS3H DDR3 — four DIMM slots, maximum flexibility. Peace of mind and resale: ASUS H110M-A/K D3. Consider China-brand boards only if you can throw them away without regret. Before paying: demand a power-on photo, confirm the I/O shield is included, and get the warranty period in writing."
+    }
+   }
+  ],
+  "honest": [
+   {
+    "zh": "樣本侷限:價格與流通量判斷來自露天/蝦皮的公開刊登與有限成交紀錄,非全市場統計;個別賣場的實際成交價可能明顯偏離本文區間。",
+    "en": "Sample limitation: price and liquidity judgments come from public Ruten/Shopee listings and limited sold records, not full-market statistics; actual deal prices at individual sellers may deviate significantly from the stated ranges."
+   },
+   {
+    "zh": "時效侷限:二手行情以週為單位波動,本簡報數字以製作當下(2026年中)為準,超過一至兩個月即應重新查價。",
+    "en": "Timeliness limitation: used prices fluctuate week to week; figures reflect the time of writing (mid-2026) and should be re-verified after one to two months."
+   },
+   {
+    "zh": "主觀性:五維雷達為顧問綜合公開資訊的主觀評分,未經實驗室測試或故障率大樣本驗證;「陸廠品質差」屬社群口碑歸納,個別板卡狀況仍取決於前手使用情形。",
+    "en": "Subjectivity: the five-axis radar is the consultant's subjective synthesis of public information, without lab testing or large-sample failure-rate validation; the 'poor China-brand quality' claim is a community-reputation generalization, and any individual board's condition depends on its previous owner."
+   },
+   {
+    "zh": "範圍侷限:僅涵蓋 SPEC 內七張板與六顆 CPU,且 i5-9400F(LGA1151v2)實際上與本文所有 100/200 系主機板不相容;未評估記憶體、電源等其他零組件的搭配風險。",
+    "en": "Scope limitation: only the seven boards and six CPUs in the SPEC are covered, and the i5-9400F (LGA1151v2) is in fact incompatible with every 100/200-series board discussed; pairing risks for RAM, PSU, and other components were not assessed."
+   }
+  ]
+ },
+ "tips": {
+  "tips": [
+   {
+    "zh": "看到 i7-6700 整機標 500 元先冷靜——標錯價撿不到便宜，只會撿到假賣場，直接跳過。",
+    "en": "An i7-6700 desktop listed at NT$500 is not a steal, it's a fake listing—skip it."
+   },
+   {
+    "zh": "陌生賣家一律選超商貨到付款，取貨時當場拆箱驗機再付錢，不合就退回。",
+    "en": "With unknown sellers, always use convenience-store cash on delivery and open the box before paying—reject it on the spot if it's wrong."
+   },
+   {
+    "zh": "面交帶支螢幕或請賣家現場開機，看到 BIOS 畫面再掏錢。",
+    "en": "At meetups, bring a monitor or ask the seller to power on the machine—pay only after you see the BIOS screen."
+   },
+   {
+    "zh": "H110 的 D3/D3V 版吃 DDR3L，一般 H110 吃 DDR4——下標前先確認你手上的記憶體是哪種。",
+    "en": "D3/D3V variants of H110 boards take DDR3L while standard H110 takes DDR4—check which RAM you own before bidding."
+   },
+   {
+    "zh": "六代、七代 CPU 都是 LGA1151，但 i7-4790 是 LGA1150、i5-9400F 要 300 系列晶片組，插槽同名不代表能互換。",
+    "en": "6th/7th-gen CPUs share LGA1151, but the i7-4790 is LGA1150 and the i5-9400F needs a 300-series chipset—same-looking sockets aren't interchangeable."
+   },
+   {
+    "zh": "商品描述滿滿簡體字或「包郵」「質量」字眼，多半是淘寶轉賣或詐騙帳號，價格再甜也繞道。",
+    "en": "Listings full of simplified Chinese or mainland shopping jargon usually mean a Taobao reseller or scam account—walk away no matter the price."
+   },
+   {
+    "zh": "面交約超商或捷運站等有監視器的公共場所，白天去，別答應改到住家或偏僻停車場。",
+    "en": "Meet at convenience stores or MRT stations with cameras, in daylight—never agree to move the meetup to a home or empty parking lot."
+   },
+   {
+    "zh": "別只看評價總數，點進去看近三個月的內容：短期灌出的百筆好評常是人頭帳號互刷。",
+    "en": "Don't trust the review count—read the last three months of feedback; hundreds of ratings farmed in weeks are usually fake accounts."
+   },
+   {
+    "zh": "「伺服器拆機」「洋垃圾」機種便宜有理：耗電高、主機板多是魔改，故障沒保固，新手別碰。",
+    "en": "Dirt-cheap 'server pull' e-waste builds run hot, use modded boards, and have zero warranty—beginners should stay away."
+   },
+   {
+    "zh": "下單前私訊要一次確認三件事：實機照、含不含運、能不能開機保固七天。",
+    "en": "Before ordering, message the seller once to confirm three things: real photos, shipping included or not, and a 7-day boot guarantee."
+   },
+   {
+    "zh": "七彩虹、昂達這類陸版主機板行情本來就低，賣到接近華碩、技嘉的價就是當盤子賣，先查牌價再出手。",
+    "en": "Colorful and Onda boards are budget mainland brands—if one is priced near ASUS or GIGABYTE levels, you're being overcharged; check market prices first."
+   },
+   {
+    "zh": "收到主機先看 CPU 風扇螺絲和貼紙有沒有拆過痕跡，機況與照片不符就當場拍照留證申請退貨。",
+    "en": "On arrival, check the CPU cooler screws and warranty stickers for tampering—if it doesn't match the photos, photograph everything and file a return immediately."
+   },
+   {
+    "zh": "賣家催你「改用私下匯款比較便宜」就是紅旗，一離開平台金流，被騙就求助無門。",
+    "en": "A seller pushing you to pay by private bank transfer 'for a discount' is a red flag—once money leaves the platform, there's no recourse."
+   },
+   {
+    "zh": "同型號多看三家再下標：把最高最低價剔掉，中間價才是真行情。",
+    "en": "Compare at least three listings of the same model before bidding—drop the highest and lowest, the middle price is the real market rate."
+   }
+  ]
  }
 }

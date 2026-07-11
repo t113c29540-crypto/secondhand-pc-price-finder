@@ -140,11 +140,14 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
  --bg:#eef0e4;--card:#faf9f0;--ink:#2f3428;--sub:#67705c;--line:#dcdfcd;--accent:#31694d;--accent2:#3d7d5f;
  --tw:#2e7d4f;--intl:#6d5fa8;--warn:#a33a2a;--chip:#e7ecdb;--ok:#2e7d4f;--bad:#b3402e;
  --shadow:0 1px 3px rgba(47,52,40,.08),0 1px 2px rgba(47,52,40,.05);
+ /* 圖表類別色(已通過 CVD/對比驗證,固定順序,勿循環) */
+ --s1:#178a50;--s2:#3b6fb5;--s3:#c46a1f;
 }
 [data-theme="dark"]{
  --bg:#0f1420;--card:#1a2030;--ink:#e8ecf4;--sub:#9aa3b2;--line:#2a3344;--accent:#5b8def;--accent2:#60a5fa;
  --tw:#34d399;--intl:#a78bfa;--warn:#f87171;--chip:#222b3d;--ok:#34d399;--bad:#f87171;
  --shadow:0 1px 3px rgba(0,0,0,.4);
+ --s1:#2fa763;--s2:#4a82e0;--s3:#d17a20;
 }
 *{box-sizing:border-box}
 html{font-size:17px}
@@ -273,6 +276,27 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
 #quoteTbl td{vertical-align:middle}
 .qtotal{font-size:1.15rem;font-weight:800;color:var(--accent);text-align:right;margin:8px 0}
 .qbtns{display:flex;flex-wrap:wrap;gap:8px}
+/* ---- v6:UI/UX 打磨 ---- */
+:focus-visible{outline:3px solid var(--accent2);outline-offset:2px;border-radius:6px}
+button,.btn,.chip,.filt,nav button{min-height:44px}
+.daily{display:flex;gap:10px;align-items:flex-start;background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin:8px 0;font-size:1rem}
+.daily b{color:var(--accent)}
+#stickyGo{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+@media(max-width:640px){#stickyGo{display:block}}
+/* ---- v6:動態簡報 ---- */
+#deck{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;flex-direction:column}
+#deck.on{display:flex}
+#deckTop{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line)}
+#deckSlide{flex:1;overflow:auto;padding:22px;max-width:900px;margin:0 auto;width:100%}
+#deckSlide h1{font-size:1.9rem;color:var(--accent);margin:8px 0 14px}
+#deckSlide .dbody{font-size:1.14rem;line-height:1.9}
+#deckCtl{display:flex;gap:10px;align-items:center;justify-content:center;padding:12px;border-top:1px solid var(--line)}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--line);cursor:pointer}
+.dot.on{background:var(--accent)}
+.dslide{animation:nodeIn .5s ease}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0;font-size:.95rem}
+.legend .sw{width:14px;height:14px;border-radius:4px;display:inline-block;margin-right:6px;vertical-align:-2px}
+.schembox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
 /* ---- v5:列印(報價單→PDF) ---- */
 @media print{
  body *{visibility:hidden}
@@ -334,6 +358,7 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
    <a class="btn sec" id="bmk" style="text-align:center" href="#" data-i18n-title="bmkTitle" data-i18n="bmk" title="拖到書籤列">⭐ 一鍵比價書籤（拖到書籤列）</a>
   </div>
   <div id="lineOut"></div>
+  <div class="daily" id="daily"></div>
   <h2 data-i18n="hPlatforms">🏆 全球前 10 大二手電腦平台</h2>
   <div class="grid" id="platforms"></div>
   <div class="avoid" id="avoid"></div>
@@ -421,6 +446,7 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
  <!-- SPEC 報價 -->
  <section class="view" id="spec">
   <h2 data-i18n="hSpec">🧾 各廠商完整 SPEC 與比價報告</h2>
+  <button class="btn" id="deckOpen" style="width:100%;margin-bottom:10px" data-i18n="deckOpen">🎬 播放動態簡報(SPEC 比價・雷達・自動播放)</button>
   <div id="specBody"></div>
   <h2 data-i18n="hQuote">🧮 報價單(可匯出/匯入)</h2>
   <div class="card">
@@ -436,6 +462,20 @@ footer{margin-top:34px;text-align:center;color:var(--sub);font-size:.8rem;line-h
   </div>
  </section>
  <div id="printArea" style="display:none"></div>
+ <button class="btn" id="stickyGo" data-i18n="goAll">一鍵全開</button>
+ <div id="deck" role="dialog" aria-modal="true">
+  <div id="deckTop"><b id="deckTitle"></b>
+   <div style="display:flex;gap:8px">
+    <button class="replay" id="deckAuto">▶</button>
+    <button class="replay" id="deckClose">✕</button>
+   </div></div>
+  <div id="deckSlide"></div>
+  <div id="deckCtl">
+   <button class="replay" id="deckPrev">←</button>
+   <div id="deckDots" style="display:flex;gap:8px"></div>
+   <button class="replay" id="deckNext">→</button>
+  </div>
+ </div>
 
  <!-- FAQ -->
  <section class="view" id="faq">
@@ -609,7 +649,7 @@ function renderCompat(){
 }
 function tbl(head,rows){
  return '<table><thead><tr>'+head.map(h=>"<th>"+esc(h)+"</th>").join("")+'</tr></thead><tbody>'+
-  rows.map(r=>"<tr>"+r.map((c,i)=>"<td>"+(i===0&&/^<input/.test(c)?c:esc(String(c)))+"</td>").join("")+"</tr>").join("")+'</tbody></table>';
+  rows.map(r=>"<tr>"+r.map((c)=>"<td>"+(/^<(input|a |button)/.test(String(c))?c:esc(String(c)))+"</td>").join("")+"</tr>").join("")+'</tbody></table>';
 }
 $("#cmpGo").onclick=()=>{
  const picks=$$("#compat input[type=checkbox]:checked").map(c=>({t:c.dataset.t,i:+c.dataset.i}));
@@ -698,6 +738,13 @@ $("#copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(APP.temp
 }catch(e){alert("複製失敗，請手動選取。");}};
 
 /* ---------- v5:SPEC 比價報告 ---------- */
+function offLink(model,kind){const Lk=(APP.research||{}).links||{};const arr=Lk[kind]||[];
+ const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+ const nm=norm(model);
+ const hit=arr.find(x=>{const nx=norm(x.model);if(nx&&(nm.includes(nx)||nx.includes(nm)))return true;
+  return String(x.model||"").split(/[\s()（）,、]+/).some(t=>{const nt=norm(t);return nt.length>=5&&/\d/.test(nt)&&nm.includes(nt);});});
+ const url=hit&&(hit.official_url||hit.ark_url);
+ return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener" title="'+esc((hit.note&&L(hit.note))||"official")+'">📷</a>':"—";}
 function renderSpec(){const S=(APP.research||{}).spec;const host=$("#specBody");if(!host)return;
  if(!S){host.innerHTML='<div class="note">尚無 SPEC 報告資料。</div>';renderQuote();return;}
  let n=0;const T=(UI[lang]||UI.zh);
@@ -705,9 +752,10 @@ function renderSpec(){const S=(APP.research||{}).spec;const host=$("#specBody");
   '<div class="bigtext">'+esc(L(S.intro))+'</div>'+
   '<div class="card"><b>'+ui("formulaH")+'：'+esc(L(S.formula.name))+'</b><div class="formula">'+esc(S.formula.expr)+'</div><div class="big2">'+esc(L(S.formula.vars))+'<br>'+esc(L(S.formula.explain))+'</div></div>'+
   '<div class="card"><b>'+(lang==="zh"?"主機板 SPEC(LGA1151・DDR3/DDR3L)":"Motherboard SPEC (LGA1151 · DDR3/DDR3L)")+'</b><div class="tblscroll">'+
-   tbl(T.thBoards,(S.boards||[]).map(b=>[b.brand,b.model,b.socket,b.chipset,b.memory,b.form,L(b.io),b.price,L(b.pros),L(b.cons)]))+'</div></div>'+
+   tbl(T.thBoards.concat([ui("official")]),(S.boards||[]).map(b=>[b.brand,b.model,b.socket,b.chipset,b.memory,b.form,L(b.io),b.price,L(b.pros),L(b.cons),offLink(b.model,"boards")]))+'</div></div>'+
+  '<div class="note">'+ui("photoHint")+'</div>'+
   '<div class="card"><b>'+(lang==="zh"?"CPU 行情與 CP 值":"CPU used prices & value")+'</b><div class="tblscroll">'+
-   tbl(T.thCpus2,(S.cpus||[]).map(c=>[c.model,c.cores,c.clock,c.tdp,c.price,L(c.value_note)]))+'</div></div>'+
+   tbl(T.thCpus2.concat([ui("official")]),(S.cpus||[]).map(c=>[c.model,c.cores,c.clock,c.tdp,c.price,L(c.value_note),offLink(c.model,"cpus")]))+'</div></div>'+
   (S.related||[]).map(cat=>'<div class="card"><b>'+esc(L(cat.category))+'</b><div class="tblscroll">'+
    tbl(T.thRel,(cat.items||[]).map(i=>[i.model,L(i.key_spec),i.price,L(i.note)]))+'</div></div>').join("")+
   '<div class="card anim" id="sChart"><b>'+esc(L(S.chart.title))+'</b>'+barChart(S.chart.bars)+'<div class="note">'+esc(L(S.chart.caption))+'</div><button class="replay" data-rp="#sChart">'+ui("flowReplay")+'</button></div>'+
@@ -715,6 +763,70 @@ function renderSpec(){const S=(APP.research||{}).spec;const host=$("#specBody");
   '<div class="card"><b>'+ui("refsH")+'</b><div class="reflist">'+(S.references||[]).map(r=>refItem(r,++n)).join("")+'</div></div>';
  $$("#specBody .replay").forEach(b=>b.onclick=()=>animate(b.dataset.rp));
  renderQuote();}
+
+/* ---------- v6:每日動態輪播 ---------- */
+function renderDaily(){const el=$("#daily");if(!el)return;const R=APP.research||{};
+ const tips=((R.tips||{}).tips)||[];const day=Math.floor(Date.now()/864e5);
+ const tip=tips.length?L(tips[day%tips.length]):"";
+ const kw=APP.quick[day%APP.quick.length];
+ el.innerHTML="<div>📅 <b>"+new Date().toISOString().slice(0,10)+"</b><br><b>"+ui("dailyTip")+"</b>："+esc(tip)+
+  "<br><b>"+ui("dailyPick")+"</b>：<span class=\"chip\" id=\"dailyKw\">"+esc(kw)+"</span></div>";
+ const c=$("#dailyKw");if(c)c.onclick=()=>{setKw(kw);$("#kw").focus();};}
+
+/* ---------- v6:雷達圖(類別色已驗證,固定順序) ---------- */
+function radarSVG(dims,series){const n=dims.length,cx=170,cy=160,R=110;
+ const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/n;const r=R*v/5;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];};
+ let g="";
+ for(let ring=1;ring<=5;ring++){const pts=dims.map((_,i)=>pt(i,ring).join(",")).join(" ");
+  g+='<polygon points="'+pts+'" fill="none" stroke="var(--line)" stroke-width="1"/>';}
+ dims.forEach((d,i)=>{const e=pt(i,5);g+='<line x1="'+cx+'" y1="'+cy+'" x2="'+e[0]+'" y2="'+e[1]+'" stroke="var(--line)"/>';
+  const lp=pt(i,5.85);g+='<text x="'+lp[0]+'" y="'+(lp[1]+4)+'" font-size="12.5" text-anchor="middle" fill="var(--ink)">'+esc(L(d))+'</text>';});
+ series.forEach((s,si)=>{const col="var(--s"+(si+1)+")";const pts=s.values.map((v,i)=>pt(i,v).join(",")).join(" ");
+  g+='<polygon class="fnode" style="animation-delay:'+(si*0.35)+'s" points="'+pts+'" fill="'+col+'" fill-opacity="0.13" stroke="'+col+'" stroke-width="2"/>';
+  s.values.forEach((v,i)=>{const p=pt(i,v);g+='<circle class="fnode" style="animation-delay:'+(si*0.35)+'s" cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="'+col+'"/>';});});
+ return '<svg viewBox="0 0 340 330" width="100%" style="max-width:430px">'+g+'</svg>';}
+function radarLegend(series){return '<div class="legend">'+series.map((s,i)=>'<span><span class="sw" style="background:var(--s'+(i+1)+')"></span>'+esc(L(s.name))+'</span>').join("")+'</div>';}
+function radarTable(dims,series){return '<div class="tblscroll">'+tbl([""].concat(dims.map(d=>L(d))),series.map(s=>[L(s.name)].concat(s.values.map(String))))+'</div>';}
+
+/* ---------- v6:主機板示意圖(自繪,非實照) ---------- */
+function schemSVG(){return '<svg viewBox="0 0 300 210" width="100%" style="max-width:360px">'+
+ '<rect x="10" y="10" width="280" height="190" rx="8" fill="#2e7d4f22" stroke="var(--accent)" stroke-width="2"/>'+
+ '<rect x="40" y="40" width="70" height="70" fill="var(--card)" stroke="var(--ink)"/><text x="75" y="80" font-size="11" text-anchor="middle" fill="var(--ink)">LGA1151</text>'+
+ '<rect x="140" y="30" width="14" height="110" fill="var(--s2)" fill-opacity=".5" stroke="var(--s2)"/><rect x="162" y="30" width="14" height="110" fill="var(--s2)" fill-opacity=".5" stroke="var(--s2)"/>'+
+ '<text x="158" y="155" font-size="10" text-anchor="middle" fill="var(--ink)">DDR3/DDR3L ×2</text>'+
+ '<rect x="40" y="160" width="150" height="12" fill="var(--s3)" fill-opacity=".5" stroke="var(--s3)"/><text x="115" y="188" font-size="10" text-anchor="middle" fill="var(--ink)">PCIe ×16</text>'+
+ '<rect x="230" y="40" width="40" height="90" fill="var(--chip)" stroke="var(--sub)"/><text x="250" y="150" font-size="9" text-anchor="middle" fill="var(--sub)">I/O</text></svg>';}
+
+/* ---------- v6:動態簡報 ---------- */
+let deckIdx=0,deckTimer=null;
+function deckSlides(){const R=APP.research||{},S=R.spec||{},D=R.deck||{},C=APP.consult||{};
+ const sl=(D.slides||[]);const get=k=>sl.find(s=>s.key===k)||{title:{zh:k,en:k},body:{zh:"",en:""}};
+ const T=(UI[lang]||UI.zh);
+ return [
+  {t:get("cover"),html:'<div class="schembox">'+schemSVG()+'<div class="muted">'+ui("schemNote")+'</div></div><div class="muted" style="margin-top:8px">'+APP.date+"　·　"+(lang==="zh"?"顧問級動態簡報":"Consultant dynamic deck")+"</div>"},
+  {t:get("market"),html:(C.market?'<div class="anim">'+barChart(C.market.chart.bars)+'</div><div class="note">'+esc(L(C.market.chart.caption))+'</div>':"")},
+  {t:get("boards"),html:'<div class="tblscroll">'+tbl(T.thBoards.slice(0,8),(S.boards||[]).slice(0,7).map(b=>[b.brand,b.model,b.socket,b.chipset,b.memory,b.form,L(b.io),b.price]))+'</div>'},
+  {t:get("radar"),html:(D.radar?('<div class="anim">'+radarSVG(D.radar.dims,D.radar.series)+'</div>'+radarLegend(D.radar.series)+radarTable(D.radar.dims,D.radar.series)+'<div class="note">'+esc(L(D.radar.method))+'</div>'):"")},
+  {t:get("price"),html:(S.chart?'<div class="anim">'+barChart(S.chart.bars)+'</div><div class="note">'+esc(L(S.chart.caption))+'</div>':"")},
+  {t:get("proscons"),html:'<ul class="big2">'+((S.comparison||[]).map(x=>"<li>"+esc(L(x))+"</li>").join(""))+'</ul>'},
+  {t:get("action"),html:(D.honest?'<div class="note"><b>Truth</b><ul class="big2">'+D.honest.map(h=>"<li>"+esc(L(h))+"</li>").join("")+'</ul></div>':"")},
+ ];}
+function deckShow(i){const s=deckSlides();deckIdx=(i+s.length)%s.length;const cur=s[deckIdx];
+ $("#deckTitle").textContent=(deckIdx+1)+"/"+s.length+"　"+L(cur.t.title);
+ $("#deckSlide").innerHTML='<div class="dslide"><h1>'+esc(L(cur.t.title))+'</h1><div class="dbody">'+esc(L(cur.t.body)).replace(/\n/g,"<br>")+'</div><div style="margin-top:14px">'+cur.html+'</div></div>';
+ $("#deckDots").innerHTML=s.map((_,j)=>'<span class="dot'+(j===deckIdx?" on":"")+'" data-j="'+j+'"></span>').join("");
+ $$("#deckDots .dot").forEach(d=>d.onclick=()=>deckShow(+d.dataset.j));}
+function deckStop(){if(deckTimer){clearInterval(deckTimer);deckTimer=null;$("#deckAuto").textContent="▶";}}
+$("#deckOpen").onclick=()=>{$("#deck").classList.add("on");deckShow(0);};
+$("#deckClose").onclick=()=>{deckStop();$("#deck").classList.remove("on");};
+$("#deckPrev").onclick=()=>deckShow(deckIdx-1);
+$("#deckNext").onclick=()=>deckShow(deckIdx+1);
+$("#deckAuto").onclick=()=>{if(deckTimer){deckStop();}else{deckTimer=setInterval(()=>deckShow(deckIdx+1),6000);$("#deckAuto").textContent="⏸";}};
+document.addEventListener("keydown",e=>{if(!$("#deck").classList.contains("on"))return;
+ if(e.key==="Escape"){deckStop();$("#deck").classList.remove("on");}
+ if(e.key==="ArrowRight")deckShow(deckIdx+1);if(e.key==="ArrowLeft")deckShow(deckIdx-1);});
+$("#stickyGo").onclick=()=>{ $$("#nav button").forEach(x=>x.classList.remove("on"));$('#nav button[data-v=find]').classList.add("on");
+ $$(".view").forEach(v=>v.classList.remove("on"));$("#find").classList.add("on");window.scrollTo(0,0);$("#kw").focus();};
 
 /* ---------- v5:報價單(匯出/匯入) ---------- */
 let qRows=[
@@ -852,7 +964,10 @@ const UI={zh:{
  memberErr:"🔒 AI 客服僅開放審核通過的會員。請向站長申請會員碼,並在右上 ⚙️ 填入。",
  memberMiss:"ℹ️ 尚未填會員碼:若站長已開啟會員審核,AI 會拒絕並自動退回規則式。",
  aiOn:"✅ 已啟用真 AI:FAQ 客服與拍照辨識會用 AI;商業分析可動態產生。",
- aiOff:"未設定:FAQ 用規則式、拍照用手動型號、商業分析用內建。設定後升級成真 AI(需會員碼)。"
+ aiOff:"未設定:FAQ 用規則式、拍照用手動型號、商業分析用內建。設定後升級成真 AI(需會員碼)。",
+ deckOpen:"🎬 播放動態簡報(SPEC 比價・雷達・自動播放)",dailyTip:"每日提示",dailyPick:"今日精選搜尋",official:"官網圖",
+ photoHint:"📷 = 原廠產品頁(含官方實品照)。基於版權與連結時效,本站不內嵌原廠照片,一律連回原廠來源。",
+ schemNote:"主機板示意圖(自繪,非實品照;實品照請點各列 📷 官網圖)"
 },en:{
  brand:"🖥️ Second-hand PC Price Finder",brandSub:"Top-10 platforms · compatibility · anti-scam",
  aiPanelLabel:"AI proxy URL (Cloudflare Worker) — blank = rule-based/manual",aiSave:"Save",aiTest:"Test",
@@ -878,7 +993,10 @@ const UI={zh:{
  memberErr:"🔒 The AI assistant is for approved members only. Ask the site owner for a member code and enter it in ⚙️ (top-right).",
  memberMiss:"ℹ️ No member code yet: if the owner enabled member review, AI requests will be rejected and fall back to the rule-based FAQ.",
  aiOn:"✅ Real AI enabled: the FAQ assistant and photo recognition use AI; business analysis can be generated dynamically.",
- aiOff:"Not set: FAQ uses rules, photo uses manual model entry, business analysis uses built-in data. Configure to upgrade to real AI (member code required)."
+ aiOff:"Not set: FAQ uses rules, photo uses manual model entry, business analysis uses built-in data. Configure to upgrade to real AI (member code required).",
+ deckOpen:"🎬 Play dynamic deck (SPEC comparison · radar · autoplay)",dailyTip:"Tip of the day",dailyPick:"Today's pick",official:"Official",
+ photoHint:"📷 = official product page (with the vendor's real photos). For copyright and link-freshness reasons this site links to the source instead of embedding vendor photos.",
+ schemNote:"Schematic motherboard illustration (drawn, not a real photo; tap 📷 per row for official photos)"
 }};
 const ui=k=>{const v=(UI[lang]||UI.zh)[k];return v!=null?v:k;};
 function applyUI(){
@@ -889,7 +1007,7 @@ function applyUI(){
 }
 function applyLang(){document.documentElement.lang=lang==="zh"?"zh-Hant":"en";$("#langBtn").textContent=lang==="zh"?"EN":"中";
  $$("#nav button").forEach(b=>{const v=lang==="zh"?b.dataset.zh:b.dataset.en;if(v)b.textContent=v;});
- applyUI();renderStatic();renderPlatforms();renderSellers();renderCompat();renderConsult();renderSpec();}
+ applyUI();renderStatic();renderPlatforms();renderSellers();renderCompat();renderConsult();renderSpec();renderDaily();}
 $("#langBtn").onclick=()=>{lang=lang==="zh"?"en":"zh";try{localStorage.setItem("pcf-lang",lang)}catch(e){}applyLang();};
 
 function flowSVG(flow){const N=flow.nodes||[],E=flow.edges||[],idx={};N.forEach((n,i)=>idx[n.id]=i);

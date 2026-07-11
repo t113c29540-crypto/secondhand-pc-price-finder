@@ -1,0 +1,31 @@
+name: daily-rebuild
+# 每日自動重建:更新「資料更新」日期戳,連動站內每日提示/精選輪播(台北 05:00)
+on:
+  schedule:
+    - cron: "0 21 * * *"   # 21:00 UTC = 05:00 Asia/Taipei
+  workflow_dispatch: {}     # 也可手動觸發
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Regenerate site
+        run: python3 generate.py
+      - name: Commit if changed
+        run: |
+          git config user.name "daily-bot"
+          git config user.email "actions@github.com"
+          if ! git diff --quiet index.html; then
+            git add index.html
+            git commit -m "每日自動更新 $(date -u +%F)(日期戳/每日提示輪播)"
+            git push
+          else
+            echo "no change"
+          fi

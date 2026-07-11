@@ -6,9 +6,11 @@
 
 ## 📦 本機完整包(離線可用)
 
-**[⬇️ 下載 pcfinder_完整包_v5.zip](https://github.com/t113c29540-crypto/secondhand-pc-price-finder/raw/main/release/pcfinder_完整包_v5.zip)** — 解壓後雙擊 `index.html` 即用;JS 套件已本地化(`libs/`),離線可跑。詳見 [README_本機使用_LOCAL.md](README_本機使用_LOCAL.md)。
+**[⬇️ 下載 pcfinder_完整包_v6.zip](https://github.com/t113c29540-crypto/secondhand-pc-price-finder/raw/main/release/pcfinder_完整包_v6.zip)** — 解壓後雙擊 `index.html` 即用;JS 套件已本地化(`libs/`),離線可跑。詳見 [README_本機使用_LOCAL.md](README_本機使用_LOCAL.md)。
 
-## ✨ 特色（v5）
+## ✨ 特色（v6）
+
+**v6 新增**:**每日動態更新**(站內每日提示/精選輪播＋GitHub Actions 每日 05:00 自動重建);**🎬 動態簡報**(7 頁自動播放/鍵盤/進度點:封面示意圖→市場→SPEC→**五維雷達比較**→價格→優缺點→行動);雷達 3 系列色盤通過 CVD/對比驗證;SPEC 表每列 **📷 官網圖**連結(原廠產品頁真照片,已逐一驗證可達;基於版權不內嵌);UI 打磨(focus ring、44px 觸控目標、手機置底比價鈕)。
 
 **v5 新增**:護眼配色(WCAG AA 對比、低藍光暖色系)、全站字級加大、**動態流程圖/圖表**(節點浮現+箭頭描邊+長條生長動畫,含重播鈕、respect `prefers-reduced-motion`)、**SWOT 縮放**(50–150%)、**🧾 SPEC 報價分頁**(各廠商主機板/CPU/相關產品完整規格與優缺點、CP 值公式、編號參考文獻 [1]–[13])、**報價單匯出/匯入**(真 .xlsx 回圈編輯 + PDF 列印)、**設計依據**(實查世界前 10 大二手網站的可落地設計模式,文獻 [10]–[20])、JS 套件本地化(離線)、ELI20 與使用指南全文精修(雙語)。
 
